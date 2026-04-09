@@ -1,0 +1,34 @@
+---
+description: Project-wide standards for language and package installation
+alwaysApply: true
+---
+
+# Project Standards
+
+## 1) TypeScript Only
+
+- Use TypeScript only for implementation code.
+- New source files must be `.ts` or `.tsx`.
+- Do not introduce new `.js`/`.jsx` source files unless explicitly requested.
+
+## 2) Package Installation Policy
+
+- **NEVER** install, add, or update any packages (via `npm`, `pnpm`, `yarn`, etc.) or modify `package.json` dependencies unless explicitly requested or approved by the user.
+- Before adding or updating any npm package (once approved), verify the package on [npmjs.com](https://www.npmjs.com/).
+- Use the latest **stable** release at the time of installation.
+- Do not use dist-tags/ranges like `latest`, `next`, or `canary` in `package.json`; pin an explicit stable semver range (e.g. `^x.y.z`).
+- Avoid pre-release versions (`alpha`, `beta`, `rc`, `next`, `canary`) unless explicitly requested.
+
+## 3) Unauthorized File Changes
+
+- **NEVER** create, modify, or delete files or directories that are not explicitly included in the agreed-upon plan or directly requested by the user.
+- Always ask for permission before modifying files or directories outside the current task's scope.
+
+## 4) Git Command Restrictions (Allow-list Policy)
+
+- **Allowed for autonomous information gathering (Read-only):**
+  You may freely use `git status`, `git log`, `git diff`, `git show`, `git branch` (for listing), and `git ls-files` to understand the repository state.
+- **Allowed ONLY upon explicit user request:**
+  Any Git command NOT listed above (including `git add`, `git commit`, `git push`, `git reset`, `git checkout`, `git restore`, `git clean`, `git stash`, `git rebase`, `git rm`, `git pull`, `git merge`, etc.) must **NEVER** be used unless explicitly requested by the user.
+
+

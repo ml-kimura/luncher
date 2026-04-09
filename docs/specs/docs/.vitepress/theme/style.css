@@ -1,0 +1,217 @@
+html {
+  overflow-x: scroll;
+}
+
+:root {
+  --vp-home-hero-image-background-image: linear-gradient(
+    -30deg,
+    #3a5ccc 15%,
+    #95dbf6 50%
+  );
+
+  --vp-home-hero-image-filter: blur(10px);
+}
+
+.image-bg {
+  width: 240px !important;
+  height: 240px !important;
+}
+
+.VPNavBarMenuGroup {
+  position: relative;
+  height: var(--vp-nav-height);
+  display: flex;
+  align-items: center;
+}
+
+.VPNavBarMenuGroup .button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 12px;
+  line-height: var(--vp-nav-height);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+  transition: color 0.25s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.VPNavBarMenuGroup .button:hover {
+  color: var(--vp-c-brand-1);
+}
+
+.VPNavBarMenuGroup .icon {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+  transition: transform 0.25s;
+}
+
+.VPNavBarMenuGroup:hover .icon {
+  transform: rotate(180deg);
+}
+
+.VPNavBarMenuGroup .menu {
+  position: absolute;
+  top: calc(var(--vp-nav-height) / 2 + 20px);
+  right: 0;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s,
+    visibility 0.25s,
+    transform 0.25s;
+  transform: translateY(-4px);
+  background-color: var(--vp-c-bg-elv);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  padding: 12px;
+  min-width: 128px;
+  box-shadow: var(--vp-shadow-3);
+}
+
+.VPNavBarMenuGroup:hover .menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.VPNavBarMenuGroup .menu-link {
+  display: block;
+  padding: 8px 12px;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+  white-space: nowrap;
+  transition: color 0.25s;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.VPNavBarMenuGroup .menu-link:hover {
+  color: var(--vp-c-brand-1);
+  background-color: var(--vp-c-default-soft);
+}
+
+.VPNavBarMenuGroup .menu-link.active {
+  color: var(--vp-c-brand-1);
+}
+
+/* Sidebar operation items - ellipsis for long text */
+.VPSidebar .VPSidebarItem .item .link {
+  display: block !important;
+  overflow: hidden !important;
+}
+
+.VPSidebar .VPSidebarItem .item .link .text {
+  display: block !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* target=_blank などで付く外部リンクアイコン（::after）が別行に落ちないようにする */
+.VPSidebar .VPSidebarItem .item .link.vp-external-link-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  gap: 4px;
+}
+
+.VPSidebar .VPSidebarItem .item .link.vp-external-link-icon .text {
+  display: inline !important;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+
+.OASidebarItem {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.OASidebarItem-badge {
+  flex-shrink: 0 !important;
+  width: 3.5rem !important;
+  text-align: center !important;
+}
+
+/* Disable all 1440px media query styles */
+@media (min-width: 1440px) {
+  :root {
+    --vp-sidebar-width: 360px;
+  }
+
+  .VPNavBar .container {
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .VPDoc .container {
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* VPNavBar.vue */
+  .VPNavBar.has-sidebar .container > .title {
+    padding-left: 32px !important;
+    width: var(--vp-sidebar-width) !important;
+  }
+
+  .VPNavBar.has-sidebar .content {
+    padding-right: 32px !important;
+    padding-left: var(--vp-sidebar-width) !important;
+  }
+
+  .VPNavBar.has-sidebar .divider {
+    padding-left: var(--vp-sidebar-width) !important;
+  }
+
+  /* VPSidebar.vue */
+  .VPSidebar {
+    padding-left: 32px !important;
+    width: var(--vp-sidebar-width) !important;
+  }
+
+  /* VPLocalNav.vue */
+  .VPLocalNav.has-sidebar {
+    padding-left: var(--vp-sidebar-width) !important;
+  }
+
+  /* VPContent.vue */
+  .VPContent.has-sidebar {
+    padding-right: 0 !important;
+    padding-left: var(--vp-sidebar-width) !important;
+  }
+
+  /* VPDoc.vue */
+  .VPDoc:not(.has-sidebar) .content {
+    max-width: var(--vp-doc-width) !important;
+  }
+
+  .VPDoc:not(.has-sidebar) .container {
+    max-width: var(--vp-doc-width) !important;
+  }
+}
+
+/* Remove content-container max-width limit when aside is visible */
+.VPDoc.has-aside .content-container {
+  max-width: none !important;
+}
+
+/* Match VitePress default behavior on home:
+   keep divider element, hide only its visual line.
+   This project renders a custom home block (`.VPHome`) as well. */
+.VPNavBar.home .divider,
+.VPNavBar.home .divider-line,
+.Layout:has(.VPHome) .VPNavBar .divider,
+.Layout:has(.VPHome) .VPNavBar .divider-line {
+  background-color: transparent !important;
+  border: 0 !important;
+}

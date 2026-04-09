@@ -1,0 +1,35 @@
+# App stack for Docker-outside-of-Docker / host testing.
+# Use the same Compose project name as .devcontainer/docker-compose.yml so web/api
+# join the existing network and can reach the `db` service started by Dev Containers.
+name: luncher-devcontainer
+
+services:
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8787}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    networks:
+      - devcontainer_net
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    ports:
+      - "${API_PORT:-8787}:8787"
+    environment:
+      POSTGRES_USER:
+      POSTGRES_PASSWORD:
+      POSTGRES_DB:
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+    networks:
+      - devcontainer_net
+
+networks:
+  devcontainer_net:
+    name: luncher-devcontainer_default
+    external: true

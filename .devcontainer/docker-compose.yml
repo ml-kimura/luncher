@@ -1,0 +1,62 @@
+name: luncher-devcontainer
+
+services:
+  workspace:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VARIANT: ${WORKSPACE_IMAGE_TAG:-24.14-bookworm-slim}
+        PLAYWRIGHT_VERSION: ${PLAYWRIGHT_VERSION:-1.57.0}
+        ATLAS_VERSION: ${ATLAS_VERSION:-v1.2.0}
+        GITLEAKS_VERSION: ${GITLEAKS_VERSION:-v8.30.1}
+    volumes:
+      - ..:/workspace:cached
+      - turbo-cache:/workspace/.turbo
+      - playwright-cache:/workspace/.cache/playwright
+      - root-node-modules:/workspace/node_modules
+      - api-node-modules:/workspace/apps/api/node_modules
+      - web-next-dev:/workspace/apps/web/.next
+      - web-node-modules:/workspace/apps/web/node_modules
+      - db-node-modules:/workspace/packages/db/node_modules
+      - ui-node-modules:/workspace/packages/ui/node_modules
+      - manual-node-modules:/workspace/docs/manual/node_modules
+      - specs-node-modules:/workspace/docs/specs/node_modules
+    command: sleep infinity
+    group_add:
+      - ${DOCKER_GROUP_ID}
+    environment:
+      POSTGRES_VERSION: ${POSTGRES_VERSION:-18}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-myapp}
+      DB_SCHEMA: ${DB_SCHEMA:-public}
+      API_PORT: ${API_PORT:-8787}
+
+  db:
+    image: postgres:${POSTGRES_VERSION:-18}
+    restart: unless-stopped
+    ports:
+      - '${POSTGRES_PORT:-5432}:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    environment:
+      TZ: ${TZ:-Asia/Tokyo}
+      PGTZ: ${TZ:-Asia/Tokyo}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-myapp}
+
+volumes:
+  postgres-data:
+  turbo-cache:
+  playwright-cache:
+  root-node-modules:
+  api-node-modules:
+  web-next-dev:
+  web-node-modules:
+  db-node-modules:
+  ui-node-modules:
+  manual-node-modules:
+  specs-node-modules:

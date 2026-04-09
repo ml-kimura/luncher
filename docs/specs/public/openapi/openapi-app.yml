@@ -1,0 +1,28 @@
+openapi: 3.1.0
+info:
+  title: Luncher API
+  version: 1.0.0
+components:
+  schemas: {}
+  parameters: {}
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      tags:
+        - system
+      responses:
+        "200":
+          description: API health status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                required:
+                  - status
+webhooks: {}

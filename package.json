@@ -1,0 +1,51 @@
+{
+  "name": "luncher",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "packageManager": "pnpm@10.33.2",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --filter=web --filter=api",
+    "ui:dev": "turbo run dev --ui stream --filter=@packages/ui",
+    "ui:build": "turbo run build --ui stream --filter=@packages/ui",
+    "lint": "turbo run lint && pnpm lint:root",
+    "lint:root": "eslint . --cache --cache-location node_modules/.cache/eslint-root",
+    "lint:root:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint-root",
+    "format": "turbo run format",
+    "api:generate-openapi": "turbo run generate-openapi --ui stream --filter=api",
+    "specs:dev": "turbo run dev --ui stream --filter=@docs/specs",
+    "manual:dev": "turbo run dev --ui stream --filter=@docs/manual",
+    "db:pull": "pnpm --filter @packages/db db:pull",
+    "db:diff": "pnpm --filter @packages/db db:diff",
+    "db:apply": "pnpm --filter @packages/db db:apply",
+    "db:status": "pnpm --filter @packages/db db:status",
+    "db:erd": "pnpm --filter @packages/db db:erd",
+    "prepare": "husky",
+    "pre-commit": "lint-staged",
+    "commitlint": "commitlint --edit",
+    "check-types": "turbo run check-types",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.5.2",
+    "@commitlint/config-conventional": "^20.5.0",
+    "@packages/eslint-config": "workspace:*",
+    "eslint": "catalog:",
+    "husky": "^9.1.7",
+    "jiti": "^2.6.1",
+    "lint-staged": "^16.4.0",
+    "turbo": "^2.7.3",
+    "typescript-eslint": "catalog:"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ml-kimura/luncher.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ml-kimura/luncher/issues"
+  },
+  "homepage": "https://github.com/ml-kimura/luncher#readme"
+}

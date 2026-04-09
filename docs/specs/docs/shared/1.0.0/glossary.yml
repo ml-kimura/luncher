@@ -1,0 +1,593 @@
+terms:
+  - id: warehouse
+    word: 倉庫
+    category: 施設・設備
+    synonyms:
+      - 物流センター
+      - 配送センター
+    definition: |
+      商品や資材を保管・管理し、受注から出荷までの物流業務を行う施設。
+    i18n:
+      en:
+        word: Warehouse
+        category: Facilities
+        synonyms:
+          - distribution center
+          - logistics center
+        definition: |
+          A facility that stores and manages goods and materials, and handles logistics operations from order receipt to shipment.
+  - id: inventory
+    word: 在庫
+    category: 在庫管理
+    synonyms:
+      - ストック
+      - 在庫品
+    definition: |
+      倉庫内に保管されている商品や資材の数量。在庫管理により、適切な数量を維持し、欠品や過剰在庫を防ぐ。
+    i18n:
+      en:
+        word: Inventory
+        category: Inventory Management
+        synonyms:
+          - stock
+          - stock items
+        definition: |
+          The quantity of goods and materials stored in a warehouse. Inventory management maintains appropriate quantities and prevents stockouts and overstocking.
+  - id: shipment
+    word: 出荷
+    category: 物流作業
+    synonyms:
+      - 配送
+      - 発送
+    definition: |
+      倉庫から顧客や配送先へ商品を送り出すこと。出荷処理には、ピッキング、梱包、配送ラベルの貼付、運送業者への引き渡しが含まれる。
+    i18n:
+      en:
+        word: Shipment
+        category: Logistics Operations
+        synonyms:
+          - delivery
+          - dispatch
+        definition: |
+          The process of sending goods from a warehouse to customers or delivery destinations. Shipment processing includes picking, packing, labeling, and handover to carriers.
+  - id: order
+    word: 注文
+    category: 受注管理
+    synonyms:
+      - 受注
+      - オーダー
+    definition: |
+      顧客から商品の購入や配送を依頼される取引。注文には商品情報、数量、配送先、配送希望日などが含まれる。
+    i18n:
+      en:
+        word: Order
+        synonyms:
+          - purchase order
+          - PO
+        definition: |
+          A transaction where a customer requests the purchase or delivery of goods. An order includes product information, quantities, delivery destinations, and desired delivery dates.
+  - id: picking
+    word: ピッキング
+    synonyms:
+      - 摘み取り
+      - 商品取り出し
+    definition: |
+      注文に基づいて倉庫内から必要な商品を取り出す作業。効率的なピッキングにより、出荷までの時間を短縮し、誤出荷を防ぐ。
+    i18n:
+      en:
+        word: Picking
+        synonyms:
+          - order picking
+          - item selection
+        definition: |
+          The process of retrieving required goods from the warehouse based on orders. Efficient picking reduces time to shipment and prevents shipping errors.
+  - id: packing
+    word: 梱包
+    synonyms:
+      - 包装
+      - パッキング
+    definition: |
+      出荷する商品を適切な容器や包装材で包み、配送中に破損しないように保護する作業。
+    i18n:
+      en:
+        word: Packing
+        synonyms:
+          - packaging
+          - wrapping
+        definition: |
+          The process of wrapping goods to be shipped in appropriate containers or packaging materials to protect them from damage during transportation.
+  - id: shipping
+    word: 配送
+    synonyms:
+      - 運送
+      - 輸送
+    definition: |
+      商品を出荷元から配送先まで運ぶこと。運送業者や配送サービスを利用して、指定された日時・場所に商品を届ける。
+    i18n:
+      en:
+        word: Shipping
+        synonyms:
+          - transportation
+          - delivery
+        definition: |
+          The process of transporting goods from the shipping origin to the delivery destination. Uses carriers or delivery services to deliver goods to specified dates, times, and locations.
+  - id: receiving
+    word: 入荷
+    synonyms:
+      - 受入
+      - 納品受入
+    definition: |
+      仕入先やメーカーから倉庫に商品が到着した際に行う受入処理。数量確認、品質検査、在庫への登録などが含まれる。
+    i18n:
+      en:
+        word: Receiving
+        synonyms:
+          - goods receipt
+          - inbound
+        definition: |
+          The process of accepting goods that arrive at the warehouse from suppliers or manufacturers. Includes quantity verification, quality inspection, and inventory registration.
+  - id: fulfillment
+    word: フルフィルメント
+    synonyms:
+      - 受注履行
+      - 注文処理
+    definition: |
+      注文を受けてから顧客に商品を届けるまでの一連の業務プロセス。受注、在庫確認、ピッキング、梱包、出荷、配送を含む。
+    i18n:
+      en:
+        word: Fulfillment
+        synonyms:
+          - order fulfillment
+          - order processing
+        definition: |
+          The entire business process from receiving an order to delivering goods to customers. Includes order receipt, inventory confirmation, picking, packing, shipment, and delivery.
+  - id: stock-keeping-unit
+    word: 在庫管理単位
+    synonyms:
+      - SKU
+      - 商品コード
+    definition: |
+      在庫管理の最小単位となる商品識別コード。同じ商品でも色やサイズが異なれば別のSKUとして管理される。
+    i18n:
+      en:
+        word: Stock Keeping Unit
+        synonyms:
+          - SKU
+          - product code
+        definition: |
+          A product identification code that serves as the minimum unit for inventory management. The same product with different colors or sizes is managed as separate SKUs.
+  - id: warehouse-management-system
+    word: 倉庫管理システム
+    synonyms:
+      - WMS
+      - 倉庫管理ソフト
+    definition: |
+      倉庫内の在庫管理、入出荷管理、作業指示、在庫棚卸などを統合的に管理する情報システム。
+    i18n:
+      en:
+        word: Warehouse Management System
+        synonyms:
+          - WMS
+          - warehouse software
+        definition: |
+          An information system that comprehensively manages inventory management, inbound/outbound operations, work instructions, and inventory counting within a warehouse.
+  - id: carrier
+    word: 運送業者
+    synonyms:
+      - 配送業者
+      - 物流業者
+    definition: |
+      商品の配送を担当する運送会社や配送サービス。宅配便、トラック輸送、航空貨物など様々な配送手段を提供する。
+    i18n:
+      en:
+        word: Carrier
+        synonyms:
+          - shipping company
+          - logistics provider
+        definition: |
+          Shipping companies or delivery services responsible for transporting goods. Provides various delivery methods such as parcel delivery, truck transportation, and air cargo.
+  - id: tracking
+    word: 追跡
+    synonyms:
+      - 配送状況確認
+      - トラッキング
+    definition: |
+      出荷した商品の配送状況をリアルタイムで確認できる機能。追跡番号により、商品の現在位置や配送予定日時を把握できる。
+    i18n:
+      en:
+        word: Tracking
+        synonyms:
+          - shipment tracking
+          - traceability
+        definition: |
+          A function that allows real-time confirmation of the delivery status of shipped goods. Using tracking numbers, customers can check the current location and scheduled delivery date/time of goods.
+  - id: pallet
+    word: パレット
+    synonyms:
+      - 荷台
+      - パレット台
+    definition: |
+      商品を積み重ねて運搬・保管するための台。フォークリフトで移動でき、効率的な在庫管理と輸送を可能にする。
+    i18n:
+      en:
+        word: Pallet
+        synonyms:
+          - pallet board
+          - skid
+        definition: |
+          A platform for stacking goods for transportation and storage. Can be moved with forklifts, enabling efficient inventory management and transportation.
+  - id: lot
+    word: ロット
+    synonyms:
+      - 製造ロット
+      - ロット番号
+    definition: |
+      同じ条件で製造・仕入された商品のグループを識別するための番号。品質管理やリコール対応において重要な情報となる。
+    i18n:
+      en:
+        word: Lot
+        synonyms:
+          - batch number
+          - lot number
+        definition: |
+          A number used to identify a group of goods manufactured or purchased under the same conditions. Important information for quality control and recall responses.
+  - id: batch
+    word: バッチ
+    synonyms:
+      - 一括処理
+      - バッチ処理
+    definition: |
+      複数の注文や作業をまとめて一括で処理すること。効率的な作業計画により、倉庫の生産性を向上させる。
+    i18n:
+      en:
+        word: Batch
+        synonyms:
+          - batch processing
+          - batch job
+        definition: |
+          Processing multiple orders or tasks together in a batch. Improves warehouse productivity through efficient work planning.
+  - id: cross-docking
+    word: クロスドッキング
+    synonyms:
+      - 直接積替え
+      - クロスドック
+    definition: |
+      入荷した商品を倉庫に保管せず、直接出荷エリアに移動して別の配送先へ積み替える物流方式。在庫を最小化し、配送リードタイムを短縮する。
+    i18n:
+      en:
+        word: Cross-Docking
+        synonyms:
+          - direct transfer
+          - cross-dock
+        definition: |
+          A logistics method where incoming goods are not stored in the warehouse but directly moved to the shipping area and transferred to other delivery destinations. Minimizes inventory and reduces delivery lead time.
+  - id: putaway
+    word: 入庫
+    synonyms:
+      - 格納
+      - 入庫作業
+    definition: |
+      入荷した商品を倉庫内の適切な保管場所に配置する作業。効率的な入庫により、ピッキング効率と在庫管理精度を向上させる。
+    i18n:
+      en:
+        word: Putaway
+        synonyms:
+          - storage
+          - putaway operation
+        definition: |
+          The process of placing received goods in appropriate storage locations within the warehouse. Efficient putaway improves picking efficiency and inventory management accuracy.
+  - id: cycle-count
+    word: 棚卸
+    synonyms:
+      - 在庫棚卸
+      - 定期棚卸
+    definition: |
+      倉庫を停止せずに、定期的に在庫数量を実地確認する作業。システム上の在庫数と実在庫数の差異を早期に発見し、在庫精度を維持する。
+    i18n:
+      en:
+        word: Cycle Count
+        synonyms:
+          - inventory count
+          - stocktaking
+        definition: |
+          The process of periodically verifying actual inventory quantities without stopping warehouse operations. Early detection of discrepancies between system inventory and actual inventory maintains inventory accuracy.
+  - id: manifest
+    word: マニフェスト
+    synonyms:
+      - 積荷目録
+      - 配送明細
+    definition: |
+      出荷する商品の一覧表。運送業者に引き渡す際に作成され、配送先、商品情報、数量などの詳細が記載される。
+    i18n:
+      en:
+        word: Manifest
+        synonyms:
+          - shipping manifest
+          - delivery list
+        definition: |
+          A list of goods to be shipped. Created when handing over to carriers, containing details such as delivery destinations, product information, and quantities.
+  - id: location
+    word: ロケーション
+    synonyms:
+      - 保管場所
+      - ロケ
+    definition: |
+      倉庫内で商品を保管する具体的な場所を表す識別コード。ゾーン、通路、棚、段などの階層構造で管理され、効率的なピッキングを可能にする。
+    i18n:
+      en:
+        word: Location
+        synonyms:
+          - storage location
+          - bin location
+        definition: |
+          An identification code representing the specific location where goods are stored within a warehouse. Managed in a hierarchical structure such as zones, aisles, shelves, and levels, enabling efficient picking.
+  - id: advanced-shipping-notice
+    word: 事前出荷通知
+    synonyms:
+      - ASN
+      - 出荷予告
+    definition: |
+      仕入先やメーカーから倉庫に商品を出荷する前に送られる電子通知。入荷予定の商品情報、数量、到着予定日時などを事前に知らせる。
+    i18n:
+      en:
+        word: Advanced Shipping Notice
+        synonyms:
+          - ASN
+          - shipping notice
+        definition: |
+          An electronic notification sent from suppliers or manufacturers to the warehouse before shipping goods. Provides advance information about incoming goods, quantities, and expected arrival dates and times.
+  - id: backorder
+    word: バックオーダー
+    synonyms:
+      - 在庫切れ注文
+      - 保留注文
+    definition: |
+      在庫が不足しているため、即座に出荷できない注文。在庫が補充された時点で出荷処理が行われる。
+    i18n:
+      en:
+        word: Backorder
+        synonyms:
+          - out-of-stock order
+          - pending order
+        definition: |
+          An order that cannot be shipped immediately due to insufficient inventory. Shipment processing occurs when inventory is replenished.
+  - id: consolidation
+    word: 集約
+    synonyms:
+      - 集荷
+      - 統合配送
+    definition: |
+      複数の注文や商品をまとめて一つの配送単位にすること。配送コストの削減と配送効率の向上を図る。
+    i18n:
+      en:
+        word: Consolidation
+        synonyms:
+          - freight consolidation
+          - combined shipping
+        definition: |
+          Combining multiple orders or goods into a single shipping unit. Aims to reduce shipping costs and improve delivery efficiency.
+  - id: dock
+    word: ドック
+    synonyms:
+      - 荷役場
+      - バース
+    definition: |
+      トラックや配送車両が商品の積み下ろしを行うための倉庫の出入口。入荷ドックと出荷ドックに分かれており、効率的な物流フローを実現する。
+    i18n:
+      en:
+        word: Dock
+        synonyms:
+          - loading dock
+          - berth
+        definition: |
+          The warehouse entrance/exit where trucks and delivery vehicles load and unload goods. Divided into receiving docks and shipping docks to achieve efficient logistics flow.
+  - id: first-in-first-out
+    word: 先入先出し
+    synonyms:
+      - FIFO
+      - 先入れ先出し
+    definition: |
+      先に入庫した商品を先に出荷する在庫管理方式。鮮度管理が必要な食品や有効期限のある商品の管理に適している。
+    i18n:
+      en:
+        word: First In First Out
+        synonyms:
+          - FIFO
+          - first-in-first-out
+        definition: |
+          An inventory management method where goods received first are shipped first. Suitable for managing food items requiring freshness control and products with expiration dates.
+  - id: last-in-first-out
+    word: 後入先出し
+    synonyms:
+      - LIFO
+      - 後入れ先出し
+    definition: |
+      最後に入庫した商品を先に出荷する在庫管理方式。重い商品や大型商品の保管に適している場合がある。
+    i18n:
+      en:
+        word: Last In First Out
+        synonyms:
+          - LIFO
+          - last-in-first-out
+        definition: |
+          An inventory management method where goods received last are shipped first. May be suitable for storing heavy or large items.
+  - id: kitting
+    word: キッティング
+    synonyms:
+      - 部品セット化
+      - キット組立
+    definition: |
+      複数の部品や商品を組み合わせて一つのキットとして提供する作業。組立作業を簡素化し、出荷効率を向上させる。
+    i18n:
+      en:
+        word: Kitting
+        synonyms:
+          - kit assembly
+          - component bundling
+        definition: |
+          The process of combining multiple parts or products into a single kit for delivery. Simplifies assembly work and improves shipping efficiency.
+  - id: reverse-logistics
+    word: リバースロジスティクス
+    synonyms:
+      - 返品物流
+      - 逆物流
+    definition: |
+      顧客から返品された商品を倉庫に戻し、検査、修理、再販売、廃棄などの処理を行う物流プロセス。
+    i18n:
+      en:
+        word: Reverse Logistics
+        synonyms:
+          - returns logistics
+          - return logistics
+        definition: |
+          A logistics process that returns goods from customers to the warehouse and handles inspection, repair, resale, or disposal.
+  - id: slotting
+    word: スロッティング
+    synonyms:
+      - 配置最適化
+      - ロケ最適化
+    definition: |
+      商品の出荷頻度や特性に基づいて、倉庫内の最適な保管場所を決定する作業。ピッキング効率と在庫回転率の向上を目的とする。
+    i18n:
+      en:
+        word: Slotting
+        synonyms:
+          - location optimization
+          - slot optimization
+        definition: |
+          The process of determining optimal storage locations within a warehouse based on shipping frequency and product characteristics. Aims to improve picking efficiency and inventory turnover.
+  - id: wave
+    word: ウェーブ
+    synonyms:
+      - 出荷波
+      - ウェーブ処理
+    definition: |
+      複数の注文を時間帯ごとにグループ化して一括処理する方式。配送ルートや運送業者ごとに効率的に作業を計画する。
+    i18n:
+      en:
+        word: Wave
+        synonyms:
+          - shipping wave
+          - wave planning
+        definition: |
+          A method of grouping multiple orders by time period for batch processing. Efficiently plans work by delivery routes or carriers.
+  - id: zone
+    word: ゾーン
+    synonyms:
+      - 保管エリア
+      - 作業エリア
+    definition: |
+      倉庫内を機能や商品カテゴリごとに分割した区域。温度管理が必要な冷凍・冷蔵ゾーン、危険物ゾーンなどがある。
+    i18n:
+      en:
+        word: Zone
+        synonyms:
+          - storage area
+          - work area
+        definition: |
+          Areas within a warehouse divided by function or product category. Includes frozen/refrigerated zones requiring temperature control and hazardous material zones.
+  - id: yard-management
+    word: ヤード管理
+    synonyms:
+      - 構内管理
+      - ヤード管理システム
+    definition: |
+      倉庫の構内に駐車しているトラックやコンテナの位置、到着・出発時刻などを管理するシステム。荷役場の効率的な利用を実現する。
+    i18n:
+      en:
+        word: Yard Management
+        synonyms:
+          - yard management system
+          - YMS
+        definition: |
+          A system that manages the location, arrival, and departure times of trucks and containers parked in the warehouse yard. Enables efficient use of loading docks.
+  - id: abc-analysis
+    word: ABC分析
+    synonyms:
+      - ABC分類
+      - 重点分析
+    definition: |
+      在庫商品を出荷頻度や売上高に基づいてA（高頻度）、B（中頻度）、C（低頻度）に分類する分析手法。重点的な在庫管理により効率を向上させる。
+    i18n:
+      en:
+        word: ABC Analysis
+        synonyms:
+          - ABC classification
+          - Pareto analysis
+        definition: |
+          An analysis method that classifies inventory items into A (high frequency), B (medium frequency), and C (low frequency) based on shipping frequency and sales volume. Improves efficiency through focused inventory management.
+  - id: damage
+    word: 破損
+    synonyms:
+      - 損傷
+      - 不良品
+    definition: |
+      輸送中や保管中に商品が損傷を受けた状態。破損商品は別エリアで管理し、原因分析と再発防止策を実施する。
+    i18n:
+      en:
+        word: Damage
+        synonyms:
+          - defect
+          - damaged goods
+        definition: |
+          A condition where goods are damaged during transportation or storage. Damaged goods are managed in a separate area, and cause analysis and preventive measures are implemented.
+  - id: electronic-data-interchange
+    word: 電子データ交換
+    synonyms:
+      - EDI
+      - 電子取引
+    definition: |
+      企業間で注文、納品書、請求書などの取引情報を電子形式で交換する仕組み。手作業を削減し、処理速度と精度を向上させる。
+    i18n:
+      en:
+        word: Electronic Data Interchange
+        synonyms:
+          - EDI
+          - electronic commerce
+        definition: |
+          A system for exchanging transaction information such as orders, delivery notes, and invoices in electronic format between companies. Reduces manual work and improves processing speed and accuracy.
+  - id: lead-time
+    word: リードタイム
+    synonyms:
+      - 納期
+      - 所要時間
+    definition: |
+      注文を受けてから商品を顧客に届けるまでにかかる時間。リードタイムの短縮は顧客満足度の向上と在庫削減につながる。
+    i18n:
+      en:
+        word: Lead Time
+        synonyms:
+          - delivery time
+          - processing time
+        definition: |
+          The time required from receiving an order to delivering goods to customers. Reducing lead time improves customer satisfaction and reduces inventory.
+  - id: safety-stock
+    word: 安全在庫
+    synonyms:
+      - 安全在庫量
+      - バッファ在庫
+    definition: |
+      需要の変動や仕入リードタイムの遅延に備えて、通常の在庫に加えて保持する余剰在庫。欠品を防ぐための重要な在庫管理指標。
+    i18n:
+      en:
+        word: Safety Stock
+        synonyms:
+          - buffer stock
+          - safety inventory
+        definition: |
+          Excess inventory maintained in addition to normal inventory to prepare for demand fluctuations and procurement lead time delays. An important inventory management indicator to prevent stockouts.
+  - id: throughput
+    word: スループット
+    synonyms:
+      - 処理能力
+      - 処理量
+    definition: |
+      倉庫や物流システムが一定時間内に処理できる商品の数量や注文数。スループットの向上は倉庫の生産性向上を意味する。
+    i18n:
+      en:
+        word: Throughput
+        synonyms:
+          - processing capacity
+          - output
+        definition: |
+          The quantity of goods or number of orders that a warehouse or logistics system can process within a certain time period. Increasing throughput means improving warehouse productivity.

@@ -1,0 +1,41 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "docs/*"
+allowBuilds:
+  '@prisma/engines': false
+  '@swc/core': true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+  vue-demi: true
+
+# 2 つ以上の workspace パッケージで使う依存だけ。単一アプリ用は各 package.json の semver で十分。
+catalog:
+  "@eslint/eslintrc": "^3.3.5"
+  "@eslint/js": "^9.39.4"
+  "@playwright/test": "^1.59.1"
+  "@rollup/plugin-yaml": "^4.1.2"
+  "@types/eslint": "^9.6.1"
+  "@types/eslint-config-prettier": "^6.11.3"
+  "@types/js-yaml": "^4.0.9"
+  "@types/node": "^25.6.0"
+  "@types/react": "^19.2.14"
+  "@types/react-dom": "^19.2.3"
+  "dotenv": "^17.4.2"
+  "eslint": "^9.39.4"
+  "eslint-config-next": "^16.2.4"
+  "eslint-config-prettier": "^10.1.8"
+  "eslint-plugin-vue": "^10.9.0"
+  "eslint-plugin-yml": "^3.3.1"
+  "globals": "^17.5.0"
+  "prettier": "^3.8.3"
+  "tsx": "^4.21.0"
+  "typescript": "^6.0.3"
+  "typescript-eslint": "^8.59.0"
+  "vite": "^8.0.10"
+  "vitepress": "^1.6.4"
+  "vitepress-openapi": "^0.1.20"
+  "vitepress-plugin-diagrams": "^1.3.0"
+  "vue": "^3.5.33"
+  "vue-eslint-parser": "^10.4.0"

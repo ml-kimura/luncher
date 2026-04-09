@@ -1,0 +1,234 @@
+# Japanese locale configuration
+label: '日本語'
+lang: 'ja'
+
+# Features configuration (merges navItems and sidebarLabels)
+features:
+  overview:
+    label: '概要'
+  home:
+    label: 'ホーム'
+    path: ''
+    name: 'Luncher'
+    text: 'コラボランチ・マッチングアプリケーション'
+    description: 'Luncher 仕様書サイトへようこそ'
+  screen:
+    label: '画面'
+    path: 'screen'
+    icon: '🖥️'
+    description: '各画面の詳細な設計仕様と画面遷移図を提供します'
+    items:
+      flow: '画面遷移図'
+      design: '画面設計書'
+      messages: 'メッセージ'
+  api:
+    label: 'API'
+    path: 'api'
+    icon: '📡'
+    description: 'OpenAPI仕様に基づいたAPIドキュメントを提供します'
+    items:
+      design: 'API設計'
+  batch:
+    label: 'バッチ'
+    path: 'batch'
+    icon: '⚙️'
+    description: 'バッチ処理の設計仕様とフロー図を提供します'
+    items:
+      flow: 'バッチフロー'
+      design: 'バッチ設計書'
+      messages: 'メッセージ'
+  database:
+    label: 'データベース'
+    path: 'database'
+    icon: '🗄️'
+    description: 'データベーススキーマと設計情報を提供します'
+    items:
+      cdm: '概念データモデル'
+      ldm: '論理データモデル'
+      pdm: '物理データモデル'
+  infrastructure:
+    label: 'インフラストラクチャー'
+    path: 'infrastructure'
+    icon: '🏗️'
+    description: 'インフラストラクチャーの構成情報を提供します'
+  glossary:
+    label: '用語集'
+    path: 'glossary'
+    icon: '📚'
+    description: 'システムで使用される用語の定義を提供します'
+  history:
+    label: 'リリース履歴'
+    path: 'history'
+    description: '各バージョンのリリースノートと変更履歴を確認できます'
+
+glossaryUi:
+  uncategorized: 'その他'
+  categoriesGroup: 'カテゴリー'
+
+pdmUi:
+  erd: 'ER図'
+  physicalName: '物理名'
+  logicalName: '論理名'
+  description: '説明'
+  columnsSection: 'カラム'
+  sqlType: '型'
+  pkUniqueIndexSection: '主キー制約・ユニーク制約・インデックス'
+  name: '名前'
+  constraintKind: '種別'
+  columns: 'カラム'
+  none: 'なし'
+  referenceConstraints: '参照制約'
+  refTable: '参照テーブル'
+  refColumns: '参照カラム'
+  checkExclusiveSection: 'チェック制約・排他制約'
+  condition: '条件'
+
+footer:
+  message: 'Released under the MIT License.'
+  copyright: 'Copyright © 2025'
+
+# Document sections configuration
+# Each section (screen, batch) has subsections (design, flow)
+# fields: defines fields for both list table and detail page basic info
+docSections:
+  screen:
+    design:
+      title: '画面設計書'
+      description: '各画面の詳細な設計仕様です。'
+      listLabel: '一覧'
+      infoTitle: '基本情報'
+      fields:
+        - key: id
+          label: '画面ID'
+        - key: title
+          label: '画面名'
+        - key: url
+          label: 'URL'
+        - key: auth
+          label: '認証'
+    flow:
+      title: '画面遷移図'
+      description: 'システム内の画面遷移を示すフロー図です。'
+      listLabel: '一覧'
+      infoTitle: '基本情報'
+      fields:
+        - key: id
+          label: 'フローID'
+        - key: title
+          label: 'フロー名'
+        - key: description
+          label: '説明'
+  batch:
+    design:
+      title: 'バッチ設計書'
+      description: '各バッチ処理の詳細な設計仕様です。'
+      listLabel: '一覧'
+      infoTitle: '基本情報'
+      fields:
+        - key: id
+          label: 'バッチID'
+        - key: title
+          label: 'バッチ名'
+        - key: timing
+          label: '実行タイミング'
+        - key: duration
+          label: '想定実行時間'
+        - key: retry
+          label: 'リトライ'
+    flow:
+      title: 'バッチフロー'
+      description: 'システム内のバッチ処理フローを示す図です。'
+      listLabel: '一覧'
+      infoTitle: '基本情報'
+      fields:
+        - key: id
+          label: 'フローID'
+        - key: title
+          label: 'フロー名'
+        - key: timing
+          label: '実行タイミング'
+        - key: duration
+          label: '想定実行時間'
+        - key: description
+          label: '説明'
+  api:
+    design:
+      title: 'API設計'
+      description: '各 API の設計情報を一覧化しています。'
+      listLabel: '一覧'
+      infoTitle: '基本情報'
+      fields:
+        - key: title
+          label: 'API名'
+        - key: description
+          label: '説明'
+  database:
+    cdm:
+      title: '概念データモデル'
+      description: '概念データモデルは、システムのデータの基本的な構造を示すモデルです。'
+      listLabel: '一覧'
+      infoTitle: '基本情報'
+      fields:
+        - key: id
+          label: 'データベースID'
+        - key: title
+          label: 'データベース名'
+        - key: description
+          label: '説明'
+    ldm:
+      title: '論理データモデル'
+      description: '論理データモデルは、システムのデータの論理的な構造を示すモデルです。'
+      listLabel: '一覧'
+      infoTitle: '基本情報'
+      fields:
+        - key: id
+          label: 'データベースID'
+        - key: title
+          label: 'データベース名'
+        - key: description
+          label: '説明'
+    pdm:
+      title: '物理データモデル'
+      description: '物理データモデルは、システムのデータの物理的な構造を示すモデルです。'
+      listLabel: '一覧'
+      infoTitle: '基本情報'
+      fields:
+        - key: id
+          label: 'データベースID'
+        - key: title
+          label: 'データベース名'
+        - key: description
+          label: '説明'
+
+messageLabels:
+  title: 'メッセージ一覧'
+  description: 'システムで使用されるメッセージの一覧です。'
+  code: 'コード'
+  message: 'メッセージ'
+  info: '情報 (Info)'
+  warning: '警告 (Warning)'
+  error: 'エラー (Error)'
+  fatal: '致命的エラー (Fatal)'
+
+# OpenAPI i18n messages
+openapiMessages:
+  'API Description': 'このセクションでは、システムのAPI仕様を提供します。'
+  'API Name': 'API名'
+  'Description': '説明'
+  'Authorization URL': '認証URL'
+  Authorizations: '認証'
+  'Content-Type': 'Content-Type'
+  'Copy endpoint': 'エンドポイントをコピー'
+  Default: 'デフォルト'
+  Format: '形式'
+  'Header Parameters': 'ヘッダーパラメータ'
+  Parameters: 'パラメータ'
+  'Path Parameters': 'パスパラメータ'
+  'Query Parameters': 'クエリパラメータ'
+  'Request Body': 'リクエストボディ'
+  Required: '必須'
+  Responses: 'レスポンス'
+  Schema: 'スキーマ'
+  Type: '型'
+  'Valid values': '有効な値'
+  or: 'または'

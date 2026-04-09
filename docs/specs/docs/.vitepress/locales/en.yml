@@ -1,0 +1,234 @@
+# English locale configuration
+label: 'English'
+lang: 'en'
+
+# Features configuration (merges navItems and sidebarLabels)
+features:
+  overview:
+    label: 'Overview'
+  home:
+    label: 'Home'
+    path: ''
+    name: 'Luncher'
+    text: 'Collaboration Lunch Matching Application'
+    description: 'Welcome to the Luncher specifications site'
+  screen:
+    label: 'Screen'
+    path: 'screen'
+    icon: '🖥️'
+    description: 'Detailed design specifications and screen flow diagrams'
+    items:
+      flow: 'Screen Flow Diagram'
+      design: 'UI Specifications'
+      messages: 'Messages'
+  api:
+    label: 'API'
+    path: 'api'
+    icon: '📡'
+    description: 'API documentation based on OpenAPI specifications'
+    items:
+      design: 'API Design'
+  batch:
+    label: 'Batch'
+    path: 'batch'
+    icon: '⚙️'
+    description: 'Batch process design specifications and flow diagrams'
+    items:
+      flow: 'Batch Flow Diagram'
+      design: 'Batch Design Document'
+      messages: 'Messages'
+  database:
+    label: 'Database'
+    path: 'database'
+    icon: '🗄️'
+    description: 'Database schema and design information'
+    items:
+      cdm: 'Conceptual Data Model'
+      ldm: 'Logical Data Model'
+      pdm: 'Physical Data Model'
+  infrastructure:
+    label: 'Infrastructure'
+    path: 'infrastructure'
+    icon: '🏗️'
+    description: 'Infrastructure configuration information'
+  glossary:
+    label: 'Glossary'
+    path: 'glossary'
+    icon: '📚'
+    description: 'Definitions of terms used in the system'
+  history:
+    label: 'Release History'
+    path: 'history'
+    description: 'View release notes and change history for each version'
+
+glossaryUi:
+  uncategorized: 'Other'
+  categoriesGroup: 'Categories'
+
+pdmUi:
+  erd: 'ER diagram'
+  physicalName: 'Physical Name'
+  logicalName: 'Logical Name'
+  description: 'Description'
+  columnsSection: 'Columns'
+  sqlType: 'Type'
+  pkUniqueIndexSection: 'Primary Key Constraints, Unique Constraints, Indexes'
+  name: 'Name'
+  constraintKind: 'Type'
+  columns: 'Columns'
+  none: 'None'
+  referenceConstraints: 'Reference Constraints'
+  refTable: 'Ref Table'
+  refColumns: 'Ref Columns'
+  checkExclusiveSection: 'Check and Exclusive Constraints'
+  condition: 'Condition'
+
+footer:
+  message: 'Released under the MIT License.'
+  copyright: 'Copyright © 2025'
+
+# Document sections configuration
+# Each section (screen, batch) has subsections (design, flow)
+# fields: defines fields for both list table and detail page basic info
+docSections:
+  screen:
+    design:
+      title: 'UI Specifications'
+      description: 'Detailed design specifications for each screen.'
+      listLabel: 'List'
+      infoTitle: 'Basic Information'
+      fields:
+        - key: id
+          label: 'Screen ID'
+        - key: title
+          label: 'Screen Name'
+        - key: url
+          label: 'URL'
+        - key: auth
+          label: 'Authentication'
+    flow:
+      title: 'Screen Flow Diagram'
+      description: 'Flow diagrams showing screen transitions in the system.'
+      listLabel: 'List'
+      infoTitle: 'Basic Information'
+      fields:
+        - key: id
+          label: 'Flow ID'
+        - key: title
+          label: 'Flow Name'
+        - key: description
+          label: 'Description'
+  batch:
+    design:
+      title: 'Batch Design Document'
+      description: 'Detailed design specifications for each batch process.'
+      listLabel: 'List'
+      infoTitle: 'Basic Information'
+      fields:
+        - key: id
+          label: 'Batch ID'
+        - key: title
+          label: 'Batch Name'
+        - key: timing
+          label: 'Execution Timing'
+        - key: duration
+          label: 'Expected Duration'
+        - key: retry
+          label: 'Retry'
+    flow:
+      title: 'Batch Flow Diagram'
+      description: 'Diagrams showing the batch process flows in the system.'
+      listLabel: 'List'
+      infoTitle: 'Basic Information'
+      fields:
+        - key: id
+          label: 'Flow ID'
+        - key: title
+          label: 'Flow Name'
+        - key: timing
+          label: 'Execution Timing'
+        - key: duration
+          label: 'Expected Duration'
+        - key: description
+          label: 'Description'
+  api:
+    design:
+      title: 'API Design'
+      description: 'A list of design information for each API.'
+      listLabel: 'List'
+      infoTitle: 'Basic Information'
+      fields:
+        - key: title
+          label: 'API Name'
+        - key: description
+          label: 'Description'
+  database:
+    cdm:
+      title: 'Conceptual Data Model'
+      description: 'Detailed design specifications for each database.'
+      listLabel: 'List'
+      infoTitle: 'Basic Information'
+      fields:
+        - key: id
+          label: 'Database ID'
+        - key: title
+          label: 'Database Name'
+        - key: description
+          label: 'Description'
+    ldm:
+      title: 'Logical Data Model'
+      description: 'Detailed design specifications for each database.'
+      listLabel: 'List'
+      infoTitle: 'Basic Information'
+      fields:
+        - key: id
+          label: 'Database ID'
+        - key: title
+          label: 'Database Name'
+        - key: description
+          label: 'Description'
+    pdm:
+      title: 'Physical Data Model'
+      description: 'Detailed design specifications for each database.'
+      listLabel: 'List'
+      infoTitle: 'Basic Information'
+      fields:
+        - key: id
+          label: 'Database ID'
+        - key: title
+          label: 'Database Name'
+        - key: description
+          label: 'Description'
+
+messageLabels:
+  title: 'Message List'
+  description: 'A list of messages used in the system.'
+  code: 'Code'
+  message: 'Message'
+  info: 'Info'
+  warning: 'Warning'
+  error: 'Error'
+  fatal: 'Fatal'
+
+# OpenAPI i18n messages
+openapiMessages:
+  'API Description': 'This section provides API specifications for the system.'
+  'API Name': 'API Name'
+  'Description': 'Description'
+  'Authorization URL': 'Authorization URL'
+  Authorizations: 'Authorizations'
+  'Content-Type': 'Content-Type'
+  'Copy endpoint': 'Copy endpoint'
+  Default: 'Default'
+  Format: 'Format'
+  'Header Parameters': 'Header Parameters'
+  Parameters: 'Parameters'
+  'Path Parameters': 'Path Parameters'
+  'Query Parameters': 'Query Parameters'
+  'Request Body': 'Request Body'
+  Required: 'Required'
+  Responses: 'Responses'
+  Schema: 'Schema'
+  Type: 'Type'
+  'Valid values': 'Valid values'
+  or: 'or'

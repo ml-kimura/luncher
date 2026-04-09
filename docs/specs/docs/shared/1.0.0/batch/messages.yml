@@ -1,0 +1,30 @@
+# Batch messages configuration
+messages:
+  - code: I-BAT-001
+    message:
+      ja: 'バッチ処理が正常に開始されました'
+      en: 'Batch process started successfully'
+  - code: I-BAT-002
+    message:
+      ja: 'バッチ処理が正常に完了しました'
+      en: 'Batch process completed successfully'
+  - code: W-BAT-001
+    message:
+      ja: '処理対象データが見つかりませんでした'
+      en: 'No data found for processing'
+  - code: W-BAT-002
+    message:
+      ja: '一部のレコードがスキップされました'
+      en: 'Some records were skipped'
+  - code: E-BAT-001
+    message:
+      ja: 'データベース接続エラーが発生しました'
+      en: 'Database connection error occurred'
+  - code: E-BAT-002
+    message:
+      ja: 'ファイルの読み込みに失敗しました'
+      en: 'Failed to read file'
+  - code: F-BAT-001
+    message:
+      ja: 'システムエラーによりバッチ処理が中断されました'
+      en: 'Batch process aborted due to system error'

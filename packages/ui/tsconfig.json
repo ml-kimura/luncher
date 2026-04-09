@@ -1,0 +1,17 @@
+{
+  "extends": "@packages/tsconfig/base",
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "es2022"
+    ],
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "noEmit": true
+  },
+  "include": [
+    "src",
+    ".storybook"
+  ]
+}
