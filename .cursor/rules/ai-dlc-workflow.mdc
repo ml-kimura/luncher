@@ -485,13 +485,14 @@ The Operations stage will eventually include:
 - **MANDATORY**: Record every user response with timestamp after receiving it
 - **CRITICAL**: ALWAYS append changes to EDIT audit.md file, NEVER use tools and commands that completely overwrite its contents
 - **CRITICAL**: NEVER use file writing tools and commands that overwrite the entire contents of audit.md, as this causes duplication
-- Use ISO 8601 format for timestamps (YYYY-MM-DDTHH:MM:SSZ)
+- Use ISO 8601 format for timestamps in `Asia/Tokyo` timezone only (JST, `+09:00`), e.g. `YYYY-MM-DDTHH:MM:SS+09:00`
+- If any referenced rule/detail file says only "ISO timestamp" or shows `Z` examples, this project rule takes precedence: **always use JST (`+09:00`)**.
 - Include stage context for each entry
 
 ### Audit Log Format:
 ```markdown
 ## [Stage Name or Interaction Type]
-**Timestamp**: [ISO timestamp]
+**Timestamp**: [ISO 8601 timestamp in Asia/Tokyo, e.g. 2026-04-27T22:33:30+09:00]
 **User Input**: "[Complete raw user input - never summarized]"
 **AI Response**: "[AI's response or action taken]"
 **Context**: [Stage, action, or decision made]

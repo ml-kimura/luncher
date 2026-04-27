@@ -31,4 +31,8 @@ alwaysApply: true
 - **Allowed ONLY upon explicit user request:**
   Any Git command NOT listed above (including `git add`, `git commit`, `git push`, `git reset`, `git checkout`, `git restore`, `git clean`, `git stash`, `git rebase`, `git rm`, `git pull`, `git merge`, etc.) must **NEVER** be used unless explicitly requested by the user.
 
+## 5) Timestamp Policy
+
+- Record all timestamps in `Asia/Tokyo` timezone (JST, `+09:00`) only.
+
 
