@@ -57,3 +57,8 @@
 | Property-Based Testing | マッチング制約、金額・日付パーサ、設定バリデーション（実装側だが設計で境界を定義） |
 
 詳細チェックは `design-transition-checklist.md` を参照する。
+
+## 8. US ごとに設計を進める
+
+**ストーリー 1 本＝1 作業列**（バッチ / API 補足 / DB / 管理画面等の着手順・チェック）は、専用の作業表にまとめた。  
+**→ [`application-design-by-us.md`](./application-design-by-us.md)**（1 US あたりの手順、outputs 別チェック、推奨扱い順、進捗チェック欄）

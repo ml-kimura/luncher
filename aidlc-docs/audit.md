@@ -259,6 +259,15 @@
 
 ---
 
+## Enter Application Design
+
+**Timestamp**: 2026-04-28T23:00:00+09:00
+**User Input**: "次の作業へすすもう"
+**AI Response**: "Current Stage を Application Design (In Progress) に更新。次作業は application-design-deliverables に沿った仕様ギャップの洗い出しと us→設計のトレース。"
+**Context**: INCEPTION - Application Design start
+
+---
+
 ## Workflow Planning complete + commit/push
 
 **Timestamp**: 2026-04-28T22:30:00+09:00
@@ -337,5 +346,14 @@
 **User Input**: "docs/specs/docs/en/1.0.0/screen/design/scr-001.md をベースに画面デザインのスニペットを作成したい。"
 **AI Response**: ".vscode/screen-design.code-snippets を追加。プレフィックス scrdesign-en（SCR-001 相当・英語セクション）と scrdesign-ja（項目一覧・イベント規約）。"
 **Context**: Tooling - Screen specification snippets
+
+---
+
+## Application Design by US (planning artifact)
+
+**Timestamp**: 2026-04-28T18:35:00+09:00
+**User Input**: "US ごとに対応したい"
+**AI Response**: "aidlc-docs/inception/plans/application-design-by-us.md を新規作成（US 別チェック表・手順・推奨順）。application-design-deliverables.md に §8 から上記を参照。"
+**Context**: INCEPTION - Application Design, US 単位の作業表
 
 ---
