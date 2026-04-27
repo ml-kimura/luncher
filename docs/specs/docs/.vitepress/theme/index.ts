@@ -6,10 +6,12 @@ import DefaultTheme from 'vitepress/theme';
 import { watch } from 'vue';
 import BasicInfo from './components/BasicInfo.vue';
 import DocList from './components/DocList.vue';
+import InternalLink from './components/InternalLink.vue';
 import MainNav from './components/MainNav.vue';
 import NavBarLink from './components/NavBarLink.vue';
 import OperationLayout from './components/OperationLayout.vue';
-import InternalLink from './components/InternalLink.vue';
+import UserStoryPage from './components/UserStoryPage.vue';
+import UserStoryTitle from './components/UserStoryTitle.vue';
 import VersionSwitcher from './components/VersionSwitcher.vue';
 import './style.css';
 
@@ -26,6 +28,8 @@ export default {
     ctx.app.component('NavBarLink', NavBarLink);
     ctx.app.component('OperationLayout', OperationLayout);
     ctx.app.component('InternalLink', InternalLink);
+    ctx.app.component('UserStoryPage', UserStoryPage);
+    ctx.app.component('UserStoryTitle', UserStoryTitle);
   },
   setup() {
     const { site, localeIndex } = useData();

@@ -41,4 +41,8 @@ alwaysApply: true
 - If related files are found, update them in the same task unless the user explicitly instructs otherwise.
 - Before completing the task, verify there are no stale or conflicting definitions left in nearby artifacts (requirements, plans, stories, personas, and audit logs).
 
+## 7) Project-Specific Skills Location
 
+- Project-specific custom skills MUST be created and maintained under `.cursor/skills/`.
+- Do NOT add project-specific custom skills under `.agents/skills/`.
+- When moving existing project-specific skills, update related references in the same task.

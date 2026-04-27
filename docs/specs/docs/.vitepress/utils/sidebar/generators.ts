@@ -32,7 +32,10 @@ function extractTitleFromMarkdown(filePath: string): string | null {
  */
 export function generateDirSidebarItems(
   dirPath: string,
-  linkBase: string
+  linkBase: string,
+  options?: {
+    prefixWithUsId?: boolean;
+  }
 ): SidebarItem[] {
   if (!fs.existsSync(dirPath)) {
     return [];
@@ -47,18 +50,28 @@ export function generateDirSidebarItems(
         const fileName = f.name.replace(/\.md$/, '');
         const filePath = path.join(dirPath, f.name);
         let orderKey = fileName;
+        let frontmatterTitle: string | undefined;
+        let frontmatterId: string | undefined;
 
         try {
           const content = fs.readFileSync(filePath, 'utf-8');
           const { data: frontmatter } = matter(content);
           if (frontmatter.id !== undefined) {
             orderKey = String(frontmatter.id);
+            frontmatterId = String(frontmatter.id);
+          }
+          if (frontmatter.title !== undefined) {
+            frontmatterTitle = String(frontmatter.title);
           }
         } catch {
           // ignore frontmatter parse failures and fallback to filename
         }
 
-        const title = extractTitleFromMarkdown(filePath) || fileName;
+        const baseTitle = frontmatterTitle || extractTitleFromMarkdown(filePath) || fileName;
+        const title =
+          options?.prefixWithUsId && frontmatterId
+            ? `US-${frontmatterId.padStart(3, '0')} ${baseTitle}`
+            : baseTitle;
 
         return {
           text: title,

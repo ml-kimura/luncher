@@ -95,6 +95,19 @@ export interface PdmUiLabels {
   condition: string;
 }
 
+/** User Stories list page labels */
+export interface UserStoriesUiLabels {
+  colUs: string;
+  colStory: string;
+  colActor: string;
+  colIntegration: string;
+  colScreenFlow: string;
+  colBatchFlow: string;
+  colApiDesign: string;
+  /** テーブル定義書（PDM）。`outputs` に `db` が付いた US で◯ */
+  colTableDef: string;
+}
+
 /**
  * Complete locale configuration
  */
@@ -122,6 +135,8 @@ export interface LocaleConfig {
   glossaryUi: GlossaryUiLabels;
   /** PDM documentation table/schema labels */
   pdmUi: PdmUiLabels;
+  /** User Stories list page labels */
+  userStoriesUi?: UserStoriesUiLabels;
   /** Feature descriptions for home page */
   featureDescriptions?: Record<string, string>;
   /** Raw features configuration from YAML */

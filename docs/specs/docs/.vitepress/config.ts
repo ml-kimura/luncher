@@ -7,7 +7,7 @@ import { localeConfigs } from './locales';
 import { discoverOpenApiSpecs, generateOpenApiSidebar, SidebarItem } from './utils/openapi';
 import { docsDir } from './utils/paths';
 import { createDirGroup, SidebarBuilderContext } from './utils/sidebar/builder';
-import { generateReleaseNotesSidebarItems } from './utils/sidebar/generators';
+import { generateDirSidebarItems, generateReleaseNotesSidebarItems } from './utils/sidebar/generators';
 import { generateGlossarySidebarItems } from './utils/sidebar/glossary-sidebar';
 import { generatePdmSidebarItems } from './utils/sidebar/pdm-sidebar';
 import { getVersions } from './utils/versions';
@@ -178,6 +178,24 @@ export default defineConfig({
               ],
             },
           ];
+
+          // User Stories section
+          if (labels.userStories) {
+            const userStoryItems = generateDirSidebarItems(
+              path.resolve(docsDir, locale, version, 'user-stories'),
+              `${base}/user-stories`,
+              { prefixWithUsId: true }
+            ).filter((item) => !(item.link ?? '').endsWith('/index'));
+            sidebar[`${base}/user-stories/`] = [
+              {
+                text: labels.userStories,
+                items: [
+                  { text: labels.overview, link: `${base}/user-stories/` },
+                  ...userStoryItems,
+                ],
+              },
+            ];
+          }
 
           // Batch section
           sidebar[`${base}/batch/`] = [

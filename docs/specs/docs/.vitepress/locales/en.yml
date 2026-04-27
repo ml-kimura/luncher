@@ -12,6 +12,11 @@ features:
     name: 'Luncher'
     text: 'Collaboration Lunch Matching Application'
     description: 'Welcome to the Luncher specifications site'
+  userStories:
+    label: 'User Stories'
+    path: 'user-stories'
+    icon: '🧩'
+    description: 'Provides user stories and execution-owner mapping (Slack / Batch / Web)'
   screen:
     label: 'Screen'
     path: 'screen'
@@ -82,6 +87,16 @@ pdmUi:
   refColumns: 'Ref Columns'
   checkExclusiveSection: 'Check and Exclusive Constraints'
   condition: 'Condition'
+
+userStoriesUi:
+  colUs: 'US'
+  colStory: 'Story'
+  colActor: 'Actor'
+  colIntegration: 'Integration'
+  colScreenFlow: 'Screen Flow'
+  colBatchFlow: 'Batch Flow'
+  colApiDesign: 'API Design'
+  colTableDef: 'Table definitions'
 
 footer:
   message: 'Released under the MIT License.'
