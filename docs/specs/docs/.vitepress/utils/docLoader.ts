@@ -9,6 +9,18 @@ export interface DocItem {
   [key: string]: string | undefined;
 }
 
+function compareDocOrder(aId: string, bId: string): number {
+  const aNum = Number(aId);
+  const bNum = Number(bId);
+  const aIsNum = Number.isFinite(aNum);
+  const bIsNum = Number.isFinite(bNum);
+
+  if (aIsNum && bIsNum) return aNum - bNum;
+  if (aIsNum) return -1;
+  if (bIsNum) return 1;
+  return aId.localeCompare(bId);
+}
+
 /**
  * Rule for extracting metadata from markdown
  */
@@ -101,7 +113,7 @@ export function loadDocsFromDir(dirPath: string, linkBase: string): DocItem[] {
 
         return docItem;
       })
-      .sort((a, b) => a.id.localeCompare(b.id));
+      .sort((a, b) => compareDocOrder(a.id, b.id));
   } catch {
     return [];
   }

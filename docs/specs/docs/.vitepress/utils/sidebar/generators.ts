@@ -4,6 +4,7 @@
  */
 
 import fs from 'fs';
+import matter from 'gray-matter';
 import path from 'path';
 import { SidebarItem } from '../openapi';
 import { compareVersions } from '../versions';
@@ -45,14 +46,40 @@ export function generateDirSidebarItems(
       .map((f) => {
         const fileName = f.name.replace(/\.md$/, '');
         const filePath = path.join(dirPath, f.name);
+        let orderKey = fileName;
+
+        try {
+          const content = fs.readFileSync(filePath, 'utf-8');
+          const { data: frontmatter } = matter(content);
+          if (frontmatter.id !== undefined) {
+            orderKey = String(frontmatter.id);
+          }
+        } catch {
+          // ignore frontmatter parse failures and fallback to filename
+        }
+
         const title = extractTitleFromMarkdown(filePath) || fileName;
 
         return {
           text: title,
           link: `${linkBase}/${fileName}`,
+          orderKey,
         };
       })
-      .sort((a, b) => a.text.localeCompare(b.text));
+      .sort((a, b) => {
+        const aNum = Number((a as SidebarItem & { orderKey?: string }).orderKey);
+        const bNum = Number((b as SidebarItem & { orderKey?: string }).orderKey);
+        const aIsNum = Number.isFinite(aNum);
+        const bIsNum = Number.isFinite(bNum);
+
+        if (aIsNum && bIsNum) return aNum - bNum;
+        if (aIsNum) return -1;
+        if (bIsNum) return 1;
+        return ((a as SidebarItem & { orderKey?: string }).orderKey || '').localeCompare(
+          (b as SidebarItem & { orderKey?: string }).orderKey || ''
+        );
+      })
+      .map(({ text, link }) => ({ text, link }));
   } catch {
     return [];
   }

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { withBase } from 'vitepress';
+
 export interface FieldDef {
   key: string;
   label: string;
@@ -15,6 +17,7 @@ export interface DocItem {
 const props = defineProps<{
   items: DocItem[];
   columns: FieldDef[];
+  linkKey?: string;
 }>();
 
 function getCellValue(item: DocItem, key: string): string {
@@ -22,7 +25,11 @@ function getCellValue(item: DocItem, key: string): string {
 }
 
 function isLinkColumn(key: string): boolean {
-  // First column (usually 'id') is rendered as a link
+  if (props.linkKey) {
+    return props.linkKey === key;
+  }
+
+  // Default: first column (usually 'id')
   return props.columns.length > 0 && props.columns[0].key === key;
 }
 </script>
@@ -50,7 +57,7 @@ function isLinkColumn(key: string): boolean {
         >
           <a
             v-if="isLinkColumn(col.key)"
-            :href="item.link"
+            :href="withBase(item.link)"
           >{{
             getCellValue(item, col.key)
           }}</a>

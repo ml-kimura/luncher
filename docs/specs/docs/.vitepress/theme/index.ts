@@ -9,6 +9,7 @@ import DocList from './components/DocList.vue';
 import MainNav from './components/MainNav.vue';
 import NavBarLink from './components/NavBarLink.vue';
 import OperationLayout from './components/OperationLayout.vue';
+import InternalLink from './components/InternalLink.vue';
 import VersionSwitcher from './components/VersionSwitcher.vue';
 import './style.css';
 
@@ -24,6 +25,7 @@ export default {
     ctx.app.component('MainNav', MainNav);
     ctx.app.component('NavBarLink', NavBarLink);
     ctx.app.component('OperationLayout', OperationLayout);
+    ctx.app.component('InternalLink', InternalLink);
   },
   setup() {
     const { site, localeIndex } = useData();

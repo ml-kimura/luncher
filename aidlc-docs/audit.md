@@ -125,3 +125,59 @@
 **Context**: INCEPTION - Planning artifacts terminology alignment
 
 ---
+
+## Workflow Planning Start
+**Timestamp**: 2026-04-27T23:31:30+09:00
+**User Input**: "Go ahead."
+**AI Response**: "User Stories 完了を確定し、Workflow Planning を開始。aidlc-state.md のステージ更新と workflow-planning.md の作成に着手。"
+**Context**: INCEPTION - Workflow Planning kickoff
+
+---
+
+## Scope Expansion: Admin Console
+**Timestamp**: 2026-04-27T23:35:30+09:00
+**User Input**: "制約変更する為の管理画面も対象範囲に含めたい"
+**AI Response**: "requirements.md / stories.md / personas.md / workflow-planning.md を更新し、制約変更管理画面を対象範囲に追加。"
+**Context**: INCEPTION - Scope refinement for governance UI
+
+---
+
+## Scope Expansion: Slack IdP Settings
+**Timestamp**: 2026-04-27T23:36:30+09:00
+**User Input**: "あと、Slack IdP の設定も管理画面で"
+**AI Response**: "requirements.md / stories.md / personas.md / workflow-planning.md を更新し、管理画面の責務に Slack IdP 設定管理を追加。"
+**Context**: INCEPTION - Scope refinement for identity configuration
+
+---
+
+## Scope Rollback: Slack IdP Settings
+**Timestamp**: 2026-04-27T23:37:30+09:00
+**User Input**: "やっぱり、Slack IdP の設定はなしで。デプロイ時に設定する。"
+**AI Response**: "Slack IdP の管理画面要件を取り下げ、デプロイ時設定方針へ変更。requirements.md / stories.md / personas.md / workflow-planning.md を再調整。"
+**Context**: INCEPTION - Scope rollback for identity configuration
+
+---
+
+## Screen Template Baseline Alignment
+**Timestamp**: 2026-04-27T23:50:30+09:00
+**User Input**: "@docs/specs/docs/ja/1.0.0/screen/design/scr-001.md 画面仕様テンプレートはこれを元に考えて。"
+**AI Response**: "requirements.md と workflow-planning.md を更新し、画面仕様テンプレートのベースラインを SCR-001 構成に統一。"
+**Context**: INCEPTION - Screen specification template alignment
+
+---
+
+## Cross-File Review and Adjustment
+**Timestamp**: 2026-04-27T23:51:30+09:00
+**User Input**: "いや。さっきのが適切かどうかのレビューも含めてやって。"
+**AI Response**: "FR-03 に N/A 記載ルールを追加してテンプレート運用を補強し、旧語『一般社員』の残存箇所を『社員、契約社員』へ横断整合。"
+**Context**: INCEPTION - Review-driven consistency fix
+
+---
+
+## FR-03 Clarification Update
+**Timestamp**: 2026-04-27T23:57:30+09:00
+**User Input**: "1. 項目一覧は、そもそも入力項目の一覧じゃない。 2. すべての一覧は、なければ無しでヘッダーだけ書けばよい。"
+**AI Response**: "FR-03 を修正し、『入力項目』を『項目一覧（表示項目含む）』に変更。非該当時は N/A 記載ではなく、見出しのみ維持する運用へ更新。"
+**Context**: INCEPTION - Screen template rule clarification
+
+---

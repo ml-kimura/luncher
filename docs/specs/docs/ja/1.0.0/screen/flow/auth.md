@@ -1,5 +1,5 @@
 ---
-id: SCR-FLW-001
+id: 1
 title: 認証フロー
 description: ログイン前後の画面遷移と、リセット・登録フローを示します。
 ---
@@ -10,7 +10,7 @@ const { theme, frontmatter } = useData()
 const section = theme.value.docSections?.screen?.flow
 </script>
 
-# SCR-FLW-001: 認証フロー
+# 認証フロー
 
 <BasicInfo
   v-if="section"

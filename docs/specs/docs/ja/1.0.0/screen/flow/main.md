@@ -1,5 +1,5 @@
 ---
-id: SCR-FLW-002
+id: 2
 title: メインフロー
 description: ホーム画面から各機能画面への遷移と、設定画面間の関係を示します。
 ---
@@ -10,7 +10,7 @@ const { theme, frontmatter } = useData()
 const section = theme.value.docSections?.screen?.flow
 </script>
 
-# SCR-FLW-002: メインフロー
+# メインフロー
 
 <BasicInfo
   v-if="section"
