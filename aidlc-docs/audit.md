@@ -53,3 +53,75 @@
 **Context**: Governance - Rule precedence and timestamp standardization
 
 ---
+
+## User Stories Stage Start
+**Timestamp**: 2026-04-27T22:43:00+09:00
+**User Input**: "User Story にすすも。"
+**AI Response**: "User Stories の必要性評価を作成し、story-generation-plan.md に質問を生成。回答待ちへ移行。"
+**Context**: INCEPTION - User Stories (Part 1 planning)
+
+---
+
+## User Stories Plan Approval Prompt
+**Timestamp**: 2026-04-27T22:43:30+09:00
+**User Input**: "User Story にすすも。"
+**AI Response**: "story-generation-plan.md への回答依頼を実施。全 [Answer] 記入後に生成フェーズへ進行予定。"
+**Context**: INCEPTION - User Stories (awaiting plan input)
+
+---
+
+## User Stories Answer Validation
+**Timestamp**: 2026-04-27T23:04:00+09:00
+**User Input**: "記入した"
+**AI Response**: "story-generation-plan.md の回答を検証し、曖昧回答（Q1/Q3）を解消するため clarification 質問票を作成。"
+**Context**: INCEPTION - User Stories (ambiguity detection gate)
+
+---
+
+## User Stories Clarification Received
+**Timestamp**: 2026-04-27T23:06:00+09:00
+**User Input**: "書いた"
+**AI Response**: "clarification 回答を反映し、User Stories 生成（personas.md / stories.md）を実施。"
+**Context**: INCEPTION - User Stories (Part 2 generation)
+
+---
+
+## User Stories Completion Prompt
+**Timestamp**: 2026-04-27T23:06:30+09:00
+**User Input**: "書いた"
+**AI Response**: "生成完了メッセージとレビュー依頼を提示し、Workflow Planning への承認待ちに移行。"
+**Context**: INCEPTION - User Stories approval gate
+
+---
+
+## User Stories Change Request
+**Timestamp**: 2026-04-27T23:11:00+09:00
+**User Input**: "店舗の提案はあくまで提案なので、コラボランチのマッチングには無関係。幹事も存在しない。あくまでランチ時に支払を行ったものが、システムを通じてコラボランチ申請するだけ。"
+**AI Response**: "personas.md / stories.md を修正し、(1) 店舗提案はマッチング非依存、(2) 幹事ロール削除、(3) 支払実行者による事後申請モデルへ更新。"
+**Context**: INCEPTION - User Stories requested revisions
+
+---
+
+## Constraints Update Request
+**Timestamp**: 2026-04-27T23:15:30+09:00
+**User Input**: "あと制約として１名あたり月２回までを追加。"
+**AI Response**: "requirements.md に月次申請上限制約（FR-06）を追加し、stories.md の申請関連受け入れ条件へ『1名あたり月2回まで』を反映。"
+**Context**: INCEPTION - Requirements/User Stories constraint refinement
+
+---
+
+## Persona Scope Revision Request
+**Timestamp**: 2026-04-27T23:19:00+09:00
+**User Input**: "承認者いらない。このシステムの対象外。あくまでマッチングと別システムへの申請補助まで。代わりにシステム管理者を追加して、制約など変更できるように。"
+**AI Response**: "personas.md / stories.md / requirements.md を修正し、承認者を対象外に変更。システム管理者ロールを明示し、制約変更（有効日付き・履歴管理）要件を追加。"
+**Context**: INCEPTION - User Stories/Requirements scope correction
+
+---
+
+## Legacy Wording Alignment
+**Timestamp**: 2026-04-27T23:23:30+09:00
+**User Input**: "適合させて"
+**AI Response**: "story-generation-plan.md / story-generation-clarification-questions.md の旧ロール表記（幹事/承認者/支払担当者）を、現行定義（ランチ申請者（支払実行者）/システム管理者）へ整合。"
+**Context**: INCEPTION - Planning artifacts terminology alignment
+
+---
