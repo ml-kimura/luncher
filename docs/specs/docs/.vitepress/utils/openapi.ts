@@ -8,6 +8,15 @@ import yaml from 'js-yaml';
 import path from 'path';
 import { createOpenApiSpec, useSidebar } from 'vitepress-openapi';
 
+import { publicDir } from './paths';
+
+function openapiLayoutDirs(version: string) {
+  return {
+    versioned: path.join(publicDir, version, 'openapi'),
+    shared: path.join(publicDir, 'openapi'),
+  } as const;
+}
+
 /**
  * Sidebar item type (matches VitePress sidebar structure)
  */
@@ -34,23 +43,17 @@ export interface OpenApiSpec {
   spec: Record<string, unknown>;
 }
 
-function resolveOpenApiSourcePath(
-  docsDir: string,
-  version: string,
-  fileName: string
-): string | null {
-  const publicDir = path.resolve(docsDir, '..', 'public');
-  const versionedOpenApiDir = path.join(publicDir, version, 'openapi');
-  const sharedOpenApiDir = path.join(publicDir, 'openapi');
+function resolveOpenApiSourcePath(version: string, fileName: string): string | null {
+  const { versioned, shared } = openapiLayoutDirs(version);
 
-  if (fs.existsSync(versionedOpenApiDir)) {
-    const versionedFilePath = path.join(versionedOpenApiDir, fileName);
+  if (fs.existsSync(versioned)) {
+    const versionedFilePath = path.join(versioned, fileName);
     if (fs.existsSync(versionedFilePath)) {
       return versionedFilePath;
     }
   }
 
-  const sharedFilePath = path.join(sharedOpenApiDir, fileName);
+  const sharedFilePath = path.join(shared, fileName);
   if (fs.existsSync(sharedFilePath)) {
     return sharedFilePath;
   }
@@ -83,25 +86,18 @@ function listOpenApiFileNames(dirPath: string): string[] {
  * Discover all OpenAPI spec files in a version's api directory
  * Files should be named 'openapi-xxx.yml' where xxx is the identifier
  */
-export function discoverOpenApiSpecs(
-  docsDir: string,
-  version: string,
-  locale = ''
-): OpenApiSpec[] {
-  void locale;
+export function discoverOpenApiSpecs(version: string): OpenApiSpec[] {
   const specs: OpenApiSpec[] = [];
-  const publicDir = path.resolve(docsDir, '..', 'public');
-  const versionedOpenApiDir = path.join(publicDir, version, 'openapi');
-  const sharedOpenApiDir = path.join(publicDir, 'openapi');
+  const { versioned, shared } = openapiLayoutDirs(version);
 
   const fileNames = new Set<string>([
-    ...listOpenApiFileNames(sharedOpenApiDir),
-    ...listOpenApiFileNames(versionedOpenApiDir),
+    ...listOpenApiFileNames(shared),
+    ...listOpenApiFileNames(versioned),
   ]);
 
   for (const fileName of fileNames) {
     const id = fileName.replace(/^openapi-/, '').replace(/\.yml$/, '');
-    const filePath = resolveOpenApiSourcePath(docsDir, version, fileName);
+    const filePath = resolveOpenApiSourcePath(version, fileName);
     if (!filePath) {
       continue;
     }
@@ -125,12 +121,8 @@ export function discoverOpenApiSpecs(
  * Generate OpenAPI sidebar items for multiple specs
  * Each spec becomes a collapsible group with tag-based subgroups
  */
-export function generateOpenApiSidebar(
-  docsDir: string,
-  version: string,
-  locale: string
-): SidebarItem[] {
-  const specs = discoverOpenApiSpecs(docsDir, version, locale);
+export function generateOpenApiSidebar(version: string, locale: string): SidebarItem[] {
+  const specs = discoverOpenApiSpecs(version);
   const prefix = `/${locale}`;
 
   return specs.map((specInfo) => {

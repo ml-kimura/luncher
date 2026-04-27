@@ -122,7 +122,7 @@ export default defineConfig({
           sidebar[`${base}/`] = [];
 
           // API section
-          const apiSidebarItems = generateOpenApiSidebar(docsDir, version, locale);
+          const apiSidebarItems = generateOpenApiSidebar(version, locale);
           sidebar[`${base}/api/`] = [
             {
               text: labels.api,
@@ -142,7 +142,7 @@ export default defineConfig({
           // API spec pages (/api/${spec.id}/ and /api/${spec.id}/operations/)
           // Each spec page shows sidebar with all API specs, where operations links
           // are generated from the swagger file for that specific spec
-          const specs = discoverOpenApiSpecs(docsDir, version, locale);
+          const specs = discoverOpenApiSpecs(version);
           for (const spec of specs) {
             const specSidebarItems: SidebarItem[] = [
               {

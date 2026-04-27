@@ -57,7 +57,7 @@ export default {
     for (const locale of allLocales) {
       const localeVersions = getVersions(docsDir, locale);
       for (const version of localeVersions) {
-        const specs = discoverOpenApiSpecs(docsDir, version, locale);
+        const specs = discoverOpenApiSpecs(version);
 
         for (const specInfo of specs) {
           const operations = getOperationsFromSpec(specInfo.spec as OpenAPISpec);

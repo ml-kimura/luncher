@@ -16,24 +16,7 @@ const section = theme.value.docSections?.screen?.design
 
 ## レイアウト
 
-```mermaid
-block-beta
-    columns 1
-    block:header
-        Header["ヘッダー"]
-    end
-    block:main
-        columns 3
-        space Logo["ロゴ"] space
-        space Email["メールアドレス"] space
-        space Password["パスワード"] space
-        space LoginBtn["ログイン"] space
-        space ForgotLink["パスワードをお忘れですか？"] space
-    end
-    block:footer
-        Footer["フッター"]
-    end
-```
+![ログイン画面のレイアウト](login.png)
 
 <BasicInfo
   v-if="section"

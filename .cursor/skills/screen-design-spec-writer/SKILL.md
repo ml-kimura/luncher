@@ -22,8 +22,8 @@ description: Standardizes screen design documents under docs/specs/docs/ja/{vers
 - ファイル名は Next.js の Route 名 + `.md` とする（例: `/login` -> `login.md`）。
 
 1. Frontmatter (`id`, `title`, `url`, `auth`)
-2. `# {Next.js Route}: 画面名`
-3. `## レイアウト`
+2. `# {Next.js Route}: 画面名`（例: ログイン画面）
+3. `## レイアウト` — **Markdown 画像**（`![alt](相対パス)`）で示す。**画像は 1 枚以上必須**（複数可）。**ファイル名を `.md` と揃える必要はない**（拡張子は PNG 等、運用に合わせる）。
 4. `BasicInfo` ブロック
 5. `## 項目一覧`
 6. `## イベント`
@@ -96,9 +96,16 @@ description: Standardizes screen design documents under docs/specs/docs/ja/{vers
 
 - エラーコードは `screen/messages.html` の該当アンカーへリンクする
 
+## Layout (レイアウト)
+
+- 画面の見た目の根拠は **画像**（通常は `screen/design` と同じ階層の相対パスで参照）。**1 枚以上必須**（複数枚可）。
+- **画像ファイル名を `.md` ファイル名と同じにする必要はない**（例: `login.png` だけに限らない）。
+- 要件定義（`requirements.md` FR-03）の画面可視化は、本リポジトリの ja では **画像埋め込み**で満たす。
+
 ## Editing Checklist
 
 - [ ] セクション順が揃っている
+- [ ] `## レイアウト` に **Markdown 画像**（`![...](...)`）が **1 枚以上ある**（2 枚目以降・参照先のファイル名は画面ごとに任意）
 - [ ] `id` の重複がない
 - [ ] 途中挿入時に既存ファイルの `id` を必要に応じて振り直している
 - [ ] `項目一覧` の列が固定順で揃っている

@@ -27,7 +27,7 @@ export function extractLocaleVersion(pathname: string): LocaleVersionContext | n
 /**
  * Resolve a URL from a path relative to `{locale}/{version}`.
  * Example:
- * - currentPath: /specs/ja/1.0.0/screen/design/scr-001.html
+ * - currentPath: /specs/ja/1.0.0/screen/design/login.html
  * - fromVersionPath: screen/messages.html#E001
  * - result: /specs/ja/1.0.0/screen/messages.html#E001
  */
