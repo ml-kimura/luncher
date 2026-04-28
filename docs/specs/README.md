@@ -46,19 +46,20 @@ VitePressで構築されたドキュメントサイトです。
 |     |           └── screen/             # 画面設計
 |     |                 ├── design/       # 画面設計詳細
 |     |                 └── flow/         # 画面フロー
-|     ├── shared/                         # 共有リソース（用語集、メッセージなど）
-|     |     └── 1.0.0/                    # バージョン別共有リソース
-|     |           ├── batch/              # バッチ関連メッセージ
-|     |           |     └── messages.yml
-|     |           ├── database/           # データベース定義
-|     |           |     └── table/        # テーブル定義
-|     |           ├── glossary.yml        # 用語集
-|     |           └── screen/             # 画面関連メッセージ
-|     |                 └── messages.yml
-|     ├── public/                         # 静的ファイル（画像、ダイアグラムなど）
+|     ├── public/                         # 共有リソース（用語集、メッセージなど）
+|     |     ├── 1.0.0/                    # バージョン別共有リソース
+|     |     |     ├── batch/              # バッチ関連メッセージ
+|     |     |     |     └── messages.yml
+|     |     |     ├── database/           # データベース定義
+|     |     |     |     └── table/        # テーブル定義
+|     |     |     ├── glossary.yml        # 用語集
+|     |     |     └── screen/             # 画面関連メッセージ
+|     |     |           └── messages.yml
 |     |     ├── cover.png                 # カバー画像
-|     |     ├── erd                       # Liam ERD (pnpm db:erd コマンドで packages/db/src/schema.ts から出力)
-|     |     └── diagrams/                 # ダイアグラム（Mermaid生成SVGなど）
+|     |     ├── batcn/                    # バッチ
+|     |     ├── database/                 # バッチ
+|     |     ├── erd/                      # Liam ERD (pnpm db:erd コマンドで packages/db/src/schema.ts から出力)
+|     |     └── openapi/                  # ダイアグラム（Mermaid生成SVGなど）
 |     └── index.md                        # ルートページ
 ├── .devcontainer/                        # Dev Container設定
 ├── .husky/                               # Gitフック設定
