@@ -7,6 +7,42 @@
 
 ---
 
+## AI セルフレビュー／セルフマージ禁止ルール追加
+
+**Timestamp**: 2026-04-28T20:08:00+09:00
+**User Input**: "その代わりAIがセルフレビュー、マージをしないようにルールに追加して。"
+**AI Response**: "`.cursor/rules/project-standards.mdc` に『AI Review and Merge Restriction』を追加し、(1) AIのセルフ承認禁止、(2) 明示依頼なしマージ禁止、(3) 保護ルール回避禁止を明文化。"
+**Context**: Governance - AI operation policy hardening
+
+---
+
+## Husky フックを公式ドキュメント形式へ統一
+
+**Timestamp**: 2026-04-28T20:05:00+09:00
+**User Input**: "公式ドキュメント通りに"
+**AI Response**: "`.husky/pre-commit`・`.husky/commit-msg`・`.husky/pre-push` から shebang 行を削除し、Husky公式に沿った『コマンドのみ』形式へ統一。"
+**Context**: Tooling - Git hooks format alignment
+
+---
+
+## Husky pre-commit / commit-msg 追加
+
+**Timestamp**: 2026-04-28T20:04:00+09:00
+**User Input**: "いれて"
+**AI Response**: "`.husky/pre-commit`（`pnpm lint-staged`）と `.husky/commit-msg`（`pnpm commitlint --edit \"$1\"`）を追加し、実行権限を付与。あわせて `commitlint.config.cjs` を追加して conventional commit ルールを有効化。"
+**Context**: Tooling - Git hooks configuration
+
+---
+
+## Husky pre-push に test を追加
+
+**Timestamp**: 2026-04-28T20:03:00+09:00
+**User Input**: "pre-push の pnpm test はいれて"
+**AI Response**: "Husky 現行スタイルで `.husky/pre-push` を追加し、`pnpm test` を実行するフックを設定。実行権限を付与（chmod +x）。"
+**Context**: Tooling - Git hooks configuration
+
+---
+
 ## batch メッセージ並び順の整理
 
 **Timestamp**: 2026-04-28T17:01:00+09:00
