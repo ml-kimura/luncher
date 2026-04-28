@@ -8,8 +8,8 @@ locals {
 
 env "local" {
   src   = local.src
-  dev   = "postgres://${getenv("POSTGRES_USER")}:${getenv("POSTGRES_PASSWORD")}@db:5432/${getenv("ATLAS_DEV_DB")}?search_path=${getenv("DB_SCHEMA")}&sslmode=disable"
-  url   = "postgres://${getenv("POSTGRES_USER")}:${getenv("POSTGRES_PASSWORD")}@db:5432/${getenv("POSTGRES_DB")}?search_path=${getenv("DB_SCHEMA")}&sslmode=disable"
+  dev   = getenv("ATLAS_DEV_URL")
+  url   = getenv("DATABASE_URL")
   migration {
     dir = local.migration_dir
   }

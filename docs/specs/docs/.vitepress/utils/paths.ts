@@ -7,11 +7,6 @@ import path from 'path';
 export const docsDir = path.resolve(import.meta.dirname, '../..');
 
 /**
- * Shared directory
- */
-export const sharedDir = path.resolve(docsDir, 'shared');
-
-/**
  * Public directory
  */
 export const publicDir = path.resolve(docsDir, 'public');

@@ -11,22 +11,11 @@ const publicErd = path.join(pkgRoot, '../../docs/specs/docs/public/erd');
 process.stdout.write(`\nGenerating ERD to ${tmpErd}...\n`);
 execFileSync(
   'pnpm',
-  [
-    'exec',
-    'liam',
-    'erd',
-    'build',
-    '--input',
-    'src/schema.ts',
-    '--format',
-    'drizzle',
-    '--output-dir',
-    tmpErd,
-  ],
+  ['exec', 'liam', 'erd', 'build', '--input', 'src/schema.ts', '--format', 'drizzle', '--output-dir', tmpErd],
   {
     cwd: pkgRoot,
     stdio: 'inherit',
-  },
+  }
 );
 
 fs.mkdirSync(path.dirname(publicErd), { recursive: true });

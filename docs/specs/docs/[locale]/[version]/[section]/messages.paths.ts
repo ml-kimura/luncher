@@ -19,7 +19,12 @@ interface MessagesYaml {
 }
 
 function loadMessagesYaml(version: string, section: Section): MessagesYaml | null {
-  const yamlPath = path.resolve(docsDir, 'shared', version, section, 'messages.yml');
+  const versionedPath = path.resolve(docsDir, 'public', version, section, 'messages.yml');
+  const defaultPath =
+    section === 'batch'
+      ? path.resolve(docsDir, '..', '..', '..', 'apps', 'batch', 'messages.yml')
+      : path.resolve(docsDir, 'public', section, 'messages.yml');
+  const yamlPath = fs.existsSync(versionedPath) ? versionedPath : defaultPath;
 
   if (!fs.existsSync(yamlPath)) {
     return null;

@@ -1,12 +1,4 @@
-import {
-  existsSync,
-  readdirSync,
-  readFileSync,
-  rmSync,
-  statSync,
-  unlinkSync,
-  writeFileSync,
-} from 'node:fs';
+import { existsSync, readdirSync, readFileSync, rmSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 // Add header comment to relations.ts if it doesn't exist
@@ -27,7 +19,7 @@ if (existsSync(relationsPath)) {
  * @example
  * \`\`\`typescript
  * import { relations } from "drizzle-orm/relations";
- * import { users, posts } from "./schema.ts";
+ * import { users, posts } from "./schema.js";
  *
  * export const usersRelations = relations(users, ({ one, many }) => ({
  *   posts: many(posts),
@@ -45,10 +37,7 @@ if (existsSync(relationsPath)) {
 `;
 
     // Fix import path if needed
-    const fixedContent = content.replace(
-      /from ['"]\.\/schema['"]/g,
-      'from "./schema.ts"'
-    );
+    const fixedContent = content.replace(/from ['"]\.\/schema['"]/g, 'from "./schema.js"');
 
     // Prepend header comment
     const newContent = headerComment + fixedContent;
@@ -56,10 +45,7 @@ if (existsSync(relationsPath)) {
     process.stdout.write('✓ Added header comment to relations.ts\n');
   } else {
     // Just fix import path if comment already exists
-    const fixedContent = content.replace(
-      /from ['"]\.\/schema['"]/g,
-      'from "./schema.ts"'
-    );
+    const fixedContent = content.replace(/from ['"]\.\/schema['"]/g, 'from "./schema.js"');
     if (fixedContent !== content) {
       writeFileSync(relationsPath, fixedContent);
       process.stdout.write('✓ Fixed import path in relations.ts\n');

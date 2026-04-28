@@ -1,0 +1,46 @@
+# Batch messages configuration (source of truth)
+messages:
+  - code: I-BAT-001
+    message:
+      ja: 'バッチ処理が正常に開始されました'
+      en: 'Batch process started successfully'
+  - code: I-BAT-002
+    message:
+      ja: 'バッチ処理が正常に完了しました'
+      en: 'Batch process completed successfully'
+  - code: I-BAT-103
+    message:
+      ja: '本日({lunchDate})のコラボランチ参加者を募集します。参加する方はこの投稿にリアクションしてください。'
+      en: 'Recruiting collaborative lunch participants for {lunchDate}. React to this message to join.'
+  - code: I-BAT-104
+    message:
+      ja: '日次コラボランチ案内の投稿に成功しました'
+      en: 'Daily collaborative lunch announcement posted successfully'
+  - code: W-BAT-001
+    message:
+      ja: '処理対象データが見つかりませんでした'
+      en: 'No data found for processing'
+  - code: W-BAT-002
+    message:
+      ja: '一部のレコードがスキップされました'
+      en: 'Some records were skipped'
+  - code: W-BAT-103
+    message:
+      ja: '既に案内済みのため、当日の募集メッセージを重複投稿しませんでした'
+      en: 'Skipped duplicate announcement for the same day'
+  - code: E-BAT-001
+    message:
+      ja: 'データベース接続エラーが発生しました。{error}'
+      en: 'Database connection error occurred. {error}'
+  - code: E-BAT-002
+    message:
+      ja: 'ファイルの読み込みに失敗しました。{error}'
+      en: 'Failed to read file. {error}'
+  - code: E-BAT-103
+    message:
+      ja: 'Slack API 呼び出しに失敗しました。{error}'
+      en: 'Slack API call failed. {error}'
+  - code: F-BAT-001
+    message:
+      ja: 'システムエラーによりバッチ処理が中断されました'
+      en: 'Batch process aborted due to system error'

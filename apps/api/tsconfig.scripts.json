@@ -1,0 +1,12 @@
+{
+  "extends": "@packages/tsconfig/node",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist-scripts",
+    "noEmit": true
+  },
+  "include": [
+    "scripts/**/*.ts",
+    "src/**/*.ts"
+  ]
+}

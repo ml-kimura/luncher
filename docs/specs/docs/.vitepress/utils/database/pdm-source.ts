@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
-const SHARED_DB_ROOT = ['shared'];
+const PUBLIC_DB_ROOT = ['public'];
 const ATLAS_DB_ROOT = ['..', '..', '..', 'packages', 'db', 'atlas'];
 
-export type PdmSourceKind = 'shared' | 'atlas';
+export type PdmSourceKind = 'public' | 'atlas';
 
 export interface PdmSource {
   kind: PdmSourceKind;
@@ -14,7 +14,7 @@ export interface PdmSource {
 /**
  * Resolve PDM source for a version.
  * - **正本**: `packages/db/atlas`（実装中のスキーマと一致させる HCL）
- * - **退避用**: `docs/shared/<version>/database` は新バージョン作業時に当該版のスナップショットを置く想定。ディレクトリがあっても **atlas を優先** し、atlas が無い場合のみ shared を使う
+ * - **退避用**: `docs/public/<version>/database` は新バージョン作業時に当該版のスナップショットを置く想定。ディレクトリがあっても **atlas を優先** し、atlas が無い場合のみ public を使う
  */
 export function resolvePdmSource(docsDir: string, version: string): PdmSource {
   const atlasDir = path.resolve(docsDir, ...ATLAS_DB_ROOT);
@@ -25,11 +25,11 @@ export function resolvePdmSource(docsDir: string, version: string): PdmSource {
     };
   }
 
-  const sharedDbDir = path.join(docsDir, ...SHARED_DB_ROOT, version, 'database');
-  if (fs.existsSync(sharedDbDir)) {
+  const publicDbDir = path.join(docsDir, ...PUBLIC_DB_ROOT, version, 'database');
+  if (fs.existsSync(publicDbDir)) {
     return {
-      kind: 'shared',
-      rootDir: sharedDbDir,
+      kind: 'public',
+      rootDir: publicDbDir,
     };
   }
 
@@ -61,7 +61,7 @@ function listHclFilesRecursively(dir: string): string[] {
 
 /**
  * Get HCL files for a given objectType from resolved source.
- * Shared source supports all object types in per-type directories.
+ * Public source supports all object types in per-type directories.
  * Atlas fallback currently supports table objects from atlas/tables.
  */
 export function getObjectTypeHclFiles(docsDir: string, version: string, objectType: string): string[] {

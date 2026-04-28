@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { stringify } from "yaml";
-import { createApp } from "./app.js";
+import { createApp } from "../src/app.js";
 
 const app = createApp();
 

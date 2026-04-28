@@ -11,6 +11,28 @@
 		"ghcr.io/devcontainers/features/github-cli:1.1.0": {}
 	},
 	"postCreateCommand": "bash .devcontainer/post-create-command.sh",
+	"forwardPorts": [
+		3000,
+		8787
+	],
+	"portsAttributes": {
+		"3000": {
+			"label": "Web",
+			"onAutoForward": "always"
+		},
+		"8787": {
+			"label": "API",
+			"onAutoForward": "always"
+		},
+		"13000": {
+			"label": "Web Container",
+			"onAutoForward": "never"
+		},
+		"18787": {
+			"label": "API Container",
+			"onAutoForward": "never"
+		}
+	},
 	"customizations": {
 		"vscode": {
 			"extensions": [

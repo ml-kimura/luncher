@@ -30,7 +30,7 @@ export function uncategorizedLabel(locale: string): string {
 }
 
 export function resolveGlossaryYamlPath(docsDir: string, version: string): string {
-  return path.join(docsDir, 'shared', version, 'glossary.yml');
+  return path.join(docsDir, 'public', version, 'glossary.yml');
 }
 
 /**
