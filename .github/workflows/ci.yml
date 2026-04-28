@@ -10,6 +10,8 @@ jobs:
   lint:
     name: lint
     runs-on: ubuntu-latest
+    env:
+      BASE_REF: ${{ github.base_ref || github.ref_name }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -22,8 +24,8 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: git fetch origin main --depth=1
-      - run: pnpm lint-staged --diff="origin/main...HEAD"
+      - run: git fetch origin "$BASE_REF" --depth=1
+      - run: pnpm lint-staged --diff="origin/$BASE_REF...HEAD"
 
   test:
     name: test
