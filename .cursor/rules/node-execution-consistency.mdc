@@ -1,0 +1,29 @@
+---
+description: Prevent Node version mismatch in agent-run commands
+alwaysApply: true
+---
+
+# Node Execution Consistency
+
+This rule prevents environment mismatch between user and agent execution.
+
+## Default execution policy
+
+Always execute shell commands with system Node path priority:
+- `export PATH="/usr/local/bin:$PATH"`
+
+Do this from the beginning, not only after mismatch is detected.
+
+## How to run commands safely
+
+- For commands affected by Node version (pnpm, turbo, npm scripts, git hooks), apply the PATH override first in the same command invocation.
+- Prefer command form such as:
+  - `export PATH="/usr/local/bin:$PATH" && <command>`
+
+## Push / PR safety check
+
+Immediately before `git push` or `gh pr create`, re-run:
+- `which node`
+- `node -v`
+
+If mismatch is still detected, stop and correct the command invocation before proceeding.
