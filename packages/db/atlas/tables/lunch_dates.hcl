@@ -67,6 +67,7 @@ table "lunch_dates" {
   column "created_at" {
     type = sql("timestamptz")
     null = false
+    default = sql("current_timestamp")
     comment = <<-JSON
     {
       "logical_name": "作成日時",
@@ -84,6 +85,7 @@ table "lunch_dates" {
   column "updated_at" {
     type = sql("timestamptz")
     null = false
+    default = sql("current_timestamp")
     comment = <<-JSON
     {
       "logical_name": "更新日時",

@@ -1,5 +1,115 @@
 {
-  "tables": {},
+  "tables": {
+    "lunch_dates": {
+      "name": "lunch_dates",
+      "columns": {
+        "lunchDate": {
+          "name": "lunch_date",
+          "type": "date",
+          "default": null,
+          "notNull": true,
+          "comment": null,
+          "check": null
+        },
+        "slackMessageTs": {
+          "name": "slack_message_ts",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "comment": null,
+          "check": null
+        },
+        "slackChannelId": {
+          "name": "slack_channel_id",
+          "type": "text",
+          "default": null,
+          "notNull": false,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": null,
+          "notNull": true,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "default": null,
+          "notNull": true,
+          "comment": null,
+          "check": null
+        }
+      },
+      "constraints": {
+        "PRIMARY_lunch_date": {
+          "type": "PRIMARY KEY",
+          "name": "PRIMARY_lunch_date",
+          "columnNames": ["lunch_date"]
+        }
+      },
+      "indexes": {
+        "lunch_dates_pkey": {
+          "name": "lunch_dates_pkey",
+          "columns": ["lunch_date"],
+          "unique": true,
+          "type": ""
+        }
+      },
+      "comment": null
+    },
+    "system_configs": {
+      "name": "system_configs",
+      "columns": {
+        "configKey": {
+          "name": "config_key",
+          "type": "text",
+          "default": null,
+          "notNull": true,
+          "comment": null,
+          "check": null
+        },
+        "effectiveFrom": {
+          "name": "effective_from",
+          "type": "date",
+          "default": null,
+          "notNull": true,
+          "comment": null,
+          "check": null
+        },
+        "configValue": {
+          "name": "config_value",
+          "type": "jsonb",
+          "default": null,
+          "notNull": true,
+          "comment": null,
+          "check": null
+        },
+        "createdAt": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": null,
+          "notNull": true,
+          "comment": null,
+          "check": null
+        },
+        "updatedAt": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "default": null,
+          "notNull": true,
+          "comment": null,
+          "check": null
+        }
+      },
+      "constraints": {},
+      "indexes": {},
+      "comment": null
+    }
+  },
   "enums": {},
   "extensions": {}
 }
