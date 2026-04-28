@@ -18,6 +18,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "check-types": "tsc --noEmit -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint . --cache --cache-location node_modules/.cache/eslint",
     "lint:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint",
     "format": "prettier --write ."
@@ -31,6 +34,8 @@
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
+    "vitest": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:"
   }

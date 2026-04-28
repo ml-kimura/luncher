@@ -16,6 +16,9 @@
     "db:apply": "atlas migrate apply --env ${ATLAS_ENV:-local}",
     "db:status": "atlas migrate status --env ${ATLAS_ENV:-local}",
     "db:erd": "tsx scripts/erd.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint . --cache --cache-location node_modules/.cache/eslint",
     "lint:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint",
     "format": "prettier --write ."
@@ -36,6 +39,8 @@
     "eslint": "catalog:",
     "prettier": "catalog:",
     "tsx": "catalog:",
+    "vitest": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:"
   }
