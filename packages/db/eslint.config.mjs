@@ -3,13 +3,7 @@ import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
   {
-    ignores: [
-      'dist/**',
-      'node_modules/**',
-      'src/relations.ts',
-      'src/schema.ts',
-      'eslint.config.mjs',
-    ],
+    ignores: ['dist/**', 'node_modules/**', 'src/relations.ts', 'src/schema.ts', 'eslint.config.mjs'],
   },
   ...baseConfig,
   {
@@ -17,7 +11,7 @@ export default defineConfig([
     languageOptions: {
       parserOptions: {
         projectService: false,
-        project: ['./tsconfig.build.json', './tsconfig.scripts.json'],
+        project: ['./tsconfig.eslint.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },
