@@ -10,8 +10,8 @@ messages:
       en: 'Batch process completed successfully'
   - code: I-BAT-103
     message:
-      ja: '本日({lunchDate})のコラボランチ参加者を募集します。参加する方はこの投稿にリアクションしてください。'
-      en: 'Recruiting collaborative lunch participants for {lunchDate}. React to this message to join.'
+      ja: 'バッチ処理が異常終了しました'
+      en: 'Batch process aborted due to error'
   - code: I-BAT-104
     message:
       ja: '日次コラボランチ案内の投稿に成功しました'
@@ -36,7 +36,11 @@ messages:
     message:
       ja: 'ファイルの読み込みに失敗しました。{error}'
       en: 'Failed to read file. {error}'
-  - code: E-BAT-103
+  - code: E-BAT-003
+    message:
+      ja: 'テンプレートが見つかりませんでした。{id}'
+      en: 'Template not found. {id}'
+  - code: E-BAT-004
     message:
       ja: 'Slack API 呼び出しに失敗しました。{error}'
       en: 'Slack API call failed. {error}'
