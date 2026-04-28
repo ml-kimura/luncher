@@ -66,3 +66,11 @@ alwaysApply: true
 - **NEVER** attempt to add commits to a pull request that is already merged or closed.
 - Before any push intended for an existing PR, verify the PR state is open. If the PR is merged/closed, create a new branch and a new PR instead.
 - If uncertain which PR is active for a branch, check explicitly and confirm with the user before pushing.
+
+## 11) Dependency and Lockfile Consistency
+
+- Any dependency manifest change (`package.json`, `pnpm-workspace.yaml`, catalog/version pins, or lock-related CI settings) MUST be validated with lockfile consistency before commit.
+- When dependencies are intentionally updated, update and commit `pnpm-lock.yaml` in the same change set. Do not split manifest and lockfile updates across separate commits/PRs unless explicitly requested.
+- Before push/PR, run `pnpm install --frozen-lockfile` at repository root. If it fails, stop and fix consistency before proceeding.
+- For PRs that only change GitHub Actions/tooling, avoid introducing package-manager version drift. Keep CI pnpm version aligned with root `packageManager` unless the user explicitly requests a version change.
+- If lockfile inconsistency is detected in unrelated existing changes, report it clearly to the user and do not mask it with bypasses (`--no-frozen-lockfile`, disabling checks, or weakening required status checks) without explicit approval.
