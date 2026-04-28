@@ -16,7 +16,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@hono/node-server": "^1.14.0",
+    "@hono/node-server": "^2.0.0",
     "@hono/zod-openapi": "^1.3.0",
     "@packages/logger": "workspace:*",
     "hono": "^4.7.0",
