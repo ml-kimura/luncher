@@ -7,6 +7,15 @@
 
 ---
 
+## CI整備の仕上げ（Dependabot / PRテンプレート）
+
+**Timestamp**: 2026-04-28T20:35:00+09:00
+**User Input**: "dependabot も追加しつつ仕上げて"
+**AI Response**: "CI整備の残作業として `.github/PULL_REQUEST_TEMPLATE.md` と `.github/dependabot.yml` を追加。既存の CI/commit-check workflow と Husky 構成（pre-commit の branch check + lint-staged）を含めてブランチで仕上げる準備を実施。"
+**Context**: Tooling - CI/GitHub automation finalization
+
+---
+
 ## AI セルフレビュー／セルフマージ禁止ルール追加
 
 **Timestamp**: 2026-04-28T20:08:00+09:00
