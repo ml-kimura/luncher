@@ -2,8 +2,9 @@ ARG VARIANT=24.14-bookworm-slim
 FROM node:${VARIANT} AS atlas-base
 
 ARG ATLAS_VERSION
-ARG PLAYWRIGHT_VERSION
 ARG GITLEAKS_VERSION
+ARG PLAYWRIGHT_VERSION
+ARG POSTGRES_VERSION
 
 ENV DEBIAN_FRONTEND=noninteractive 
 ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
@@ -38,12 +39,17 @@ FROM atlas-base AS workspace
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
-      sudo \
-      openssh-client \
-      git \
-      vim \
-      fonts-noto-cjk \
-      tar \
+    postgresql-common \
+ && YES=yes /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh \
+ && apt-get update \
+ && apt-get install -y --no-install-recommends \
+    sudo \
+    openssh-client \
+    git \
+    vim \
+    fonts-noto-cjk \
+    tar \
+    postgresql-client-${POSTGRES_VERSION} \
  && printf '%s\n' \
     'set encoding=utf-8' \
     'set fileencoding=utf-8' \

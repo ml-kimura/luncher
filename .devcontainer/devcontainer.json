@@ -27,7 +27,7 @@
 			{
 				"name": "luncher-db",
 				"driver": "PostgreSQL",
-				"server": "127.0.0.1",
+				"server": "db",
 				"port": 5432,
 				"database": "myapp",
 				"username": "postgres",

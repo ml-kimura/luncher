@@ -10,12 +10,12 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "check-types": "tsc --noEmit",
-    "db:pull": "drizzle-kit pull && tsx fix-drizzle.ts && prettier --write \"**/*.ts\"",
+    "check-types": "tsc --noEmit -p tsconfig.build.json && tsc --noEmit -p tsconfig.scripts.json",
+    "db:pull": "drizzle-kit pull && tsx scripts/fix-drizzle.ts && prettier --write \"**/*.ts\"",
     "db:diff": "atlas migrate diff --env local",
     "db:apply": "atlas migrate apply --env ${ATLAS_ENV:-local}",
     "db:status": "atlas migrate status --env ${ATLAS_ENV:-local}",
-    "db:erd": "tsx erd.ts",
+    "db:erd": "tsx scripts/erd.ts",
     "lint": "eslint . --cache --cache-location node_modules/.cache/eslint",
     "lint:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint",
     "format": "prettier --write ."
@@ -25,6 +25,7 @@
     "pg": "^8.20.0"
   },
   "devDependencies": {
+    "@liam-hq/cli": "^0.7.24",
     "@eslint/js": "catalog:",
     "@packages/eslint-config": "workspace:*",
     "@packages/tsconfig": "workspace:*",

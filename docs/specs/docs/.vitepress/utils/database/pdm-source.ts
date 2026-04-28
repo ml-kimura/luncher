@@ -13,10 +13,18 @@ export interface PdmSource {
 
 /**
  * Resolve PDM source for a version.
- * - Prefer docs/shared/<version>/database when present
- * - Fallback to packages/db/atlas otherwise
+ * - **正本**: `packages/db/atlas`（実装中のスキーマと一致させる HCL）
+ * - **退避用**: `docs/shared/<version>/database` は新バージョン作業時に当該版のスナップショットを置く想定。ディレクトリがあっても **atlas を優先** し、atlas が無い場合のみ shared を使う
  */
 export function resolvePdmSource(docsDir: string, version: string): PdmSource {
+  const atlasDir = path.resolve(docsDir, ...ATLAS_DB_ROOT);
+  if (fs.existsSync(atlasDir)) {
+    return {
+      kind: 'atlas',
+      rootDir: atlasDir,
+    };
+  }
+
   const sharedDbDir = path.join(docsDir, ...SHARED_DB_ROOT, version, 'database');
   if (fs.existsSync(sharedDbDir)) {
     return {
@@ -25,7 +33,6 @@ export function resolvePdmSource(docsDir: string, version: string): PdmSource {
     };
   }
 
-  const atlasDir = path.resolve(docsDir, ...ATLAS_DB_ROOT);
   return {
     kind: 'atlas',
     rootDir: atlasDir,

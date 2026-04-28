@@ -1,14 +1,15 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const config = [
+export default defineConfig([
   ...tseslint.configs.recommended,
   {
-    ignores: ["node_modules/**", "dist/**"],
+    ignores: ["node_modules/**", "dist/**", "eslint.config.mjs"],
   },
   {
     files: ["*.ts"],
@@ -19,6 +20,4 @@ const config = [
       },
     },
   },
-];
-
-export default config;
+]);

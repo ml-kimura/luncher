@@ -1,15 +1,7 @@
 {
-  "extends": "@packages/tsconfig/base",
-  "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "types": [
-      "node"
-    ],
-    "noEmit": true,
-    "rootDir": "."
-  },
-  "include": [
-    "src/**/*.ts"
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.build.json" },
+    { "path": "./tsconfig.scripts.json" }
   ]
 }
