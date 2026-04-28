@@ -13,7 +13,7 @@ allowBuilds:
 # 2 つ以上の workspace パッケージで使う依存だけ。単一アプリ用は各 package.json の semver で十分。
 catalog:
   '@eslint/eslintrc': '^3.3.5'
-  '@eslint/js': '^9.39.4'
+  '@eslint/js': '^10.0.1'
   '@playwright/test': '^1.59.1'
   '@rollup/plugin-yaml': '^4.1.2'
   '@types/eslint': '^9.6.1'
