@@ -54,7 +54,7 @@
 - [ ] `us-003.md` に関連成果物トレースを追記
 
 ### us-004（割当後の欠席）
-- [ ] API 補足（`api/design`）を作成・更新
+- [x] API 補足（`api/design`）を作成・更新
 - [ ] OpenAPI（`public/openapi/openapi-app.yml`）と operationId を整合
 - [ ] DB 設計（CDM/PDM）を作成・更新
 - [ ] Slack 通知差分（通知文面/送信条件）を反映

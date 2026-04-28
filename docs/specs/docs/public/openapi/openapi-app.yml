@@ -3,7 +3,61 @@ info:
   title: Luncher API
   version: 1.0.0
 components:
-  schemas: {}
+  schemas:
+    PostGroupAbsenceRequest:
+      type: object
+      properties:
+        memberSlackUserId:
+          type: string
+        triggerMessageTs:
+          type: string
+        reason:
+          type: string
+      required:
+        - memberSlackUserId
+        - triggerMessageTs
+    PostGroupAbsenceResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - updated
+        lunchId:
+          type: string
+        removedMemberSlackUserId:
+          type: string
+        alreadyAbsent:
+          type: boolean
+        group:
+          type: object
+          properties:
+            groupId:
+              type: string
+            members:
+              type: array
+              items:
+                type: string
+          required:
+            - groupId
+            - members
+        slackNotification:
+          type: object
+          properties:
+            updated:
+              type: boolean
+            messageTs:
+              type: string
+          required:
+            - updated
+            - messageTs
+      required:
+        - status
+        - lunchId
+        - removedMemberSlackUserId
+        - alreadyAbsent
+        - group
+        - slackNotification
   parameters: {}
 paths:
   /health:
@@ -25,4 +79,38 @@ paths:
                       - ok
                 required:
                   - status
+  /lunches/{lunchId}/groups/absence:
+    post:
+      operationId: postGroupAbsence
+      tags:
+        - lunch-group
+      parameters:
+        - name: lunchId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostGroupAbsenceRequest'
+      responses:
+        "200":
+          description: Group member was removed from matched group
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostGroupAbsenceResponse'
+        "400":
+          description: Invalid request
+        "403":
+          description: Forbidden for non-participant
+        "404":
+          description: Lunch or member not found
+        "409":
+          description: Lunch state does not allow update
+        "500":
+          description: Internal server error
 webhooks: {}
