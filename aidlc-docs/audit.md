@@ -43,6 +43,24 @@
 
 ---
 
+## 非 docs 向け本格テスト基盤の導入
+
+**Timestamp**: 2026-04-28T19:49:00+09:00
+**User Input**: "パッケージの内容に応じたツールや Test Runner などを入れて、本格運用できるベースを作って。パッケージは、複数で使いそうなものは、catalog に登録して。"
+**AI Response**: "`chore/add-sample-tests-non-docs` ブランチ上で非 docs パッケージ（apps/api,batch,web / packages/db,logger,ui）へ Vitest ベースを導入。Node 系は `environment: node`、UI 系は `jsdom` + Testing Library を設定。各 package.json に `test`/`test:watch`/`test:coverage` を追加し、smoke test を TypeScript で整備。複数パッケージで使う依存（vitest, coverage, jsdom, testing-library）を `pnpm-workspace.yaml` の catalog に追加。`pnpm install` 後、各パッケージ test と root `pnpm test` が成功することを確認。"
+**Context**: CONSTRUCTION - Code Generation, test tooling foundation
+
+---
+
+## 非 docs パッケージへのサンプルテスト組み込み
+
+**Timestamp**: 2026-04-28T19:46:00+09:00
+**User Input**: "ブランチ切って、正常終了するサンプルテストを必要なパッケージに組み入れて。docs は対象外でいいです。"
+**AI Response**: "`chore/add-sample-tests-non-docs` ブランチを作成し、`apps/api`・`apps/batch`・`apps/web`・`packages/db`・`packages/logger`・`packages/ui` に `test` スクリプト（`node --test tests/smoke.test.mjs`）と smoke test を追加。各パッケージの `pnpm --filter <pkg> test` 実行で全件 pass を確認。"
+**Context**: CONSTRUCTION - Code Generation, test baseline setup
+
+---
+
 ## batch メッセージ並び順の整理
 
 **Timestamp**: 2026-04-28T17:01:00+09:00

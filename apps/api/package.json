@@ -9,6 +9,9 @@
     "dev": "tsx watch src/index.ts",
     "generate-openapi": "tsx scripts/generate-openapi.ts",
     "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
@@ -26,6 +29,8 @@
     "eslint": "catalog:",
     "prettier": "catalog:",
     "tsx": "^4.19.4",
+    "vitest": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
     "yaml": "^2.8.3"
