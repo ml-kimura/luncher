@@ -7,6 +7,15 @@
 
 ---
 
+## コミット漏れ防止ルールの追加
+
+**Timestamp**: 2026-04-28T20:54:00+09:00
+**User Input**: "追加してプッシュして"
+**AI Response**: "`.cursor/rules/project-standards.mdc` に『Commit Scope and Completion Discipline』を追加。依頼外変更の禁止、原則コミット完了、コミット前の意図確認、PR前の最終 `git status`/`git diff --staged` 確認を明文化。"
+**Context**: Governance - Commit hygiene and scope control
+
+---
+
 ## CI lint ジョブを差分lintへ調整
 
 **Timestamp**: 2026-04-28T20:43:00+09:00
