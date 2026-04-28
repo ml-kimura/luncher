@@ -7,6 +7,33 @@
 
 ---
 
+## PRテンプレート Issue欄をコメントガイド形式へ変更
+
+**Timestamp**: 2026-04-28T20:41:00+09:00
+**User Input**: "直す"
+**AI Response**: "`.github/PULL_REQUEST_TEMPLATE.md` の `Related Issue` を箇条書きプレースホルダから HTML コメントによる記入ガイド形式へ変更し、入力欄を `Closes #` の単一行に整理。"
+**Context**: Tooling - PR template usability improvement
+
+---
+
+## PRテンプレートに Issue 連携項目を追加
+
+**Timestamp**: 2026-04-28T20:40:00+09:00
+**User Input**: "追記して"
+**AI Response**: "`.github/PULL_REQUEST_TEMPLATE.md` に `Related Issue` セクションを追加し、`Closes #` / `Refs #` / `No issue` 記載ルールを追記。"
+**Context**: Tooling - PR template enhancement
+
+---
+
+## CI Action pinning と Node 24 への更新
+
+**Timestamp**: 2026-04-28T20:38:00+09:00
+**User Input**: "@.github/workflows/ci.yml @.github/workflows/commit-check.yml node は 24 に。プラグインはすべて、安定最新版にしつつ、バージョンではなく、コミットハッシュで指定。"
+**AI Response**: "`ci.yml` と `commit-check.yml` の GitHub Actions を最新版安定タグ相当のコミットSHAで固定し、`actions/setup-node` の `node-version` を 24 に更新。"
+**Context**: Tooling - CI workflow hardening (pinned actions)
+
+---
+
 ## CI整備の仕上げ（Dependabot / PRテンプレート）
 
 **Timestamp**: 2026-04-28T20:35:00+09:00
