@@ -38,11 +38,11 @@
 - [ ] 重複投稿抑止・ログ要件の反映を確認
 
 ### us-002（参加表明）
-- [ ] API 補足（`api/design`）を作成・更新
+- [x] API 補足（`api/design`）を作成・更新
 - [ ] OpenAPI（`public/openapi/openapi-app.yml`）と operationId を整合
 - [ ] DB 設計（CDM/PDM）を作成・更新
 - [ ] 締切判定・月次上限（1名あたり月2回）を反映
-- [ ] `us-002.md` に関連成果物トレースを追記
+- [x] `us-002.md` に関連成果物トレースを追記
 
 ### us-003（マッチング）
 - [ ] バッチ設計（`batch/design`）を作成・更新
