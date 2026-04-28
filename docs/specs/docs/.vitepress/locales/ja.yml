@@ -12,6 +12,11 @@ features:
     name: 'Luncher'
     text: 'コラボランチ・マッチングアプリケーション'
     description: 'Luncher 仕様書サイトへようこそ'
+  userStories:
+    label: 'ユーザーストーリー'
+    path: 'user-stories'
+    icon: '🧩'
+    description: 'ユーザーストーリーと実行主体（Slack/Batch/Web）の対応を提供します'
   screen:
     label: '画面'
     path: 'screen'
@@ -82,6 +87,16 @@ pdmUi:
   refColumns: '参照カラム'
   checkExclusiveSection: 'チェック制約・排他制約'
   condition: '条件'
+
+userStoriesUi:
+  colUs: 'ID'
+  colStory: 'ユーザーストーリー'
+  colActor: '実行主体'
+  colIntegration: '連携先'
+  colScreenFlow: '画面フロー'
+  colBatchFlow: 'バッチフロー'
+  colApiDesign: 'API設計書'
+  colTableDef: 'テーブル定義書'
 
 footer:
   message: 'Released under the MIT License.'

@@ -5,7 +5,7 @@ export interface FieldDef {
 }
 
 const props = defineProps<{
-  title: string;
+  title?: string;
   fields: FieldDef[];
   data: Record<string, string | undefined>;
 }>();
@@ -23,7 +23,7 @@ function hasValue(key: string): boolean {
 
 <template>
   <div class="basic-info">
-    <h2>{{ props.title }}</h2>
+    <h2 v-if="props.title">{{ props.title }}</h2>
     <table>
       <tbody>
         <tr

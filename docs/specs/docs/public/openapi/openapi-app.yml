@@ -1,0 +1,82 @@
+openapi: 3.1.0
+info:
+  title: Luncher API
+  version: 1.0.0
+components:
+  schemas:
+    PostDailyLunchAnnouncementRequest:
+      type: object
+      properties:
+        lunchDate:
+          type: string
+          format: date
+          description: 未指定時は当日（JST）を用いる
+    PostDailyLunchAnnouncementResponse:
+      type: object
+      required:
+        - status
+        - lunchDate
+        - skipped
+      properties:
+        status:
+          type: string
+          enum:
+            - ok
+        lunchDate:
+          type: string
+          format: date
+        skipped:
+          type: boolean
+          description: true のとき、既存投稿のため新規 Slack 投稿を行わなかった
+        slackMessageTs:
+          type: string
+          description: chat.postMessage の ts（skipped 時は前回の値を返しうる）
+  parameters: {}
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      tags:
+        - system
+      responses:
+        "200":
+          description: API health status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                required:
+                  - status
+  /internal/jobs/daily-lunch-announcement:
+    post:
+      operationId: postDailyLunchAnnouncementJob
+      tags:
+        - batch
+      summary: 日次コラボランチ案内（内部ジョブ）
+      description: >-
+        スケジューラから起動。日次案内バッチ BAT-001。利用者向けの公開 API ではない。
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostDailyLunchAnnouncementRequest"
+      responses:
+        "200":
+          description: 成功（投稿または重複抑止スキップ）
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostDailyLunchAnnouncementResponse"
+        "401":
+          description: 未認証
+        "403":
+          description: 禁止
+        "500":
+          description: Slack または DB エラー
+webhooks: {}

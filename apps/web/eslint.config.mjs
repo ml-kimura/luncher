@@ -1,9 +1,14 @@
 import baseConfig from "@packages/eslint-config/base";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
-export default tseslint.config(
+export default defineConfig([
   {
-    ignores: [".next/**", "node_modules/**", "next-env.d.ts"],
+    ignores: [
+      ".next/**",
+      "node_modules/**",
+      "next-env.d.ts",
+      "eslint.config.mjs",
+    ],
   },
   ...baseConfig,
-);
+]);

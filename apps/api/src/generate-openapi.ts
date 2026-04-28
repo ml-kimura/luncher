@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { createApp } from "./app.js";
 import { stringify } from "yaml";
+import { createApp } from "./app.js";
 
 const app = createApp();
 
@@ -13,7 +13,7 @@ const doc = app.getOpenAPI31Document({
   },
 });
 
-const outputDir = resolve(process.cwd(), "..", "..", "docs", "specs", "public", "openapi");
+const outputDir = resolve(process.cwd(), "..", "..", "docs", "specs", "docs", "public", "openapi");
 const outputPath = resolve(outputDir, "openapi-app.yml");
 
 await mkdir(outputDir, { recursive: true });

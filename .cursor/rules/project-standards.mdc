@@ -31,4 +31,18 @@ alwaysApply: true
 - **Allowed ONLY upon explicit user request:**
   Any Git command NOT listed above (including `git add`, `git commit`, `git push`, `git reset`, `git checkout`, `git restore`, `git clean`, `git stash`, `git rebase`, `git rm`, `git pull`, `git merge`, etc.) must **NEVER** be used unless explicitly requested by the user.
 
+## 5) Timestamp Policy
 
+- Record all timestamps in `Asia/Tokyo` timezone (JST, `+09:00`) only.
+
+## 6) Cross-File Consistency Check
+
+- When changing or fixing content, always check related files across the repository for consistency (terminology, roles, scope, IDs, links, and constraints).
+- If related files are found, update them in the same task unless the user explicitly instructs otherwise.
+- Before completing the task, verify there are no stale or conflicting definitions left in nearby artifacts (requirements, plans, stories, personas, and audit logs).
+
+## 7) Project-Specific Skills Location
+
+- Project-specific custom skills MUST be created and maintained under `.cursor/skills/`.
+- Do NOT add project-specific custom skills under `.agents/skills/`.
+- When moving existing project-specific skills, update related references in the same task.

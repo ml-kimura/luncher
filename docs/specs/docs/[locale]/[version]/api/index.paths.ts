@@ -83,7 +83,7 @@ export default {
       const localeVersions = getVersions(docsDir, locale);
 
       for (const version of localeVersions) {
-        const specs = discoverOpenApiSpecs(docsDir, version, locale);
+        const specs = discoverOpenApiSpecs(version);
         const specInfos: SpecInfo[] = specs.map((spec) => {
           const linkPrefix = `./${spec.id}/operations/`;
           const firstOperationId = getFirstOperationLink(spec.spec, linkPrefix);

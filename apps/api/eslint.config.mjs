@@ -1,9 +1,9 @@
 import baseConfig from "@packages/eslint-config/base";
-import tseslint from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
-export default tseslint.config(
+export default defineConfig([
   {
-    ignores: ["dist/**", "node_modules/**"],
+    ignores: ["dist/**", "node_modules/**", "eslint.config.mjs"],
   },
   ...baseConfig,
-);
+]);

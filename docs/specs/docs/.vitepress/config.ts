@@ -7,7 +7,7 @@ import { localeConfigs } from './locales';
 import { discoverOpenApiSpecs, generateOpenApiSidebar, SidebarItem } from './utils/openapi';
 import { docsDir } from './utils/paths';
 import { createDirGroup, SidebarBuilderContext } from './utils/sidebar/builder';
-import { generateReleaseNotesSidebarItems } from './utils/sidebar/generators';
+import { generateDirSidebarItems, generateReleaseNotesSidebarItems } from './utils/sidebar/generators';
 import { generateGlossarySidebarItems } from './utils/sidebar/glossary-sidebar';
 import { generatePdmSidebarItems } from './utils/sidebar/pdm-sidebar';
 import { getVersions } from './utils/versions';
@@ -122,7 +122,7 @@ export default defineConfig({
           sidebar[`${base}/`] = [];
 
           // API section
-          const apiSidebarItems = generateOpenApiSidebar(docsDir, version, locale);
+          const apiSidebarItems = generateOpenApiSidebar(version, locale);
           sidebar[`${base}/api/`] = [
             {
               text: labels.api,
@@ -142,7 +142,7 @@ export default defineConfig({
           // API spec pages (/api/${spec.id}/ and /api/${spec.id}/operations/)
           // Each spec page shows sidebar with all API specs, where operations links
           // are generated from the swagger file for that specific spec
-          const specs = discoverOpenApiSpecs(docsDir, version, locale);
+          const specs = discoverOpenApiSpecs(version);
           for (const spec of specs) {
             const specSidebarItems: SidebarItem[] = [
               {
@@ -178,6 +178,24 @@ export default defineConfig({
               ],
             },
           ];
+
+          // User Stories section
+          if (labels.userStories) {
+            const userStoryItems = generateDirSidebarItems(
+              path.resolve(docsDir, locale, version, 'user-stories'),
+              `${base}/user-stories`,
+              { prefixWithUsId: true }
+            ).filter((item) => !(item.link ?? '').endsWith('/index'));
+            sidebar[`${base}/user-stories/`] = [
+              {
+                text: labels.userStories,
+                items: [
+                  { text: labels.overview, link: `${base}/user-stories/` },
+                  ...userStoryItems,
+                ],
+              },
+            ];
+          }
 
           // Batch section
           sidebar[`${base}/batch/`] = [

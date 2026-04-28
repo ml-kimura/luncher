@@ -4,6 +4,7 @@
  */
 
 import fs from 'fs';
+import matter from 'gray-matter';
 import path from 'path';
 import { SidebarItem } from '../openapi';
 import { compareVersions } from '../versions';
@@ -31,7 +32,10 @@ function extractTitleFromMarkdown(filePath: string): string | null {
  */
 export function generateDirSidebarItems(
   dirPath: string,
-  linkBase: string
+  linkBase: string,
+  options?: {
+    prefixWithUsId?: boolean;
+  }
 ): SidebarItem[] {
   if (!fs.existsSync(dirPath)) {
     return [];
@@ -45,14 +49,50 @@ export function generateDirSidebarItems(
       .map((f) => {
         const fileName = f.name.replace(/\.md$/, '');
         const filePath = path.join(dirPath, f.name);
-        const title = extractTitleFromMarkdown(filePath) || fileName;
+        let orderKey = fileName;
+        let frontmatterTitle: string | undefined;
+        let frontmatterId: string | undefined;
+
+        try {
+          const content = fs.readFileSync(filePath, 'utf-8');
+          const { data: frontmatter } = matter(content);
+          if (frontmatter.id !== undefined) {
+            orderKey = String(frontmatter.id);
+            frontmatterId = String(frontmatter.id);
+          }
+          if (frontmatter.title !== undefined) {
+            frontmatterTitle = String(frontmatter.title);
+          }
+        } catch {
+          // ignore frontmatter parse failures and fallback to filename
+        }
+
+        const baseTitle = frontmatterTitle || extractTitleFromMarkdown(filePath) || fileName;
+        const title =
+          options?.prefixWithUsId && frontmatterId
+            ? `US-${frontmatterId.padStart(3, '0')} ${baseTitle}`
+            : baseTitle;
 
         return {
           text: title,
           link: `${linkBase}/${fileName}`,
+          orderKey,
         };
       })
-      .sort((a, b) => a.text.localeCompare(b.text));
+      .sort((a, b) => {
+        const aNum = Number((a as SidebarItem & { orderKey?: string }).orderKey);
+        const bNum = Number((b as SidebarItem & { orderKey?: string }).orderKey);
+        const aIsNum = Number.isFinite(aNum);
+        const bIsNum = Number.isFinite(bNum);
+
+        if (aIsNum && bIsNum) return aNum - bNum;
+        if (aIsNum) return -1;
+        if (bIsNum) return 1;
+        return ((a as SidebarItem & { orderKey?: string }).orderKey || '').localeCompare(
+          (b as SidebarItem & { orderKey?: string }).orderKey || ''
+        );
+      })
+      .map(({ text, link }) => ({ text, link }));
   } catch {
     return [];
   }

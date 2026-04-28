@@ -43,10 +43,27 @@ const fields = computed<FieldDef[]>(() => {
 const items = computed(() => {
   if (!params.value?.items) return [];
   try {
-    return JSON.parse(params.value.items) as Array<Record<string, string>>;
+    const parsed = JSON.parse(params.value.items) as Array<Record<string, string>>;
+    return parsed.sort((a, b) => {
+      const aId = String(a.id ?? "");
+      const bId = String(b.id ?? "");
+      const aNum = Number(aId);
+      const bNum = Number(bId);
+      const aIsNum = Number.isFinite(aNum);
+      const bIsNum = Number.isFinite(bNum);
+
+      if (aIsNum && bIsNum) return aNum - bNum;
+      if (aIsNum) return -1;
+      if (bIsNum) return 1;
+      return aId.localeCompare(bId);
+    });
   } catch {
     return [];
   }
+});
+
+const linkKey = computed(() => {
+  return "title";
 });
 
 watchEffect(() => {
@@ -62,4 +79,4 @@ watchEffect(() => {
 
 {{ $params.description }}
 
-<DocList v-if="items.length > 0" :items="items" :columns="fields" />
+<DocList v-if="items.length > 0" :items="items" :columns="fields" :link-key="linkKey" />

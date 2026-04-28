@@ -1,18 +1,33 @@
-import { execSync, spawnSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const pkgRoot = __dirname;
+const pkgRoot = path.join(__dirname, '..');
 const tmpErd = '/tmp/erd';
 const publicErd = path.join(pkgRoot, '../../docs/specs/docs/public/erd');
 
 process.stdout.write(`\nGenerating ERD to ${tmpErd}...\n`);
-execSync(`liam erd build --input src/schema.ts --format drizzle --output-dir ${tmpErd}`, {
-  cwd: pkgRoot,
-  stdio: ['ignore', 'ignore', 'inherit'],
-});
+execFileSync(
+  'pnpm',
+  [
+    'exec',
+    'liam',
+    'erd',
+    'build',
+    '--input',
+    'src/schema.ts',
+    '--format',
+    'drizzle',
+    '--output-dir',
+    tmpErd,
+  ],
+  {
+    cwd: pkgRoot,
+    stdio: 'inherit',
+  },
+);
 
 fs.mkdirSync(path.dirname(publicErd), { recursive: true });
 

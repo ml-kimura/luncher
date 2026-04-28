@@ -31,4 +31,30 @@ echo
 pnpm exec playwright install chromium
 
 echo
+echo "🔧 Ensuring Atlas dev database exists on db service..."
+export PGPASSWORD="$POSTGRES_PASSWORD"
+_ready=""
+for _ in $(seq 1 90); do
+  if psql -h db -p "$POSTGRES_PORT" -U "$POSTGRES_USER" -d postgres -c 'SELECT 1' >/dev/null 2>&1; then
+    _ready=1
+    break
+  fi
+  sleep 1
+done
+if [ -z "$_ready" ]; then
+  echo "⚠️  db service did not become ready in time; skip CREATE DATABASE ${ATLAS_DEV_DB}." >&2
+else
+  _exists="$(psql -h db -p "$POSTGRES_PORT" -U "$POSTGRES_USER" -d postgres -Atc \
+    "SELECT 1 FROM pg_database WHERE datname = '${ATLAS_DEV_DB}'" 2>/dev/null || true)"
+  if [ "$_exists" != "1" ]; then
+    psql -h db -p "$POSTGRES_PORT" -U "$POSTGRES_USER" -d postgres \
+      -c "CREATE DATABASE \"${ATLAS_DEV_DB}\" WITH OWNER \"${POSTGRES_USER}\";"
+    echo "   Created database: ${ATLAS_DEV_DB}"
+  else
+    echo "   Database already exists: ${ATLAS_DEV_DB}"
+  fi
+fi
+unset PGPASSWORD
+
+echo
 echo "✅ Setup complete!"

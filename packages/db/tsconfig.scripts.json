@@ -1,0 +1,15 @@
+{
+  "extends": "@packages/tsconfig/base",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": true,
+    "types": ["node"],
+    "rootDir": "."
+  },
+  "include": [
+    "scripts/**/*.ts",
+    "drizzle.config.ts",
+    "eslint-plugin-drizzle-shim.d.ts"
+  ]
+}

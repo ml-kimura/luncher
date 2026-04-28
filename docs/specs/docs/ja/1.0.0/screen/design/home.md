@@ -1,5 +1,5 @@
 ---
-id: SCR-010
+id: 2
 title: ホーム
 url: /home
 auth: 不要
@@ -12,11 +12,11 @@ const { frontmatter } = useData()
 const section = theme.value.docSections?.screen?.design
 </script>
 
-# SCR-010: ホーム画面
+# ホーム画面
 
 ## レイアウト
 
-![scr-010](scr-010.png)
+![home](home.png)
 
 <BasicInfo
   v-if="section"
@@ -46,7 +46,7 @@ const section = theme.value.docSections?.screen?.design
 
 ## イベント
 
-|  No | 項目                 | イベント | アクション                                                                   |
-| --: | -------------------- | -------- | ---------------------------------------------------------------------------- |
-|   1 | 画面                 | 初期表示 | 1. [ヘルスチェックAPI](../../api/app/operations/getHealth.html) を呼び出す。 |
-|   2 | ダッシュボードリンク | クリック | 1. [ダッシュボード](scr-001) に遷移。                                        |
+|  No | 項目                 | イベント | アクション                                                                                              |
+| --: | -------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
+|   1 | 画面                 | 初期表示 | 1. <InternalLink path="api/app/operations/getHealth.html">ヘルスチェックAPI</InternalLink> を呼び出す。 |
+|   2 | ダッシュボードリンク | クリック | 1. [ダッシュボード](login) に遷移。                                                                     |
