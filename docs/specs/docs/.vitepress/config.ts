@@ -1,7 +1,6 @@
 import yamlPlugin from '@rollup/plugin-yaml';
 import path from 'path';
-import { defineConfig } from 'vitepress';
-import { configureDiagramsPlugin } from 'vitepress-plugin-diagrams';
+import { withMermaid } from 'vitepress-plugin-mermaid';
 import { defaultLocale } from './constants';
 import { localeConfigs } from './locales';
 import { discoverOpenApiSpecs, generateOpenApiSidebar, SidebarItem } from './utils/openapi';
@@ -22,13 +21,11 @@ Object.keys(localeConfigs).forEach((lang) => {
   versions[lang] = getVersions(docsDir, lang);
 });
 
-export default defineConfig({
+export default withMermaid({
   base: '/specs/',
-  title:
-    localeConfigs[defaultLocale].features?.home?.name ?? 'Luncher Specification',
+  title: localeConfigs[defaultLocale].features?.home?.name ?? 'Luncher Specification',
   description:
-    localeConfigs[defaultLocale].features?.home?.description ??
-    'Luncher Specifications built with VitePress',
+    localeConfigs[defaultLocale].features?.home?.description ?? 'Luncher Specifications built with VitePress',
   head: [
     [
       'script',
@@ -59,7 +56,7 @@ export default defineConfig({
         logOverride: { 'this-is-undefined-in-esm': 'silent' },
       },
       force: false,
-      include: [],
+      include: ['mermaid'],
       exclude: [],
     },
     esbuild: {
@@ -69,15 +66,6 @@ export default defineConfig({
     clearScreen: false,
     resolve: {
       preserveSymlinks: false,
-    },
-  },
-
-  markdown: {
-    config: (md) => {
-      configureDiagramsPlugin(md, {
-        diagramsDir: 'docs/public/diagrams',
-        publicPath: '/specs/diagrams/',
-      });
     },
   },
 
@@ -92,11 +80,9 @@ export default defineConfig({
       label: '',
       lang: localeConfigs[defaultLocale].lang,
       link: `/${defaultLocale}/`,
-      title:
-        localeConfigs[defaultLocale].features?.home?.name ?? 'Luncher Specification',
+      title: localeConfigs[defaultLocale].features?.home?.name ?? 'Luncher Specification',
       description:
-        localeConfigs[defaultLocale].features?.home?.description ??
-        'Luncher Specifications built with VitePress',
+        localeConfigs[defaultLocale].features?.home?.description ?? 'Luncher Specifications built with VitePress',
     },
     ...Object.fromEntries(
       Object.entries(localeConfigs).map(([locale, config]) => {
@@ -189,10 +175,7 @@ export default defineConfig({
             sidebar[`${base}/user-stories/`] = [
               {
                 text: labels.userStories,
-                items: [
-                  { text: labels.overview, link: `${base}/user-stories/` },
-                  ...userStoryItems,
-                ],
+                items: [{ text: labels.overview, link: `${base}/user-stories/` }, ...userStoryItems],
               },
             ];
           }
@@ -331,9 +314,7 @@ export default defineConfig({
             label: config.label,
             lang: config.lang,
             title: config.features?.home?.name ?? 'Luncher Specification',
-            description:
-              config.features?.home?.description ??
-              'Luncher Specifications built with VitePress',
+            description: config.features?.home?.description ?? 'Luncher Specifications built with VitePress',
             themeConfig: {
               nav: [{ component: 'MainNav' }, { component: 'VersionSwitcher' }],
               sidebar,
