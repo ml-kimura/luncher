@@ -86,6 +86,8 @@ export function parseColumns(content: string): Column[] {
     let defaultValue = defaultMatch ? defaultMatch[1].trim() : undefined;
     if (defaultValue && (defaultValue.startsWith('"') || defaultValue.startsWith("'"))) {
       defaultValue = defaultValue.slice(1, -1);
+    } else if (defaultValue && defaultValue.startsWith('sql(') && defaultValue.endsWith(')')) {
+      defaultValue = defaultValue.slice(5, -2);
     }
 
     let colMetadata: Partial<I18nMetadata> = {};

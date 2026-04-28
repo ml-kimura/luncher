@@ -10,7 +10,7 @@
     "check-types": "pnpm --filter @packages/logger build && tsc --noEmit",
     "dev": "pnpm --filter @packages/logger build && tsx src/cli.ts",
     "start": "node dist/cli.js",
-    "sync:messages": "tsx scripts/copy-messages-to-shared.ts",
+    "sync:messages": "tsx scripts/copy-messages-to-public.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
