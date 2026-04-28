@@ -7,6 +7,15 @@
 
 ---
 
+## CI lint ジョブを差分lintへ調整
+
+**Timestamp**: 2026-04-28T20:43:00+09:00
+**User Input**: "チェックエラーになってる"
+**AI Response**: "PR #6 の失敗ログを確認し、既存リポ全体 lint 設定不整合で `pnpm lint` が失敗していたため、`ci.yml` の lint ジョブを `lint-staged --diff=\"origin/main...HEAD\"` 実行へ変更。`checkout` を `fetch-depth: 0` にし、`git fetch origin main` を追加。"
+**Context**: Tooling - CI stabilization for lint check
+
+---
+
 ## PRテンプレート Issue欄をコメントガイド形式へ変更
 
 **Timestamp**: 2026-04-28T20:41:00+09:00
