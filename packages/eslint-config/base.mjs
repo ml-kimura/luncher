@@ -1,11 +1,11 @@
-import js from "@eslint/js";
-import globals from "globals";
-import tseslint from "typescript-eslint";
-import eslintConfigPrettier from "eslint-config-prettier";
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 const baseConfig = tseslint.config(
   {
-    ignores: ["node_modules/**", "dist/**"],
+    ignores: ['node_modules/**', 'dist/**'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -16,11 +16,10 @@ const baseConfig = tseslint.config(
       },
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
       },
     },
   },
-  eslintConfigPrettier,
+  eslintConfigPrettier
 );
 
 export default baseConfig;
