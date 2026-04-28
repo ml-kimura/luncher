@@ -1,0 +1,46 @@
+# ----- Reproducible files (re-install in container) -----
+**/node_modules
+**/.pnpm-store
+
+# ----- Build artifacts -----
+.next
+dist
+build
+.turbo
+storybook-static
+coverage
+.vitepress
+.cache
+.storybook-cache
+**/.vite
+**/*.tsbuildinfo
+**/*.lcov
+**/*.timestamp-*.mjs
+
+# ----- Repository management / local -----
+.git
+.github
+.husky
+.vscode
+.idea
+*.log
+pnpm-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+nohup.out
+.DS_Store
+
+# ----- Secrets (COPY mistake prevention) -----
+.env
+.env.*
+!.env.example
+
+# ----- Documentation (usually not needed for Next build) -----
+/docs
+
+# ----- Tests / E2E (not needed for production image) -----
+**/e2e
+playwright-report
+**/test-results
+.cache/playwright

@@ -1,0 +1,9 @@
+import baseConfig from "@packages/eslint-config/base";
+import { defineConfig } from "eslint/config";
+
+export default defineConfig([
+  {
+    ignores: ["dist/**", "node_modules/**", "eslint.config.mjs"],
+  },
+  ...baseConfig,
+]);

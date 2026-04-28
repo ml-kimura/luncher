@@ -1,33 +1,33 @@
-# App stack for Docker-outside-of-Docker / host testing.
-# Use the same Compose project name as .devcontainer/docker-compose.yml so web/api
-# join the existing network and can reach the `db` service started by Dev Containers.
+# クラウドへホストする前に、apps/web、apps/api の Docker イメージを
+# ローカルで確認するための定義で、本番運用を想定したものではありません。
+# .devcontainer/docker-compose.yml と同じ Compose プロジェクト名のネットワークに参加させ、
+# Dev Container 側で起動している `db` に api から接続できるようにしています。
 name: luncher-devcontainer
 
 services:
   web:
     build:
-      context: ./apps/web
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./apps/web/Dockerfile
       args:
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8787}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:${API_PORT:-18787}}
     ports:
-      - "${WEB_PORT:-3000}:3000"
+      - '${WEB_PORT:-13000}:3000'
     networks:
       - devcontainer_net
+    environment:
+      HOSTNAME: 0.0.0.0
 
   api:
     build:
-      context: ./apps/api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./apps/api/Dockerfile
     ports:
-      - "${API_PORT:-8787}:8787"
-    environment:
-      POSTGRES_USER:
-      POSTGRES_PASSWORD:
-      POSTGRES_DB:
-      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${POSTGRES_PORT}/${POSTGRES_DB}
+      - '${API_PORT:-18787}:8787'
     networks:
       - devcontainer_net
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
 
 networks:
   devcontainer_net:
