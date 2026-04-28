@@ -52,3 +52,16 @@ alwaysApply: true
 - AI agents must **NEVER** perform self-review approvals on pull requests they authored or updated.
 - AI agents must **NEVER** merge pull requests unless the user explicitly requests the merge in the current conversation.
 - Even when merge is explicitly requested, AI agents must not bypass required checks, required reviews, or branch protection rules.
+
+## 9) Commit Scope and Completion Discipline
+
+- **NEVER** modify files outside the explicit user request or agreed scope. If unexpected or unrelated changes are required, stop and ask for confirmation first.
+- Unless the user explicitly requests otherwise, all intended changes in the current task scope must be committed before finishing the task.
+- Before any commit, review changed files and confirm intent. Any unintentionally changed file must be called out to the user before commit.
+- Before creating or updating a PR, run a final working-tree check (`git status --short` and `git diff --staged`) to ensure no accidental omissions or unintended files remain.
+
+## 10) Merged PR Immutability
+
+- **NEVER** attempt to add commits to a pull request that is already merged or closed.
+- Before any push intended for an existing PR, verify the PR state is open. If the PR is merged/closed, create a new branch and a new PR instead.
+- If uncertain which PR is active for a branch, check explicitly and confirm with the user before pushing.
