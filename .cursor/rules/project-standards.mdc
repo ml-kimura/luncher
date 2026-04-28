@@ -51,6 +51,7 @@ alwaysApply: true
 
 - AI agents must **NEVER** perform self-review approvals on pull requests they authored or updated.
 - AI agents must **NEVER** merge pull requests unless the user explicitly requests the merge in the current conversation.
+- Exception: pull requests created by `dependabot[bot]` may be merged by AI agents only when the user explicitly instructs the merge in the current conversation.
 - Even when merge is explicitly requested, AI agents must not bypass required checks, required reviews, or branch protection rules.
 
 ## 9) Commit Scope and Completion Discipline

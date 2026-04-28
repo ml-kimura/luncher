@@ -17,10 +17,22 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
-      - uses: commit-check/commit-check-action@7c158d4541309c5952de3343151750882b036d10 # v2.6.0
+      - name: commit-check (standard)
+        if: github.actor != 'dependabot[bot]'
+        uses: commit-check/commit-check-action@7c158d4541309c5952de3343151750882b036d10 # v2.6.0
         with:
           message: true
           branch: true
+          author-name: false
+          author-email: false
+          job-summary: true
+          pr-comments: ${{ github.event_name == 'pull_request' }}
+      - name: commit-check (dependabot)
+        if: github.actor == 'dependabot[bot]'
+        uses: commit-check/commit-check-action@7c158d4541309c5952de3343151750882b036d10 # v2.6.0
+        with:
+          message: true
+          branch: false
           author-name: false
           author-email: false
           job-summary: true
