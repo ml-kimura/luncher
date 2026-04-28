@@ -3,11 +3,11 @@ table "lunch_dates" {
   comment = <<-JSON
   {
     "logical_name": "開催日",
-    "description": "コラボランチの開催日（カレンダー日・JST）を 1 行 1 日で管理する。`luncher-system-design-draft.md` のデータモデル `lunch_dates` に対応。日次案内バッチ（BAT-001）が行を追加し、案内投稿後の重複起動時は同じ行を参照して Slack 重複投稿を防ぐ。",
+    "description": "コラボランチの開催日（JST）を 1 行 1 日で管理する。案内投稿後の重複起動時は同じ行を参照して Slack 重複投稿を防ぐ。",
     "i18n": {
       "en": {
         "logical_name": "Lunch date (session day)",
-        "description": "One row per calendar day (JST) per system design. Daily announcement batch BAT-001; deduplication using slack_message_ts on this row."
+        "description": "Stores collaborative lunch session dates (JST), one row per day. Duplicate batch runs after the announcement reuse the same row to prevent duplicate Slack posts."
       }
     }
   }
