@@ -31,7 +31,7 @@
     "vite": "catalog:",
     "vitepress": "catalog:",
     "vitepress-openapi": "catalog:",
-    "vitepress-plugin-mermaid": "^2.0.17",
+    "vitepress-plugin-mermaid": "catalog:",
     "vue": "catalog:",
     "vue-eslint-parser": "catalog:"
   },
