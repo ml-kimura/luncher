@@ -24,12 +24,72 @@
 | us-006 | api, db | API 補足、DB | 写真リプライ、精算テキスト。申請本流は**対象外**（`requirements` §4） | [ ] |
 | us-007 | screen, api, db | **画面**、API 補足、DB | 管理者の要件設定 UI、保存、次回マッチ以降への反映 | [ ] |
 
+## 3. US ごとの作業一覧（実施チェック）
+
+進捗の判定は、各 US のチェックがすべて `[x]` になっていることを基準にする。
+
+### us-001（日次案内配信）
+- [ ] バッチ設計（`batch/design`）を作成・更新
+- [ ] バッチフロー（`batch/flow`）を作成・更新
+- [ ] API 補足（`api/design`）を作成・更新
+- [ ] OpenAPI（`public/openapi/openapi-app.yml`）と operationId を整合
+- [ ] DB 設計（CDM/PDM）を作成・更新
+- [ ] `us-001.md` に関連成果物トレースを追記
+- [ ] 重複投稿抑止・ログ要件の反映を確認
+
+### us-002（参加表明）
+- [ ] API 補足（`api/design`）を作成・更新
+- [ ] OpenAPI（`public/openapi/openapi-app.yml`）と operationId を整合
+- [ ] DB 設計（CDM/PDM）を作成・更新
+- [ ] 締切判定・月次上限（1名あたり月2回）を反映
+- [ ] `us-002.md` に関連成果物トレースを追記
+
+### us-003（マッチング）
+- [ ] バッチ設計（`batch/design`）を作成・更新
+- [ ] バッチフロー（`batch/flow`）を作成・更新
+- [ ] API 補足（`api/design`）を作成・更新
+- [ ] OpenAPI（`public/openapi/openapi-app.yml`）と operationId を整合
+- [ ] DB 設計（CDM/PDM）を作成・更新
+- [ ] 制約（4名以上、同一部署重複回避）と不成立時挙動を反映
+- [ ] `us-003.md` に関連成果物トレースを追記
+
+### us-004（割当後の欠席）
+- [ ] API 補足（`api/design`）を作成・更新
+- [ ] OpenAPI（`public/openapi/openapi-app.yml`）と operationId を整合
+- [ ] DB 設計（CDM/PDM）を作成・更新
+- [ ] Slack 通知差分（通知文面/送信条件）を反映
+- [ ] `us-004.md` に関連成果物トレースを追記
+
+### us-005（後から参加）
+- [ ] API 補足（`api/design`）を作成・更新
+- [ ] OpenAPI（`public/openapi/openapi-app.yml`）と operationId を整合
+- [ ] DB 設計（CDM/PDM）を作成・更新
+- [ ] 定員・重複参加ルールを反映
+- [ ] Slack 通知差分（必要時）を反映
+- [ ] `us-005.md` に関連成果物トレースを追記
+
+### us-006（精算テキスト化）
+- [ ] API 補足（`api/design`）を作成・更新
+- [ ] OpenAPI（`public/openapi/openapi-app.yml`）と operationId を整合
+- [ ] DB 設計（CDM/PDM）を作成・更新
+- [ ] 写真リプライ受信からテキスト化までの処理境界を明記
+- [ ] 「申請本流は対象外」を明記
+- [ ] `us-006.md` に関連成果物トレースを追記
+
+### us-007（要件設定管理）
+- [ ] 画面設計（`screen/design`）を作成・更新
+- [ ] API 補足（`api/design`）を作成・更新
+- [ ] OpenAPI（`public/openapi/openapi-app.yml`）と operationId を整合
+- [ ] DB 設計（CDM/PDM）を作成・更新
+- [ ] 有効日付き設定・履歴・反映タイミングを反映
+- [ ] `us-007.md` に関連成果物トレースを追記
+
 **メモ**
 
 - 現行の `batch/design/bat-001` 等は**別ドメインの雛形**の可能性が高い。Lunch 用のバッチは **us-001 / us-003 向けの設計**として**置き換え or 併記**を検討。  
 - **画面**が明示なのは **us-007** のみ（`login`/`home` は基盤・他 US と兼用しうる）。
 
-## 3. 推奨する扱い順（依存の目安）
+## 4. 推奨する扱い順（依存の目安）
 
 1. us-001（日次枠）  
 2. us-002（参加表明）— us-001 と論理接続  

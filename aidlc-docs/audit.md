@@ -7,6 +7,78 @@
 
 ---
 
+## batch メッセージ並び順の整理
+
+**Timestamp**: 2026-04-28T17:01:00+09:00
+**User Input**: "@apps/batch/messages.yml メッセージ区分、コード順にソートして"
+**AI Response**: "`apps/batch/messages.yml` の `messages` 配列を、区分（I→W→E→F）ごとにコード昇順（001→002→101）で並び替え。メッセージ本文は変更せず順序のみ更新。"
+**Context**: INCEPTION - Application Design, message catalog ordering
+
+---
+
+## メッセージ表示不具合修正（batch fallback path）
+
+**Timestamp**: 2026-04-28T16:59:00+09:00
+**User Input**: ""
+**AI Response**: "スクリーンショットで `No messages` を確認。`messages.paths.ts` の `apps/batch/messages.yml` フォールバックパスが1階層浅く誤っていたため、`docsDir` から `../../../apps/batch/messages.yml` を指すよう修正。"
+**Context**: INCEPTION - Application Design, bug fix for message source path
+
+---
+
+## メッセージ読込フォールバック先の変更（batch）
+
+**Timestamp**: 2026-04-28T16:58:00+09:00
+**User Input**: "じゃなかった。バージョンはいいんだけど、ない場合は、apps/batch/messages.yml から表示。"
+**AI Response**: "`messages.paths.ts` のフォールバックを修正し、`batch` セクションでは `public/<version>/batch/messages.yml` が無い場合に `apps/batch/messages.yml` を参照するよう変更。`screen` は従来どおり `public/screen/messages.yml` フォールバックを維持。"
+**Context**: INCEPTION - Application Design, messages loading behavior adjustment
+
+---
+
+## メッセージ読込のバージョン優先フォールバック
+
+**Timestamp**: 2026-04-28T16:57:00+09:00
+**User Input**: "バッチのメッセージも、まず public/表示中のバージョン/batch/messages.yml があればそれから表示、ない場合は、public/batch/messages.yml から表示にしたい。"
+**AI Response**: "`messages.paths.ts` の読込順を変更し、`public/<version>/<section>/messages.yml` を優先、未存在時は `public/<section>/messages.yml` にフォールバックするよう実装。既存の空時挙動（空配列表示）は維持。"
+**Context**: INCEPTION - Application Design, messages loading behavior update
+
+---
+
+## docs/shared 廃止と docs/public への統合
+
+**Timestamp**: 2026-04-28T16:47:00+09:00
+**User Input**: "docs/shared を廃止し、docs/public に統合したい。"
+**AI Response**: "`docs/specs/docs/shared/1.0.0` 配下の `glossary.yml`・`batch/messages.yml`・`screen/messages.yml` を `docs/specs/docs/public/1.0.0` へ移動し、参照コードを `public` 基準へ更新（`glossary-data.ts`、`messages.paths.ts`、`pdm-source.ts`、`us-001.md`）。空になった `docs/specs/docs/shared` ディレクトリを削除。"
+**Context**: INCEPTION - Application Design, documentation asset layout migration
+
+---
+
+## Batch Design: Slack API リンク補完
+
+**Timestamp**: 2026-04-28T16:32:00+09:00
+**User Input**: "@docs/specs/docs/ja/1.0.0/batch/design/bat-001.md:84-85 Slack の API のリンク埋めて"
+**AI Response**: "`bat-001.md` の『参加募集メッセージ送信』手順にある空リンク `[]()` を、Slack 公式の `chat.postMessage` メソッドページへのリンクに更新。"
+**Context**: INCEPTION - Application Design, link completion
+
+---
+
+## Batch Design: 基本情報にユーザーストーリー表示
+
+**Timestamp**: 2026-04-28T15:49:00+09:00
+**User Input**: "@docs/specs/docs/ja/1.0.0/batch/design/bat-001.md ユーザーストーリーは、基本情報の最後に入れられる？？"
+**AI Response**: "`bat-001.md` の frontmatter に `userStory` を追加し、`## ユーザーストーリー` セクションを削除。`BasicInfo` 表示定義（ja/en locales の `docSections.batch.design.fields`）へ `userStory` を末尾追加して、基本情報テーブルの最後に表示されるよう調整。"
+**Context**: INCEPTION - Application Design, batch doc format adjustment
+
+---
+
+## Application Design 進捗可視化（US 別作業一覧）
+
+**Timestamp**: 2026-04-28T15:38:00+09:00
+**User Input**: "@aidlc-docs/inception/plans/application-design-by-us.md これに US ごとの作業の一覧作ってからじゃないと進捗がわからんな。"
+**AI Response**: "`application-design-by-us.md` に『US ごとの作業一覧（実施チェック）』を追加し、us-001〜us-007 のチェックリスト（成果物作成、OpenAPI 整合、トレース追記、要件反映）を追記。見出し番号を調整。"
+**Context**: INCEPTION - Application Design, progress tracking improvement
+
+---
+
 ## Project Positioning Update
 
 **Timestamp**: 2026-04-27T22:28:30+09:00

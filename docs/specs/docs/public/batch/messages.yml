@@ -12,10 +12,6 @@ messages:
     message:
       ja: '既に案内済みのため、当日の募集メッセージを重複投稿しませんでした'
       en: 'Skipped duplicate announcement for the same day'
-  - code: E-BAT-101
-    message:
-      ja: 'Slack API 呼び出しに失敗しました'
-      en: 'Slack API call failed'
   - code: I-BAT-001
     message:
       ja: 'バッチ処理が正常に開始されました'
@@ -40,6 +36,10 @@ messages:
     message:
       ja: 'ファイルの読み込みに失敗しました'
       en: 'Failed to read file'
+  - code: E-BAT-003
+    message:
+      ja: 'Slack API 呼び出しに失敗しました'
+      en: 'Slack API call failed'
   - code: F-BAT-001
     message:
       ja: 'システムエラーによりバッチ処理が中断されました'
