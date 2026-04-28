@@ -7,6 +7,15 @@
 
 ---
 
+## マージ済みPR誤追記防止ルールの追加
+
+**Timestamp**: 2026-04-28T20:59:00+09:00
+**User Input**: "マージ済みのPRに反映しようとするようなミスを防ぐためのルールを追加。"
+**AI Response**: "`.cursor/rules/project-standards.mdc` に『Merged PR Immutability』を追加し、(1) マージ済み/クローズ済みPRへの追記禁止、(2) push前のPRオープン状態確認、(3) 不明時の明示確認をルール化。"
+**Context**: Governance - PR lifecycle safety
+
+---
+
 ## コミット漏れ防止ルールの追加
 
 **Timestamp**: 2026-04-28T20:54:00+09:00
