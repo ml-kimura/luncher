@@ -176,3 +176,6 @@ next-env.d.ts
 storybook-static/
 .storybook-cache/
 **/coverage/storybook/
+
+# Local git worktrees
+/.worktrees/
