@@ -46,3 +46,9 @@ alwaysApply: true
 - Project-specific custom skills MUST be created and maintained under `.cursor/skills/`.
 - Do NOT add project-specific custom skills under `.agents/skills/`.
 - When moving existing project-specific skills, update related references in the same task.
+
+## 8) AI Review and Merge Restriction
+
+- AI agents must **NEVER** perform self-review approvals on pull requests they authored or updated.
+- AI agents must **NEVER** merge pull requests unless the user explicitly requests the merge in the current conversation.
+- Even when merge is explicitly requested, AI agents must not bypass required checks, required reviews, or branch protection rules.
