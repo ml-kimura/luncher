@@ -3,7 +3,62 @@ info:
   title: Luncher API
   version: 1.0.0
 components:
-  schemas: {}
+  schemas:
+    ReceiptReplyEventRequest:
+      type: object
+      properties:
+        eventId:
+          type: string
+        channelId:
+          type: string
+        threadTs:
+          type: string
+        replyTs:
+          type: string
+        replyUserId:
+          type: string
+        imageFileIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        occurredAt:
+          type: string
+          format: date-time
+      required:
+        - eventId
+        - channelId
+        - threadTs
+        - replyTs
+        - replyUserId
+        - imageFileIds
+    ReceiptReplyEventAccepted:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - accepted
+        eventId:
+          type: string
+        expenseReplyTs:
+          type: string
+        alreadyProcessed:
+          type: boolean
+      required:
+        - status
+        - eventId
+        - alreadyProcessed
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
   parameters: {}
 paths:
   /health:
@@ -25,4 +80,47 @@ paths:
                       - ok
                 required:
                   - status
+  /internal/slack/events/receipt-reply:
+    post:
+      operationId: postReceiptExpenseAssistFromSlackReply
+      tags:
+        - slack-events
+      summary: 写真付き Slack リプライを受信し精算テキスト返信を行う
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReceiptReplyEventRequest"
+      responses:
+        "202":
+          description: Event accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReceiptReplyEventAccepted"
+        "400":
+          description: Invalid request (e.g., no image attached)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "409":
+          description: Duplicate event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "422":
+          description: Story precondition not satisfied
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "500":
+          description: Internal processing error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
 webhooks: {}
