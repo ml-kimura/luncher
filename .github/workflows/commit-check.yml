@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: commit-check (standard)
-        if: github.actor != 'dependabot[bot]'
+        if: ${{ !startsWith(github.head_ref || '', 'dependabot/') }}
         uses: commit-check/commit-check-action@7c158d4541309c5952de3343151750882b036d10 # v2.6.0
         with:
           message: true
@@ -28,7 +28,7 @@ jobs:
           job-summary: true
           pr-comments: ${{ github.event_name == 'pull_request' }}
       - name: commit-check (dependabot)
-        if: github.actor == 'dependabot[bot]'
+        if: ${{ startsWith(github.head_ref || '', 'dependabot/') }}
         uses: commit-check/commit-check-action@7c158d4541309c5952de3343151750882b036d10 # v2.6.0
         with:
           message: true
