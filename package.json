@@ -44,6 +44,7 @@
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "lint-staged": "^16.4.0",
+    "prettier": "catalog:",
     "turbo": "^2.7.3",
     "typescript-eslint": "catalog:"
   },

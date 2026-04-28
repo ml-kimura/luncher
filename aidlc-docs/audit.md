@@ -7,6 +7,51 @@
 
 ---
 
+## CI lint ジョブを差分lintへ調整
+
+**Timestamp**: 2026-04-28T20:43:00+09:00
+**User Input**: "チェックエラーになってる"
+**AI Response**: "PR #6 の失敗ログを確認し、既存リポ全体 lint 設定不整合で `pnpm lint` が失敗していたため、`ci.yml` の lint ジョブを `lint-staged --diff=\"origin/main...HEAD\"` 実行へ変更。`checkout` を `fetch-depth: 0` にし、`git fetch origin main` を追加。"
+**Context**: Tooling - CI stabilization for lint check
+
+---
+
+## PRテンプレート Issue欄をコメントガイド形式へ変更
+
+**Timestamp**: 2026-04-28T20:41:00+09:00
+**User Input**: "直す"
+**AI Response**: "`.github/PULL_REQUEST_TEMPLATE.md` の `Related Issue` を箇条書きプレースホルダから HTML コメントによる記入ガイド形式へ変更し、入力欄を `Closes #` の単一行に整理。"
+**Context**: Tooling - PR template usability improvement
+
+---
+
+## PRテンプレートに Issue 連携項目を追加
+
+**Timestamp**: 2026-04-28T20:40:00+09:00
+**User Input**: "追記して"
+**AI Response**: "`.github/PULL_REQUEST_TEMPLATE.md` に `Related Issue` セクションを追加し、`Closes #` / `Refs #` / `No issue` 記載ルールを追記。"
+**Context**: Tooling - PR template enhancement
+
+---
+
+## CI Action pinning と Node 24 への更新
+
+**Timestamp**: 2026-04-28T20:38:00+09:00
+**User Input**: "@.github/workflows/ci.yml @.github/workflows/commit-check.yml node は 24 に。プラグインはすべて、安定最新版にしつつ、バージョンではなく、コミットハッシュで指定。"
+**AI Response**: "`ci.yml` と `commit-check.yml` の GitHub Actions を最新版安定タグ相当のコミットSHAで固定し、`actions/setup-node` の `node-version` を 24 に更新。"
+**Context**: Tooling - CI workflow hardening (pinned actions)
+
+---
+
+## CI整備の仕上げ（Dependabot / PRテンプレート）
+
+**Timestamp**: 2026-04-28T20:35:00+09:00
+**User Input**: "dependabot も追加しつつ仕上げて"
+**AI Response**: "CI整備の残作業として `.github/PULL_REQUEST_TEMPLATE.md` と `.github/dependabot.yml` を追加。既存の CI/commit-check workflow と Husky 構成（pre-commit の branch check + lint-staged）を含めてブランチで仕上げる準備を実施。"
+**Context**: Tooling - CI/GitHub automation finalization
+
+---
+
 ## AI セルフレビュー／セルフマージ禁止ルール追加
 
 **Timestamp**: 2026-04-28T20:08:00+09:00
