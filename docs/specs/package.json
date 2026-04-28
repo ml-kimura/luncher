@@ -23,7 +23,7 @@
     "eslint-plugin-yml": "catalog:",
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.1",
-    "marked": "^17.0.1",
+    "marked": "^18.0.2",
     "prettier": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
