@@ -16,7 +16,8 @@ jobs:
         env:
           BRANCH_NAME: ${{ github.event.ref }}
         run: |
-          PATTERN='^(main|master|develop|staging|((feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert)/[a-z0-9]+(-[a-z0-9]+)*))$'
+          # Reference: https://conventional-branch.github.io/#specification
+          PATTERN='^(main|develop|staging|((feature|feat|bugfix|fix|hotfix|release|chore)/[a-z0-9]+(\.[a-z0-9]+)*(-[a-z0-9]+(\.[a-z0-9]+)*)*))$'
 
           if printf "%s" "$BRANCH_NAME" | grep -Eq "$PATTERN"; then
             echo "valid=true" >> "$GITHUB_OUTPUT"
@@ -26,9 +27,9 @@ jobs:
 
           echo "valid=false" >> "$GITHUB_OUTPUT"
           echo "Branch name is invalid: $BRANCH_NAME"
-          echo "Allowed: main|master|develop|staging or <type>/<slug>"
-          echo "type: feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert"
-          echo "slug: lowercase letters/numbers and hyphens"
+          echo "Allowed: main|develop|staging or <type>/<description>"
+          echo "type: feature|feat|bugfix|fix|hotfix|release|chore"
+          echo "description: lowercase letters/numbers, hyphens, optional dots"
 
       - name: Delete invalid branch
         if: ${{ steps.validate.outputs.valid == 'false' }}

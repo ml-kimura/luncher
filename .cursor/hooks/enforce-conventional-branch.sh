@@ -18,13 +18,14 @@ if (!commandText) {
   process.exit(0);
 }
 
-const pattern = /^(main|master|develop|staging|((feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert)\/[a-z0-9]+(-[a-z0-9]+)*))$/;
+// Reference: https://conventional-branch.github.io/#specification
+const pattern = /^(main|develop|staging|((feature|feat|bugfix|fix|hotfix|release|chore)\/[a-z0-9]+(\.[a-z0-9]+)*(-[a-z0-9]+(\.[a-z0-9]+)*)*))$/;
 
 let branchName = "";
 
 const checkout = commandText.match(/\bgit checkout -b\s+(\S+)/);
 const sw = commandText.match(/\bgit switch -c\s+(\S+)/);
-const branch = commandText.match(/\bgit branch\s+(\S+)/);
+const branch = commandText.match(/\bgit branch\s+(?:-f|--force\s+)?(\S+)/);
 const gh = commandText.match(/\bgh issue develop\b.*\s--name\s+(\S+)/);
 
 if (checkout) branchName = checkout[1];
@@ -49,7 +50,7 @@ console.log(
     permission: "deny",
     user_message: `ブランチ名が規約外です: ${branchName}`,
     agent_message:
-      "Conventional Branch ルール違反。許可: main|master|develop|staging または <type>/<slug>。type は feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert。",
+      "Conventional Branch ルール違反。許可: main|develop|staging または <type>/<description>。type は feature|feat|bugfix|fix|hotfix|release|chore。",
   })
 );
 '

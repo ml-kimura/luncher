@@ -5,7 +5,6 @@ on:
   push:
     branches-ignore:
       - main
-      - master
       - develop
       - staging
 
@@ -20,6 +19,7 @@ jobs:
           HEAD_REF: ${{ github.head_ref }}
           REF_NAME: ${{ github.ref_name }}
         run: |
+          # Reference: https://conventional-branch.github.io/#specification
           if [ "$EVENT_NAME" = "pull_request" ]; then
             BRANCH_NAME="$HEAD_REF"
           else
@@ -29,15 +29,15 @@ jobs:
           echo "Checking branch: $BRANCH_NAME"
 
           # Allowed trunk branches.
-          if printf "%s" "$BRANCH_NAME" | grep -Eq '^(main|master|develop|staging)$'; then
+          if printf "%s" "$BRANCH_NAME" | grep -Eq '^(main|develop|staging)$'; then
             echo "Allowed protected branch name."
             exit 0
           fi
 
-          # Conventional Branch format: <type>/<slug>
-          # type: feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert
-          # slug: lowercase letters/numbers with hyphen-separated segments
-          PATTERN='^(feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert)/[a-z0-9]+(-[a-z0-9]+)*$'
+          # Conventional Branch format: <type>/<description>
+          # type: feature|feat|bugfix|fix|hotfix|release|chore
+          # description: lowercase letters/numbers, hyphens, optional dots in segments
+          PATTERN='^(feature|feat|bugfix|fix|hotfix|release|chore)/[a-z0-9]+(\.[a-z0-9]+)*(-[a-z0-9]+(\.[a-z0-9]+)*)*$'
 
           if printf "%s" "$BRANCH_NAME" | grep -Eq "$PATTERN"; then
             echo "Branch name is valid."
@@ -46,9 +46,9 @@ jobs:
 
           echo "Invalid branch name: $BRANCH_NAME"
           echo "Expected one of:"
-          echo "  - main | master | develop | staging"
-          echo "  - <type>/<slug>"
+          echo "  - main | develop | staging"
+          echo "  - <type>/<description>"
           echo "where type is:"
-          echo "  feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert"
-          echo "and slug is lowercase letters/numbers with hyphens."
+          echo "  feature|feat|bugfix|fix|hotfix|release|chore"
+          echo "and description is lowercase letters/numbers with hyphens and optional dots."
           exit 1
