@@ -13,7 +13,7 @@
     "lint:scripts": "eslint scripts --cache --cache-location node_modules/.cache/eslint-scripts",
     "lint:scripts:fix": "eslint scripts --fix --cache --cache-location node_modules/.cache/eslint-scripts",
     "format": "turbo run format",
-    "api:gen-openapi": "pnpm --filter=api gen:openapi",
+    "api:gen:openapi": "pnpm --filter=api gen:openapi",
     "api:sync:messages": "pnpm --filter=api sync:messages",
     "api:copy:messages": "pnpm --filter=api copy:messages",
     "web:sync:messages": "pnpm --filter=web sync:messages",
