@@ -1,1 +1,1 @@
-pnpm test
+.husky/check-branch-name.sh && pnpm test

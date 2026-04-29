@@ -1,0 +1,50 @@
+name: Branch Create Guard
+
+on:
+  create:
+
+jobs:
+  branch-create-guard:
+    if: ${{ github.event.ref_type == 'branch' }}
+    name: branch-create-guard
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Validate created branch name
+        id: validate
+        env:
+          BRANCH_NAME: ${{ github.event.ref }}
+        run: |
+          PATTERN='^(main|master|develop|staging|((feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert)/[a-z0-9]+(-[a-z0-9]+)*))$'
+
+          if printf "%s" "$BRANCH_NAME" | grep -Eq "$PATTERN"; then
+            echo "valid=true" >> "$GITHUB_OUTPUT"
+            echo "Branch name is valid: $BRANCH_NAME"
+            exit 0
+          fi
+
+          echo "valid=false" >> "$GITHUB_OUTPUT"
+          echo "Branch name is invalid: $BRANCH_NAME"
+          echo "Allowed: main|master|develop|staging or <type>/<slug>"
+          echo "type: feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert"
+          echo "slug: lowercase letters/numbers and hyphens"
+
+      - name: Delete invalid branch
+        if: ${{ steps.validate.outputs.valid == 'false' }}
+        env:
+          BRANCH_NAME: ${{ github.event.ref }}
+          REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ENCODED_BRANCH="${BRANCH_NAME//\//%2F}"
+          curl --fail-with-body -sS -X DELETE \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/git/refs/heads/$ENCODED_BRANCH"
+
+      - name: Fail workflow for invalid branch
+        if: ${{ steps.validate.outputs.valid == 'false' }}
+        run: |
+          echo "Invalid branch was deleted by policy."
+          exit 1

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": "bash .cursor/hooks/enforce-conventional-branch.sh",
+        "failClosed": true
+      }
+    ]
+  }
+}

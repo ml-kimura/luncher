@@ -1,0 +1,54 @@
+name: Branch Name Guard
+
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - main
+      - master
+      - develop
+      - staging
+
+jobs:
+  branch-name-guard:
+    name: branch-name-guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate branch name against conventional policy
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          HEAD_REF: ${{ github.head_ref }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            BRANCH_NAME="$HEAD_REF"
+          else
+            BRANCH_NAME="$REF_NAME"
+          fi
+
+          echo "Checking branch: $BRANCH_NAME"
+
+          # Allowed trunk branches.
+          if printf "%s" "$BRANCH_NAME" | grep -Eq '^(main|master|develop|staging)$'; then
+            echo "Allowed protected branch name."
+            exit 0
+          fi
+
+          # Conventional Branch format: <type>/<slug>
+          # type: feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert
+          # slug: lowercase letters/numbers with hyphen-separated segments
+          PATTERN='^(feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert)/[a-z0-9]+(-[a-z0-9]+)*$'
+
+          if printf "%s" "$BRANCH_NAME" | grep -Eq "$PATTERN"; then
+            echo "Branch name is valid."
+            exit 0
+          fi
+
+          echo "Invalid branch name: $BRANCH_NAME"
+          echo "Expected one of:"
+          echo "  - main | master | develop | staging"
+          echo "  - <type>/<slug>"
+          echo "where type is:"
+          echo "  feat|fix|chore|docs|refactor|test|ci|perf|build|style|revert"
+          echo "and slug is lowercase letters/numbers with hyphens."
+          exit 1

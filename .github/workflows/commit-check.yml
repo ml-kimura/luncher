@@ -22,7 +22,7 @@ jobs:
         uses: commit-check/commit-check-action@7c158d4541309c5952de3343151750882b036d10 # v2.6.0
         with:
           message: true
-          branch: true
+          branch: false
           author-name: false
           author-email: false
           job-summary: true
