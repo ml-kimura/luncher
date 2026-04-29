@@ -33,6 +33,7 @@ features:
     description: 'OpenAPI仕様に基づいたAPIドキュメントを提供します'
     items:
       design: 'API設計'
+      messages: 'メッセージ'
   batch:
     label: 'バッチ'
     path: 'batch'

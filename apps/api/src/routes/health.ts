@@ -1,6 +1,7 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { runHealthCheck } from '@packages/db';
 import { createLogger } from '@packages/logger';
+import { errorJson, errorResponseSchema } from '../messages/responses.js';
 
 const logger = createLogger({ service: 'api' });
 
@@ -24,9 +25,7 @@ const healthRoute = createRoute({
       description: 'Health check failed (DB query failed)',
       content: {
         'application/json': {
-          schema: z.object({
-            status: z.literal('error'),
-          }),
+          schema: errorResponseSchema,
         },
       },
     },
@@ -41,6 +40,6 @@ healthRoutes.openapi(healthRoute, async (c) => {
     return c.json({ status: 'ok' }, 200);
   } catch (error) {
     logger.error('health check failed', { error });
-    return c.json({ status: 'error' }, 500);
+    return errorJson(c, 500, 'F-API-001');
   }
 });

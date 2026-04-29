@@ -13,7 +13,7 @@
     "lint:scripts": "eslint scripts --cache --cache-location node_modules/.cache/eslint-scripts",
     "lint:scripts:fix": "eslint scripts --fix --cache --cache-location node_modules/.cache/eslint-scripts",
     "format": "turbo run format",
-    "api:generate-openapi": "pnpm --filter=api generate-openapi",
+    "api:gen-openapi": "pnpm --filter=api gen-openapi",
     "specs:dev": "pnpm --filter @docs/specs dev",
     "specs:build": "pnpm --filter @docs/specs build",
     "manual:dev": "pnpm --filter @docs/manual dev",

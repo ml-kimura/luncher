@@ -33,6 +33,7 @@ features:
     description: 'API documentation based on OpenAPI specifications'
     items:
       design: 'API Design'
+      messages: 'Messages'
   batch:
     label: 'Batch'
     path: 'batch'

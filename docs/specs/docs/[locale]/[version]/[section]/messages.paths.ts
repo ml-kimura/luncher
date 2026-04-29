@@ -6,7 +6,7 @@ import { docsDir } from '../../../.vitepress/utils/paths';
 import { getVersions } from '../../../.vitepress/utils/versions';
 
 // Supported sections that can have messages
-const SECTIONS = ['screen', 'batch'] as const;
+const SECTIONS = ['screen', 'batch', 'api'] as const;
 type Section = (typeof SECTIONS)[number];
 
 interface Message {
@@ -23,7 +23,9 @@ function loadMessagesYaml(version: string, section: Section): MessagesYaml | nul
   const defaultPath =
     section === 'batch'
       ? path.resolve(docsDir, '..', '..', '..', 'apps', 'batch', 'messages.yml')
-      : path.resolve(docsDir, 'public', section, 'messages.yml');
+      : section === 'api'
+        ? path.resolve(docsDir, '..', '..', '..', 'apps', 'api', 'messages.yml')
+        : path.resolve(docsDir, 'public', section, 'messages.yml');
   const yamlPath = fs.existsSync(versionedPath) ? versionedPath : defaultPath;
 
   if (!fs.existsSync(yamlPath)) {
@@ -34,9 +36,7 @@ function loadMessagesYaml(version: string, section: Section): MessagesYaml | nul
     const content = fs.readFileSync(yamlPath, 'utf-8');
     return yaml.load(content) as MessagesYaml;
   } catch (error) {
-    process.stderr.write(
-      `Error loading messages.yml from ${yamlPath}: ${String(error)}\n`
-    );
+    process.stderr.write(`Error loading messages.yml from ${yamlPath}: ${String(error)}\n`);
     return null;
   }
 }

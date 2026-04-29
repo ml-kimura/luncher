@@ -7,6 +7,24 @@
 
 ---
 
+## API設計テンプレート定義
+
+**Timestamp**: 2026-04-30T00:30:00+09:00
+**User Input**: "API設計のテンプレートを定義したい。"
+**AI Response**: "`docs/specs/docs/ja/1.0.0/api/design/template.md` を新規作成し、frontmatter、endpoint、operationId、認証、request/response、エラー、OpenAPI整合、関連リンクを含む標準テンプレートを定義。"
+**Context**: INCEPTION - Application Design（API設計テンプレート整備）
+
+---
+
+## apps/api メッセージ正本化と仕様書連携
+
+**Timestamp**: 2026-04-30T00:55:00+09:00
+**User Input**: "apps/api に apps/batch/messages.yml と同じファイルを用意し、API の返戻用のメッセージにしたい。設計書もバッチと同じようにメッセージのサイドバーおよび表示ロジックを実装したい。"
+**AI Response**: "`apps/api/messages.yml` を新設（I/W/E/F-API-NNN）、`apps/api/src/messages/catalog.ts` を batch と同形で実装、`apps/api/scripts/copy-messages-to-public.ts` と `sync:messages` スクリプトを追加。共通エラーレスポンス（`{ status, code, message }`）の `errorResponseSchema`/`errorJson` を `apps/api/src/messages/responses.ts` に追加し、`health.ts`/`lunchEntryReaction.ts` のエラーを API メッセージコードに置換。仕様書側は `messages.paths.ts` の SECTIONS に `api` を追加（フォールバックは `apps/api/messages.yml`）、`locales/{ja,en}.yml` の `features.api.items.messages` 追加、`.vitepress/config.ts` の API サイドバー（一覧・spec ページ）に `apiMessages` リンクを追加。`application-design-deliverables.md` §3 を更新。"
+**Context**: INCEPTION - Application Design（API メッセージ基盤整備）
+
+---
+
 ## マージ済みPR誤追記防止ルールの追加
 
 **Timestamp**: 2026-04-28T20:59:00+09:00
@@ -589,5 +607,32 @@
 **User Input**: "@packages/db/atlas/tables/lunch_dates.hcl:32-33 announcement は冗長。"
 **AI Response**: "列名を announcement_slack_message_ts / announcement_slack_channel_id から slack_message_ts / slack_channel_id に変更。HCL の論理名・英語 description、bat-001 / postDailyLunchAnnouncement の参照を追従。specs build 成功。"
 **Context**: PDM 命名
+
+---
+
+## API設計テンプレート: 「処理の流れ」任意セクション追加
+
+**Timestamp**: 2026-04-30T01:43:00+09:00
+**User Input**: "API設計テンプレートに「処理の流れ」任意セクションを追加 / Implement the plan as specified..."
+**AI Response**: "template.md 冒頭注記に『業務ルールはポリシー、処理の流れは順序を実装そのものにならない粒度で書く／状態遷移・副作用・冪等性・前提・バリデーション補足は独立セクションにせず文章で簡潔に表現』の運用ガイドを追記。postSomeEvent セクションに `#### 処理の流れ`（任意、文章ステップ4項目、Mermaid はオプション扱い）を業務ルール直後に追加。getSomeResource 側は省略例として変更なし。pnpm specs:build 成功（dead link 0）。"
+**Context**: INCEPTION - API設計テンプレート（処理粒度・任意セクション）の整備
+
+---
+
+## API設計テンプレート: 見出しを両エンドポイントで揃える
+
+**Timestamp**: 2026-04-30T01:48:00+09:00
+**User Input**: "get と post で見出しに差があるのは、意図的？？ / 単純な GET API の場合でも、見出しは揃えたい。業務ルールはない場合もあるが、処理の流れには何を取得して返戻するかは最低でも書くはず。"
+**AI Response**: "template.md の `getSomeResource` にも `#### 処理の流れ` を追加（最低限の取得→返戻 2 ステップ）。冒頭の運用ノートを『業務ルールは該当しない API では省略可、処理の流れには最低限「何を取得／更新して何を返すか」を必ず記載』に更新。`postSomeEvent` の『任意セクション』注記は撤去し、Mermaid 併記の任意性のみ末尾の引用ブロックに残した。getSomeResource の業務ルール直後に『該当ルールが無い場合は省略してよい』旨の注記を追加。pnpm specs:build 成功（dead link 0）。"
+**Context**: INCEPTION - API設計テンプレートのセクション構造統一（GET/POST 両者で見出し統一・処理の流れを必須化）
+
+---
+
+## API設計テンプレート: 見出し統一・業務ルール「なし」運用
+
+**Timestamp**: 2026-04-30T01:50:00+09:00
+**User Input**: "見出し自体は揃えたい。 / 該当する業務ルールが無い場合は、本セクションを省略してよい。"
+**AI Response**: "template.md の運用ノートを『見出し構成は揃え、該当する業務ルールが無い場合は本文に「なし」と明記する』に変更。`getSomeResource` の業務ルール本文を『なし。』に置換し、省略可注記の引用ブロックを撤去。pnpm specs:build 成功（dead link 0）。"
+**Context**: INCEPTION - API設計テンプレートのセクション構造統一（見出し完全一致・内容で「なし」表現）
 
 ---

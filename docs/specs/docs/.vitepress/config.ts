@@ -121,6 +121,10 @@ export default withMermaid({
                   'design',
                   localeConfigs[locale]?.docSections?.api?.design?.title || 'API Design'
                 ),
+                {
+                  text: labels.apiMessages,
+                  link: `${base}/api/messages`,
+                },
               ],
             },
           ];
@@ -142,6 +146,10 @@ export default withMermaid({
                     'design',
                     localeConfigs[locale]?.docSections?.api?.design?.title || 'API Design'
                   ),
+                  {
+                    text: labels.apiMessages,
+                    link: `${base}/api/messages`,
+                  },
                 ],
               },
             ];
