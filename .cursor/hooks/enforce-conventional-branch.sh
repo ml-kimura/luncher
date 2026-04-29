@@ -25,7 +25,7 @@ let branchName = "";
 
 const checkout = commandText.match(/\bgit checkout -b\s+(\S+)/);
 const sw = commandText.match(/\bgit switch -c\s+(\S+)/);
-const branch = commandText.match(/\bgit branch\s+(?:-f|--force\s+)?(\S+)/);
+const branch = commandText.match(/\bgit branch\s+(?:-f\s+|--force\s+)?((?!-)\S+)/);
 const gh = commandText.match(/\bgh issue develop\b.*\s--name\s+(\S+)/);
 
 if (checkout) branchName = checkout[1];
