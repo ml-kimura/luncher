@@ -74,3 +74,8 @@ alwaysApply: true
 - Before push/PR, run `pnpm install --frozen-lockfile` at repository root. If it fails, stop and fix consistency before proceeding.
 - For PRs that only change GitHub Actions/tooling, avoid introducing package-manager version drift. Keep CI pnpm version aligned with root `packageManager` unless the user explicitly requests a version change.
 - If lockfile inconsistency is detected in unrelated existing changes, report it clearly to the user and do not mask it with bypasses (`--no-frozen-lockfile`, disabling checks, or weakening required status checks) without explicit approval.
+
+## 12) Script Runtime Policy (Node Only)
+
+- Script execution runtime MUST be Node.js. Prefer `node` or `tsx`-based scripts for automation and hooks.
+- Do NOT introduce new Python-based scripts or Python runtime dependencies for project automation/hooks unless explicitly requested by the user.
