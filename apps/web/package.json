@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "sync:messages": "tsx scripts/sync-message-definitions.ts",
-    "copy:messages": "tsx scripts/copy-messages-to-public.ts",
+    "copy:artifacts": "tsx scripts/copy-messages-to-public.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",

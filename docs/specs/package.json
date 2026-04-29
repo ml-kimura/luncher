@@ -7,7 +7,7 @@
     "dev": "vitepress dev docs --host 0.0.0.0",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
-    "copy:glossary": "tsx scripts/copy-glossary-to-public.ts",
+    "copy:artifacts": "tsx scripts/copy-glossary-to-public.ts",
     "lint": "eslint . --cache --cache-location node_modules/.cache/eslint",
     "lint:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,vue}\"",

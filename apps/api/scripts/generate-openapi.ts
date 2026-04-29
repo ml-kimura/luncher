@@ -16,7 +16,7 @@ const doc = app.getOpenAPI31Document({
   },
 });
 
-const outputDir = resolve(appRoot, '..', '..', 'docs', 'specs', 'docs', 'public', 'openapi');
+const outputDir = appRoot;
 const outputPath = resolve(outputDir, 'openapi-app.yml');
 const yamlOutput = stringify(doc);
 const prettierConfig = (await prettier.resolveConfig(outputPath)) ?? {};

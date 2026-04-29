@@ -1,0 +1,165 @@
+openapi: 3.1.0
+info:
+  title: Luncher API
+  version: 1.0.0
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - error
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - status
+        - code
+        - message
+  parameters: {}
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      tags:
+        - System
+      summary: ヘルスチェック
+      description: サービス稼働と DB 接続を確認
+      responses:
+        '200':
+          description: API and DB health check status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                required:
+                  - status
+        '500':
+          description: Health check failed (DB query failed)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /internal/events/lunch-entry-reaction:
+    post:
+      operationId: postLunchEntryReaction
+      tags:
+        - Slack
+      summary: 参加表明受付
+      description: Slack リアクションイベントを受け取り、当日ランチ参加状態を更新する内部 API（US-002）。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventId:
+                  type: string
+                  minLength: 1
+                eventType:
+                  type: string
+                  enum:
+                    - reaction_added
+                    - reaction_removed
+                reaction:
+                  type: string
+                  minLength: 1
+                lunchDate:
+                  type: string
+                  format: date
+                slackUserId:
+                  type: string
+                  minLength: 1
+                channelId:
+                  type: string
+                  minLength: 1
+                messageTs:
+                  type: string
+                  minLength: 1
+                occurredAt:
+                  type: string
+                  format: date-time
+              required:
+                - eventId
+                - eventType
+                - reaction
+                - lunchDate
+                - slackUserId
+                - channelId
+                - messageTs
+                - occurredAt
+      responses:
+        '200':
+          description: イベント処理結果（更新あり/なし、または受理拒否）
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
+                  result:
+                    type: string
+                    enum:
+                      - accepted
+                      - no_change
+                      - rejected
+                  lunchDate:
+                    type: string
+                    format: date
+                  slackUserId:
+                    type: string
+                  attendanceStatus:
+                    type: string
+                    enum:
+                      - joined
+                      - left
+                      - unchanged
+                required:
+                  - status
+                  - result
+                  - lunchDate
+                  - slackUserId
+                  - attendanceStatus
+        '400':
+          description: 必須項目欠落、eventType 不正（E-API-001）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 署名検証失敗（E-API-002）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: 内部認可失敗（E-API-003）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: 同一 eventId の競合（E-API-004）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 内部エラー（F-API-001）
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+webhooks: {}

@@ -6,11 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const specsRoot = resolve(dirname(__filename), '..');
 
 const versionArg = process.argv.find((arg) => arg.startsWith('--version='));
-const version = versionArg?.split('=')[1];
-
-if (!version) {
-  throw new Error('Missing required argument: --version=<semver>');
-}
+const version = versionArg?.split('=')[1] || '1.0.0';
 
 const sourcePath = resolve(specsRoot, 'docs', 'public', 'glossary.yml');
 const targetPath = resolve(specsRoot, 'docs', 'public', version, 'glossary.yml');
