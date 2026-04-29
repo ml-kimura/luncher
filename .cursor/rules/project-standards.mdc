@@ -79,3 +79,9 @@ alwaysApply: true
 
 - Script execution runtime MUST be Node.js. Prefer `node` or `tsx`-based scripts for automation and hooks.
 - Do NOT introduce new Python-based scripts or Python runtime dependencies for project automation/hooks unless explicitly requested by the user.
+
+## 13) Deprecation Avoidance Policy
+
+- When writing or updating code, **NEVER** introduce deprecated APIs/methods/types if a supported alternative exists.
+- If existing code uses deprecated APIs, prefer migrating touched lines to the recommended replacement within the same task when safely possible.
+- If migration scope is large or risky, call it out explicitly and propose a follow-up change instead of adding new deprecated usage.
