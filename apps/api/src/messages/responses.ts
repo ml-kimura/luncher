@@ -2,10 +2,16 @@ import { z } from '@hono/zod-openapi';
 import type { Context } from 'hono';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import { formatTemplate, loadMessageCatalog, type MessageLocale } from './catalog.js';
+import type { ApiMessageCode } from './codes.js';
+
+export enum ApiResponseStatus {
+  Ok = 'ok',
+  Error = 'error',
+}
 
 export const errorResponseSchema = z
   .object({
-    status: z.literal('error'),
+    status: z.literal(ApiResponseStatus.Error),
     code: z.string(),
     message: z.string(),
   })
@@ -17,11 +23,11 @@ const DEFAULT_LOCALE: MessageLocale = 'ja';
 
 const resolveLocale = (): MessageLocale => DEFAULT_LOCALE;
 
-export const buildErrorBody = (code: string, values: Record<string, string> = {}): ErrorResponseBody => {
+export const buildErrorBody = (code: ApiMessageCode, values: Record<string, string> = {}): ErrorResponseBody => {
   const catalog = loadMessageCatalog();
   const template = catalog.getTemplateByCode(code, resolveLocale());
   return {
-    status: 'error',
+    status: ApiResponseStatus.Error,
     code,
     message: formatTemplate(template, values),
   };
@@ -30,6 +36,6 @@ export const buildErrorBody = (code: string, values: Record<string, string> = {}
 export const errorJson = <S extends ContentfulStatusCode>(
   c: Context,
   status: S,
-  code: string,
+  code: ApiMessageCode,
   values: Record<string, string> = {}
 ) => c.json(buildErrorBody(code, values), status);

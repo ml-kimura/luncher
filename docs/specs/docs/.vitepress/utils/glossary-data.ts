@@ -30,7 +30,11 @@ export function uncategorizedLabel(locale: string): string {
 }
 
 export function resolveGlossaryYamlPath(docsDir: string, version: string): string {
-  return path.join(docsDir, 'public', version, 'glossary.yml');
+  const versionedPath = path.join(docsDir, 'public', version, 'glossary.yml');
+  if (fs.existsSync(versionedPath)) {
+    return versionedPath;
+  }
+  return path.join(docsDir, 'public', 'glossary.yml');
 }
 
 /**
@@ -38,8 +42,17 @@ export function resolveGlossaryYamlPath(docsDir: string, version: string): strin
  * 読み取り／パース失敗時は stderr に1行出して null。
  */
 export function loadGlossaryYaml(docsDir: string, version: string): GlossaryYaml | null {
-  const yamlPath = resolveGlossaryYamlPath(docsDir, version);
-  if (!fs.existsSync(yamlPath)) {
+  const versionedPath = path.join(docsDir, 'public', version, 'glossary.yml');
+  const fallbackPath = path.join(docsDir, 'public', 'glossary.yml');
+  const candidatePaths = [versionedPath, fallbackPath];
+  const yamlPath = candidatePaths.find((candidate) => {
+    try {
+      return fs.existsSync(candidate) && fs.statSync(candidate).isFile();
+    } catch {
+      return false;
+    }
+  });
+  if (!yamlPath) {
     return null;
   }
   try {

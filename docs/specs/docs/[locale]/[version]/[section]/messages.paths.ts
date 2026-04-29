@@ -20,23 +20,30 @@ interface MessagesYaml {
 
 function loadMessagesYaml(version: string, section: Section): MessagesYaml | null {
   const versionedPath = path.resolve(docsDir, 'public', version, section, 'messages.yml');
-  const defaultPath =
-    section === 'batch'
-      ? path.resolve(docsDir, '..', '..', '..', 'apps', 'batch', 'messages.yml')
-      : section === 'api'
-        ? path.resolve(docsDir, '..', '..', '..', 'apps', 'api', 'messages.yml')
-        : path.resolve(docsDir, 'public', section, 'messages.yml');
-  const yamlPath = fs.existsSync(versionedPath) ? versionedPath : defaultPath;
+  const appSubdirBySection: Record<Section, string> = {
+    batch: 'batch',
+    api: 'api',
+    screen: 'web',
+  };
+  const defaultPath = path.resolve(docsDir, '..', '..', '..', 'apps', appSubdirBySection[section], 'messages.yml');
+  const candidatePaths = fs.existsSync(versionedPath) ? [versionedPath, defaultPath] : [defaultPath];
+  const readablePath = candidatePaths.find((candidate) => {
+    try {
+      return fs.existsSync(candidate) && fs.statSync(candidate).isFile();
+    } catch {
+      return false;
+    }
+  });
 
-  if (!fs.existsSync(yamlPath)) {
+  if (!readablePath) {
     return null;
   }
 
   try {
-    const content = fs.readFileSync(yamlPath, 'utf-8');
+    const content = fs.readFileSync(readablePath, 'utf-8');
     return yaml.load(content) as MessagesYaml;
   } catch (error) {
-    process.stderr.write(`Error loading messages.yml from ${yamlPath}: ${String(error)}\n`);
+    process.stderr.write(`Error loading messages.yml from ${readablePath}: ${String(error)}\n`);
     return null;
   }
 }

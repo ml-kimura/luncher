@@ -645,3 +645,129 @@
 **Context**: Governance - commit message validation（CI commit-check-action とローカル commit-msg フックの整合）
 
 ---
+
+## apps/api: tags / logger / status の共通化
+
+**Timestamp**: 2026-04-30T02:50:00+09:00
+**User Input**: "@apps/api/src/routes/health.ts タグがばらつかないように enum かなんかで管理したい。 / @apps/api/src/routes/health.ts:7-8 @apps/api/src/routes/health.ts:20 この辺もベタ書きを避けたい / OK / OK"
+**AI Response**: "(1) `apps/api/src/routes/tags.ts` に `ApiRouteTag` enum（`System` / `Slack`）を追加し、`health.ts` `lunchEntryReaction.ts` の `tags: [...]` を enum 参照に置換。(2) `apps/api/src/logger.ts` を新設して `apiLogger = createLogger({ service: 'api' })` を export。`app.ts` `routes/health.ts` のローカル `createLogger` 呼び出しを共通 logger 参照に置き換え。(3) `apps/api/src/messages/responses.ts` に `ApiResponseStatus` enum（`Ok = 'ok'` / `Error = 'error'`）を追加し、`errorResponseSchema` / `buildErrorBody` および `health.ts` `lunchEntryReaction.ts` の `z.literal('ok')` / `c.json({ status: 'ok' })` を enum 参照に置換。`pnpm --filter=api check-types` / `lint` / `test` すべてグリーン。"
+**Context**: Construction - API 共通定数の集約（route tag / logger / response status）
+
+---
+
+## apps/api: メディアタイプの定数化（手書きミス防止）
+
+**Timestamp**: 2026-04-30T02:58:00+09:00
+**User Input**: "違うよ。手書きして間違うのを懸念している。"
+**AI Response**: "`MediaType.ApplicationJson` を `apps/api/src/http/media-type.ts` に定義し、`health.ts` と `lunchEntryReaction.ts` の OpenAPI `content` キーを `[MediaType.ApplicationJson]` に統一（当初 `HttpMediaType` だったが `MediaType` にリネーム）。`pnpm --filter=api check-types` / `lint` / `test` 成功。"
+**Context**: Construction - OpenAPI content メディアタイプの単一ソース化
+
+---
+
+## scripts: メッセージコード整合チェックと自動補完の追加
+
+**Timestamp**: 2026-04-30T03:14:00+09:00
+**User Input**: "OK。@apps/api/scripts/generate-openapi.ts これに code.ts のメッセージコードにあって、messages.yml に無いコードがあれば、追加する処理、messages.yml に code.ts にないコードがあった場合にエラーを出す処理を追加して、ファイル名も変更したい。"
+**AI Response**: "`apps/api/src/messages/codes.ts` を新規作成して API メッセージコードの定義を追加。`apps/api/scripts/generate-openapi.ts` を `generate-openapi-artifacts.ts` にリネームし、OpenAPI 生成前に `messages.yml` を検査する処理を実装（code.ts に存在して yml に無いコードは TODO 文言付きで自動追加、yml にあって code.ts に無いコードがあればエラー終了）。`package.json` の `gen-openapi` 参照を更新し、`pnpm --filter=api check-types` / `lint` / `gen-openapi` 成功を確認。"
+**Context**: Construction - API メッセージコード定義の単一化と生成スクリプト責務の拡張
+
+---
+
+## batch messages.yml: 定数名プロパティの追加
+
+**Timestamp**: 2026-04-30T03:17:00+09:00
+**User Input**: "@apps/batch/messages.yml メッセージのプロパティに定数名を追加しないとわかんないかも。"
+**AI Response**: "`apps/batch/messages.yml` の全メッセージ項目に `const` プロパティを追加し、コードと識別名の対応を明示化。既存パーサは `code` / `ja` / `en` のみ参照するため後方互換を維持。`pnpm --filter=batch check-types` と `pnpm --filter=batch lint` の成功を確認。"
+**Context**: Construction - バッチメッセージ定義の可読性改善（コード⇔定数名対応の可視化）
+
+---
+
+## api messages.yml: const の自動変換・整合チェック追加
+
+**Timestamp**: 2026-04-30T03:20:00+09:00
+**User Input**: "どういうこと？？ ... これもコードのチェックと同じにしたいし、追加するときは定数名をコードで Upper Snakeケースに自動で変換したい。"
+**AI Response**: "`generate-openapi-artifacts.ts` に `const` 検証・補完を追加。`code` から `UPPER_SNAKE_CASE`（`-`→`_` して大文字化）を生成し、(1) `code.ts` にあって yml に無いコード追加時は `const` も自動付与、(2) 既存エントリで `const` 欠落時は自動補完、(3) `const` が期待値と不一致ならエラー終了。`pnpm --filter=api gen-openapi` 実行で `apps/api/messages.yml` に `I_API_001` などの `const` を自動追記し、`check-types`/`lint` 成功を確認。"
+**Context**: Construction - API メッセージ定義の機械可読性向上（code⇔const の強制整合）
+
+---
+
+## api const生成ロジック修正（code値ではなくキー名ベース）
+
+**Timestamp**: 2026-04-30T03:24:00+09:00
+**User Input**: "ん？？？？ ... InfoRequestProcessed → INFO_REQUEST_PROCESSED"
+**AI Response**: "`generate-openapi-artifacts.ts` の `const` 期待値計算を `code` 値（`I-API-001`）ベースから `codes.ts` のキー名（`InfoRequestProcessed`）ベースへ修正。`InfoRequestProcessed -> INFO_REQUEST_PROCESSED` の規約に統一し、`messages.yml` の `const` も `INFO_REQUEST_PROCESSED` などに更新。`check-types`/`lint`/`gen-openapi` 成功。"
+**Context**: Construction - メッセージ識別子の意味名ベース整合に修正
+
+---
+
+## batch: messages 定義同期の自動検証を追加
+
+**Timestamp**: 2026-04-30T03:40:00+09:00
+**User Input**: "バッチのメッセージにも同じ仕組みを入れたい"
+**AI Response**: "`apps/batch/src/messages/codes.ts` を追加し、Batch メッセージコードの正本を定義。`apps/batch/scripts/sync-message-definitions.ts` を追加して `messages.yml` の code/const を `codes.ts` と照合（不足 code は TODO 付きで補完、余剰 code はエラー、const 不一致はエラー、const 欠落は自動補完）。`apps/batch/package.json` に `sync:messages:definitions` を追加し、`sync:messages` で同期処理を先行実行するよう更新。`pnpm --filter=batch sync:messages:definitions` / `check-types` / `lint` 成功を確認。"
+**Context**: Construction - Batch メッセージ管理の API 同等化（定義同期と厳格チェック）
+
+---
+
+## api scripts: メッセージ同期と OpenAPI 生成の分割（batch と同名構成）
+
+**Timestamp**: 2026-04-30T03:45:00+09:00
+**User Input**: "Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself. To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos."
+**AI Response**: "`apps/api/scripts/sync-message-definitions.ts` を新設し、`generate-openapi-artifacts.ts` にあった `messages.yml` 同期処理を移植。`apps/api/scripts/generate-openapi.ts` を OpenAPI YAML 生成専用にし、`generate-openapi-artifacts.ts` を削除。`apps/api/package.json` に `sync:messages:definitions` を追加し、`sync:messages` を `pnpm sync:messages:definitions && copy` に変更、`gen-openapi` を `generate-openapi.ts` へ向け、`gen-artifacts` は `pnpm gen-openapi` のエイリアスにした。ルート `package.json` に `api:gen-openapi` を追加し、`api:gen-artifacts` は `gen-openapi` へ委譲。`pnpm --filter=api sync:messages:definitions` / `gen-openapi` / `check-types` / `lint` と `pnpm --filter=batch sync:messages:definitions` を実行し成功。"
+**Context**: Construction - API/Batch スクリプト名・責務の整合（メッセージ定義同期の分離）
+
+---
+
+## api sync:messages の責務をコピー専用へ修正
+
+**Timestamp**: 2026-04-30T04:03:00+09:00
+**User Input**: "@apps/api/package.json:13 これは、docs/specs の最新バージョンが messages.yml を参照し、古いバージョンが、docs/specs/docs/public/バージョン/batch/messages.yml を参照する仕組みなので、新しいバージョンを切る時に直前のバージョン用にコピーする処理。だから定義の生成といっしょには使わない。"
+**AI Response**: "`apps/api/package.json` の `sync:messages` から `sync:messages:definitions` の連結を外し、`tsx scripts/copy-messages-to-public.ts` のみを実行する構成へ戻した。定義同期は `sync:messages:definitions` を明示実行する運用に分離。"
+**Context**: Construction - API メッセージ同期スクリプト責務の運用要件反映
+
+---
+
+## batch sync:messages の責務をコピー専用へ修正
+
+**Timestamp**: 2026-04-30T04:06:00+09:00
+**User Input**: "バッチは？"
+**AI Response**: "`apps/batch/package.json` の `sync:messages` から `sync:messages:definitions` の連結を外し、`tsx scripts/copy-messages-to-public.ts` のみを実行する構成へ変更。定義同期は `sync:messages:definitions` を明示実行する運用に分離。"
+**Context**: Construction - Batch メッセージ同期スクリプト責務の運用要件反映
+
+---
+
+## scripts命名整理: sync は定義同期 / copy は公開コピー
+
+**Timestamp**: 2026-04-30T04:12:00+09:00
+**User Input**: "どちらかというとコードからYMLに反映するのが sync:messages じゃない？？ / OK"
+**AI Response**: "API/BATCH の script 命名を意味に合わせて変更。`sync:messages` を `scripts/sync-message-definitions.ts` 実行へ、コピー処理は `copy:messages` に分離。対象: `apps/api/package.json`, `apps/batch/package.json`, ルート `package.json`（`api:copy:messages`, `batch:copy:messages` を追加）。`sync:messages` は API/Batch とも実行成功を確認。`copy:messages` は `--version` 必須かつ docs 配下ファイル権限（EACCES）によりこの環境では検証不可。"
+**Context**: Construction - messages scripts の命名と責務の一致
+
+---
+
+## web: メッセージ定義同期と公開コピーの仕組みを追加
+
+**Timestamp**: 2026-04-30T04:18:00+09:00
+**User Input**: "apps/web にも同じ仕組みを組み込みたい"
+**AI Response**: "`apps/web` に API/Batch と同等のメッセージ運用を追加。`src/messages/codes.ts` と `messages.yml` を新規作成し、`scripts/sync-message-definitions.ts`（code⇔const 整合/不足補完/余剰検出）および `scripts/copy-messages-to-public.ts`（version 指定コピー）を追加。`apps/web/package.json` に `sync:messages` / `copy:messages` を追加し、ルート `package.json` に `web:sync:messages` / `web:copy:messages` を追加。`pnpm --filter=web sync:messages` と `pnpm --filter=web lint` 成功を確認。"
+**Context**: Construction - Web アプリへの messages 管理仕組みの横展開
+
+---
+
+## docs specs: screen は web messages.yml を参照
+
+**Timestamp**: 2026-04-30T04:22:00+09:00
+**User Input**: "@docs/specs/docs/[locale]/[version]/[section]/messages.paths.ts:23-28 これに section が screen の時に apps/web/messages.yml を参照する分岐を追加したい。もうちょっときれいな書き方で。"
+**AI Response**: "`messages.paths.ts` の `loadMessagesYaml` で分岐をネスト三項演算子から `appMessagesPathBySection` マップに変更。`screen` のデフォルト参照先として `apps/web/messages.yml` を追加。"
+**Context**: Construction - docs/specs の messages パス解決整理（screen->web）
+
+---
+
+## glossary.yml 参照を version 優先 + fallback に変更
+
+**Timestamp**: 2026-04-30T04:26:00+09:00
+**User Input**: "@docs/specs/docs/.vitepress/utils/sidebar/glossary-sidebar.ts @docs/specs/docs/.vitepress/utils/glossary-data.ts これも public/バージョン/glossary.yml があればそのファイルを、なければ public/glossary.yml を読むようにして"
+**AI Response**: "`glossary-data.ts` の解決ロジックを更新し、`public/<version>/glossary.yml` を優先、無ければ `public/glossary.yml` を参照するよう変更。`loadGlossaryYaml` も候補2パスから読めるファイルを選択する処理に修正。"
+**Context**: Construction - glossary データ参照仕様の統一（version 優先フォールバック）
+
+---

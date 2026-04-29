@@ -5,7 +5,7 @@ import { stringify } from 'yaml';
 import { createApp } from '../src/app.js';
 
 const app = createApp();
-
+const appRoot = resolve(process.cwd());
 const openapiVersion = process.env.OPENAPI_VERSION?.trim() || '1.0.0';
 
 const doc = app.getOpenAPI31Document({
@@ -16,7 +16,7 @@ const doc = app.getOpenAPI31Document({
   },
 });
 
-const outputDir = resolve(process.cwd(), '..', '..', 'docs', 'specs', 'docs', 'public', 'openapi');
+const outputDir = resolve(appRoot, '..', '..', 'docs', 'specs', 'docs', 'public', 'openapi');
 const outputPath = resolve(outputDir, 'openapi-app.yml');
 const yamlOutput = stringify(doc);
 const prettierConfig = (await prettier.resolveConfig(outputPath)) ?? {};
@@ -28,5 +28,4 @@ const formattedYaml = await prettier.format(yamlOutput, {
 
 await mkdir(outputDir, { recursive: true });
 await writeFile(outputPath, formattedYaml, 'utf-8');
-
 process.stdout.write(`OpenAPI YAML generated: ${outputPath}\n`);
