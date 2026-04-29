@@ -771,3 +771,12 @@
 **Context**: Construction - glossary データ参照仕様の統一（version 優先フォールバック）
 
 ---
+
+## Conventional Branch フック: branch サブコマンド判定の誤爆修正
+
+**Timestamp**: 2026-04-30T04:37:00+09:00
+**User Input**: "その３つだけが対象になるように修正"
+**AI Response**: "`.cursor/hooks/enforce-conventional-branch.sh` の抽出正規表現を修正。`checkout -b` / `switch -c` / `branch <name>`（`-f|--force` 可）だけを対象にし、先頭 `-` の引数はブランチ名として扱わないように変更。これにより list/delete 系オプションの誤検知を防止。"
+**Context**: Governance - Branch name guard の対象コマンド限定と誤検知防止
+
+---
