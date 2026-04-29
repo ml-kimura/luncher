@@ -1,8 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { createLogger } from '@packages/logger';
+import { apiLogger as logger } from './logger.js';
 import { registerRoutes } from './routes/index.js';
-
-const logger = createLogger({ service: 'api' });
 
 export const createApp = () => {
   const app = new OpenAPIHono();
