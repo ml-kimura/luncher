@@ -636,3 +636,12 @@
 **Context**: INCEPTION - API設計テンプレートのセクション構造統一（見出し完全一致・内容で「なし」表現）
 
 ---
+
+## commitlint scope 厳格化（CI commit-check との整合）
+
+**Timestamp**: 2026-04-30T02:30:00+09:00
+**User Input**: "main から、先程 commit-check がエラーになったことへの対策をしたい。feat(api,docs) みたいなのを作らないようにチェックの実装を修正する必要がある。 / conventional branch でも同じ scope のチェックを入れたい / C"
+**AI Response**: "`commitlint.config.cjs` に `scope-case: kebab-case` と、カスタムプラグイン `scope-no-multiple`（scope 内に `,` `/` 空白を含むコミットを拒否）を追加。`feat(api,docs):` `feat(api/docs):` `feat(api docs):` `feat(API):` `feat(api,):` を NG として検出することをローカル CLI で確認。`feat(api):` `feat(api-docs):` `feat:` `fix(my-scope):` は引き続き通過。Conventional Branch 側は既に branch-name-guard が `,` や大文字を弾く構成のため変更なし（案 C）。"
+**Context**: Governance - commit message validation（CI commit-check-action とローカル commit-msg フックの整合）
+
+---
