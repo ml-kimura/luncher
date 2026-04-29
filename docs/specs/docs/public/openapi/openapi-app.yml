@@ -12,8 +12,8 @@ paths:
       tags:
         - system
       responses:
-        "200":
-          description: API health status
+        '200':
+          description: API and DB health check status
           content:
             application/json:
               schema:
@@ -23,6 +23,19 @@ paths:
                     type: string
                     enum:
                       - ok
+                required:
+                  - status
+        '500':
+          description: Health check failed (DB query failed)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - error
                 required:
                   - status
 webhooks: {}
