@@ -12,14 +12,14 @@
 
 ## 3. 成果物ディレクトリの目次（想定）
 
-| 区分       | パス（想定）                                                                | 役割                                                 |
-| ---------- | --------------------------------------------------------------------------- | ---------------------------------------------------- |
-| 用語・命名 | `ja/1.0.0/glossary/` 等（要否は Application Design で確定）                 | 画面/API/バッチの表記整合                            |
-| 画面       | `docs/specs/docs/ja/1.0.0/screen/design/*.md`                               | 各画面の項目・イベント・権限・エラー。1画面1ファイル |
-| API 補足   | `docs/specs/docs/ja/1.0.0/api/design/*.md` および `docs/specs/docs/public/openapi/openapi-app.yml`（`pnpm api:generate-openapi` の出力・API 定義の正） | 業務観点の補足と画面・OpenAPI との整合             |
-| バッチ     | `docs/specs/docs/ja/1.0.0/batch/design/` および `batch/flow/`               | スケジュール、入出力、失敗時挙動                     |
-| DB         | `docs/specs/docs/ja/1.0.0/database/`（CDM/PDM 等）                          | エンティティと制約の根拠                             |
-| 運用・制約 | 要件書・管理画面仕様に分散可                                                | 月次上限、締切、管理者設定の反映先を明示             |
+| 区分       | パス（想定）                                                                                                                                                                                                                                                                                                                  | 役割                                                 |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| 用語・命名 | `ja/1.0.0/glossary/` 等（要否は Application Design で確定）                                                                                                                                                                                                                                                                   | 画面/API/バッチの表記整合                            |
+| 画面       | `docs/specs/docs/ja/1.0.0/screen/design/*.md`                                                                                                                                                                                                                                                                                 | 各画面の項目・イベント・権限・エラー。1画面1ファイル |
+| API 補足   | `docs/specs/docs/ja/1.0.0/api/design/*.md` および `docs/specs/docs/public/openapi/openapi-app.yml`（`pnpm api:generate-openapi` の出力・API 定義の正）。API メッセージ正本は `apps/api/messages.yml`（`pnpm --filter=api sync:messages -- --version=<semver>` で `docs/specs/docs/public/<version>/api/messages.yml` を生成） | 業務観点の補足と画面・OpenAPI との整合               |
+| バッチ     | `docs/specs/docs/ja/1.0.0/batch/design/` および `batch/flow/`                                                                                                                                                                                                                                                                 | スケジュール、入出力、失敗時挙動                     |
+| DB         | `docs/specs/docs/ja/1.0.0/database/`（CDM/PDM 等）                                                                                                                                                                                                                                                                            | エンティティと制約の根拠                             |
+| 運用・制約 | 要件書・管理画面仕様に分散可                                                                                                                                                                                                                                                                                                  | 月次上限、締切、管理者設定の反映先を明示             |
 
 ## 4. 画面仕様テンプレート（ベースライン）
 
@@ -34,7 +34,7 @@
    - 画面の「イベント/API連携」に Route または operationId を記載。`docs/specs/docs/public/openapi/openapi-app.yml`（生成物の正）と **名前の双方向整合** を取る。
 3. **バッチ ↔ DB**
    - バッチ設計に読み書きテーブルを列挙し、CDM/PDM のエンティティ名と一致させる。
-4. **対象外の再掲**  
+4. **対象外の再掲**
    - 経費の **申請** は実装しない（`requirements.md` §4、`workflow-planning.md` §3 と同趣旨）。該当しうる画面/API は先頭で明記する。
 
 ## 6. ユーザーストーリー → 設計テーマのマッピング
