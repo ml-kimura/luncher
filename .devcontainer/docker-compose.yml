@@ -28,6 +28,7 @@ services:
       - manual-node-modules:/workspace/docs/manual/node_modules
       - specs-node-modules:/workspace/docs/specs/node_modules
     environment:
+      GH_TOKEN: ${GH_TOKEN}
       ATLAS_DEV_DB: ${ATLAS_DEV_DB:-dev}
       ATLAS_DEV_URL: 'postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${ATLAS_DEV_DB:-dev}?sslmode=disable'
       DATABASE_URL: 'postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-myapp}?sslmode=disable'

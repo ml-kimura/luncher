@@ -1,5 +1,5 @@
 import { computed, type Ref } from 'vue';
-import type { FieldDef } from '../theme/components/BasicInfo.vue';
+import type { FieldDef } from '../locales';
 
 type FrontmatterValue = {
   actor?: unknown;

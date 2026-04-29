@@ -7,14 +7,13 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --filter=web --filter=api",
-    "ui:dev": "turbo run dev --ui stream --filter=@packages/ui",
-    "ui:build": "turbo run build --ui stream --filter=@packages/ui",
-    "lint": "turbo run lint && pnpm lint:root && pnpm lint:scripts",
-    "lint:root": "eslint . --cache --cache-location node_modules/.cache/eslint-root",
-    "lint:scripts": "eslint --config scripts/eslint.config.mjs scripts --no-error-on-unmatched-pattern --cache --cache-location node_modules/.cache/eslint-scripts",
-    "lint:root:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint-root",
+    "ui:dev": "pnpm --filter=@packages/ui dev",
+    "ui:build": "pnpm --filter=@packages/ui build",
+    "lint": "turbo run lint && pnpm lint:scripts",
+    "lint:scripts": "eslint scripts --cache --cache-location node_modules/.cache/eslint-scripts",
+    "lint:scripts:fix": "eslint scripts --fix --cache --cache-location node_modules/.cache/eslint-scripts",
     "format": "turbo run format",
-    "api:generate-openapi": "turbo run generate-openapi --ui stream --filter=api",
+    "api:generate-openapi": "pnpm --filter=api generate-openapi",
     "specs:dev": "pnpm --filter @docs/specs dev",
     "specs:build": "pnpm --filter @docs/specs build",
     "manual:dev": "pnpm --filter @docs/manual dev",
@@ -28,7 +27,10 @@
     "pre-commit": "lint-staged",
     "commitlint": "commitlint --edit",
     "check-types": "turbo run check-types",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "version:check": "tsx scripts/version-packages.ts check",
+    "version:set": "tsx scripts/version-packages.ts set",
+    "version:bump": "tsx scripts/version-packages.ts bump"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": [
@@ -42,11 +44,14 @@
     "@commitlint/cli": "^20.5.2",
     "@commitlint/config-conventional": "^20.5.0",
     "@packages/eslint-config": "workspace:*",
+    "@packages/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
     "eslint": "catalog:",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "lint-staged": "^16.4.0",
     "prettier": "catalog:",
+    "tsx": "catalog:",
     "turbo": "^2.7.3",
     "typescript-eslint": "catalog:"
   },
