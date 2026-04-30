@@ -9,8 +9,8 @@ features:
   home:
     label: 'ホーム'
     path: ''
-    name: 'Luncher'
-    text: 'コラボランチ・マッチングアプリケーション'
+    name: 'Luncher Specs'
+    text: 'コラボランチ・マッチングアプリケーション仕様'
     description: 'Luncher 仕様書サイトへようこそ'
   userStories:
     label: 'ユーザーストーリー'

@@ -1,13 +1,13 @@
 {
   "name": "@docs/specs",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "ML Documentaion Project",
   "type": "module",
   "scripts": {
     "dev": "vitepress dev docs --host 0.0.0.0",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
-    "copy:artifacts": "tsx scripts/copy-glossary-to-public.ts",
+    "copy:artifacts": "tsx scripts/copy-public-artifacts-to-version.ts",
     "lint": "eslint . --cache --cache-location node_modules/.cache/eslint",
     "lint:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,vue}\"",
