@@ -8,12 +8,12 @@ import yaml from 'js-yaml';
 import path from 'path';
 import { createOpenApiSpec, useSidebar } from 'vitepress-openapi';
 
-import { publicDir } from './paths';
+import { publicDir, workspaceRootDir } from './paths';
 
 function openapiLayoutDirs(version: string) {
   return {
     versioned: path.join(publicDir, version, 'openapi'),
-    shared: path.join(publicDir, 'openapi'),
+    original: path.join(workspaceRootDir, 'apps', 'api'),
   } as const;
 }
 
@@ -44,7 +44,7 @@ export interface OpenApiSpec {
 }
 
 function resolveOpenApiSourcePath(version: string, fileName: string): string | null {
-  const { versioned, shared } = openapiLayoutDirs(version);
+  const { versioned, original } = openapiLayoutDirs(version);
 
   if (fs.existsSync(versioned)) {
     const versionedFilePath = path.join(versioned, fileName);
@@ -53,9 +53,9 @@ function resolveOpenApiSourcePath(version: string, fileName: string): string | n
     }
   }
 
-  const sharedFilePath = path.join(shared, fileName);
-  if (fs.existsSync(sharedFilePath)) {
-    return sharedFilePath;
+  const originalFilePath = path.join(original, fileName);
+  if (fs.existsSync(originalFilePath)) {
+    return originalFilePath;
   }
 
   return null;
@@ -69,12 +69,7 @@ function listOpenApiFileNames(dirPath: string): string[] {
   try {
     return fs
       .readdirSync(dirPath, { withFileTypes: true })
-      .filter(
-        (file) =>
-          file.isFile() &&
-          file.name.startsWith('openapi-') &&
-          file.name.endsWith('.yml')
-      )
+      .filter((file) => file.isFile() && file.name.startsWith('openapi-') && file.name.endsWith('.yml'))
       .map((file) => file.name);
   } catch (error) {
     process.stderr.write(`Error reading OpenAPI directory ${dirPath}: ${String(error)}\n`);
@@ -88,12 +83,9 @@ function listOpenApiFileNames(dirPath: string): string[] {
  */
 export function discoverOpenApiSpecs(version: string): OpenApiSpec[] {
   const specs: OpenApiSpec[] = [];
-  const { versioned, shared } = openapiLayoutDirs(version);
+  const { versioned, original } = openapiLayoutDirs(version);
 
-  const fileNames = new Set<string>([
-    ...listOpenApiFileNames(shared),
-    ...listOpenApiFileNames(versioned),
-  ]);
+  const fileNames = new Set<string>([...listOpenApiFileNames(original), ...listOpenApiFileNames(versioned)]);
 
   for (const fileName of fileNames) {
     const id = fileName.replace(/^openapi-/, '').replace(/\.yml$/, '');

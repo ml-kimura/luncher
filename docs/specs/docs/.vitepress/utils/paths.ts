@@ -10,3 +10,8 @@ export const docsDir = path.resolve(import.meta.dirname, '../..');
  * Public directory
  */
 export const publicDir = path.resolve(docsDir, 'public');
+
+/**
+ * Workspace root directory
+ */
+export const workspaceRootDir = path.resolve(docsDir, '..', '..', '..');

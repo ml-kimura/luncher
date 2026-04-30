@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,7 +9,7 @@
     "dev": "tsx watch src/index.ts",
     "gen:openapi": "tsx scripts/generate-openapi.ts",
     "sync:messages": "tsx scripts/sync-message-definitions.ts",
-    "copy:messages": "tsx scripts/copy-messages-to-public.ts",
+    "copy:artifacts": "tsx scripts/copy-messages-to-public.ts",
     "start": "node dist/index.js",
     "test": "vitest run",
     "test:watch": "vitest",

@@ -2,37 +2,55 @@
 import { computed } from "vue";
 import { useData, useRoute, withBase } from "vitepress";
 
-const { theme, localeIndex } = useData();
+const { theme, site, localeIndex } = useData();
 const route = useRoute();
 
-// Get current version from URL
-const currentVersion = computed(() => {
-  const path = route.path;
-  const prefix = `/${localeIndex.value}/`;
-
-  if (path.startsWith(prefix)) {
-    const relativePath = path.slice(prefix.length);
-    const match = relativePath.match(/^([^/]+)/);
-    return match ? match[1] : versions.value[0] || "";
-  }
-  return versions.value[0] || "";
-});
-
-// Get versions from theme config
-const versions = computed(() => {
+const versions = computed<string[]>(() => {
   return theme.value.versions || [];
 });
 
-// Generate version links with current version first
+const normalizedPath = computed(() => {
+  const base = site.value.base || "/";
+  if (base !== "/" && route.path.startsWith(base)) {
+    return `/${route.path.slice(base.length)}`.replace(/\/+/g, "/");
+  }
+  return route.path;
+});
+
+const localeCode = computed(() => {
+  const localeKeys = Object.keys(site.value.locales || {}).filter((key) => key !== "root");
+  const matched = normalizedPath.value.match(/^\/([^/]+)\//)?.[1];
+  if (matched && localeKeys.includes(matched)) {
+    return matched;
+  }
+  if (localeIndex.value && localeIndex.value !== "root") {
+    return localeIndex.value;
+  }
+  return localeKeys[0] || "ja";
+});
+
+const currentVersion = computed(() => {
+  const currentPath = normalizedPath.value;
+  const prefix = `/${localeCode.value}/`;
+  const fallback = versions.value[0] || "";
+
+  if (!currentPath.startsWith(prefix)) {
+    return fallback;
+  }
+
+  const relativePath = currentPath.slice(prefix.length);
+  const pathVersion = relativePath.match(/^([^/]+)/)?.[1] || "";
+  return versions.value.includes(pathVersion) ? pathVersion : fallback;
+});
+
 const versionLinks = computed(() => {
-  const prefix = `/${localeIndex.value}/`;
-  const links = versions.value.map((v) => ({
-    text: v,
-    link: withBase(`${prefix}${v}/`),
-    active: v === currentVersion.value,
+  const prefix = `/${localeCode.value}/`;
+  const links = versions.value.map((version) => ({
+    text: version,
+    link: withBase(`${prefix}${version}/`),
+    active: version === currentVersion.value,
   }));
 
-  // Sort to show current version first
   return links.sort((a, b) => {
     if (a.active) return -1;
     if (b.active) return 1;

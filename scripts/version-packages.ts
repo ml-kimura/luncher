@@ -1,3 +1,4 @@
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -10,6 +11,7 @@ interface CliOptions {
   apply: boolean;
   json: boolean;
   filter?: string;
+  strict?: boolean;
 }
 
 interface PackageEntry {
@@ -28,6 +30,9 @@ const workspaceRoot = process.cwd();
 const workspaceFilePath = path.join(workspaceRoot, 'pnpm-workspace.yaml');
 const rootPackageJsonPath = path.join(workspaceRoot, 'package.json');
 
+/** Top-level dirs under docs/specs/docs that hold versioned content (exclude .vitepress, public, [locale], etc.). */
+const SPECS_DOCS_LOCALES = ['ja', 'en'] as const;
+
 function fail(message: string): never {
   process.stderr.write(`${message}\n`);
   process.exit(1);
@@ -36,7 +41,7 @@ function fail(message: string): never {
 function parseArgs(argv: string[]): CliOptions {
   const [rawCommand, rawCommandArg, ...rest] = argv;
   if (!rawCommand) {
-    fail('Usage: version-packages <check|set|bump> [arg] [--apply] [--json] [--filter <pattern>]');
+    fail('Usage: version-packages <check|set|bump> [arg] [--apply] [--json] [--strict] [--filter <pattern>]');
   }
 
   if (!['check', 'set', 'bump'].includes(rawCommand)) {
@@ -49,12 +54,17 @@ function parseArgs(argv: string[]): CliOptions {
     commandArg: rawCommandArg,
     apply: false,
     json: false,
+    strict: false,
   };
 
   for (let i = 0; i < rest.length; i++) {
     const token = rest[i];
     if (token === '--apply') {
       options.apply = true;
+      continue;
+    }
+    if (token === '--strict') {
+      options.strict = true;
       continue;
     }
     if (token === '--json') {
@@ -288,11 +298,7 @@ function printChanges(changes: PackageChange[], asJson: boolean, apply: boolean)
   process.stdout.write(`Total: ${changes.length}\n`);
 }
 
-function assertUniformVersionForBulkUpdate(entries: PackageEntry[], filter?: string): void {
-  if (filter) {
-    return;
-  }
-
+function assertWorkspaceVersionsUniform(entries: PackageEntry[]): void {
   const versions = Array.from(new Set(entries.map((entry) => entry.version)));
   if (versions.length <= 1) {
     return;
@@ -309,13 +315,143 @@ function assertUniformVersionForBulkUpdate(entries: PackageEntry[], filter?: str
     })
     .join('\n');
 
-  fail(
-    `Bulk update without --filter requires all package versions to match.\nCurrent versions:\n${details}\nUse --filter to target specific packages.`
-  );
+  fail(`Workspace package versions must match.\nCurrent versions:\n${details}`);
+}
+
+function assertUniformVersionForBulkUpdate(entries: PackageEntry[], filter?: string): void {
+  if (filter) {
+    return;
+  }
+
+  assertWorkspaceVersionsUniform(entries);
+}
+
+/**
+ * Match normal `touch`/`mkdir` defaults for this process (files 644, dirs 755 under typical umask).
+ * Set in the shell as `umask 022` for the same effect across all tools.
+ */
+function withStandardUmask<T>(fn: () => T): T {
+  const previous = process.umask(0o022);
+  try {
+    return fn();
+  } finally {
+    process.umask(previous);
+  }
+}
+
+/**
+ * Recursive directory copy. On POSIX uses `cp -rf` (same as manual `cp -rf` in the shell), not
+ * `cp -a` / `fs.cpSync`, to avoid bad permission bits on some DevContainer bind mounts.
+ */
+function copyDirectoryRecursive(src: string, dst: string): void {
+  const result = spawnSync('cp', ['-rf', src, dst], {
+    cwd: workspaceRoot,
+    stdio: 'inherit',
+  });
+
+  if (result.status !== 0) {
+    fail(`cp -rf failed (exit ${result.status ?? 'unknown'}): ${src} -> ${dst}`);
+  }
+}
+
+function copySpecsDocsVersionDirectories(oldVersion: string, nextVersion: string): void {
+  const specsDocsRoot = path.join(workspaceRoot, 'docs/specs/docs');
+  if (!fs.existsSync(specsDocsRoot)) {
+    fail(`Missing specs docs root: ${specsDocsRoot}`);
+  }
+
+  const resolveDocsSourceVersion = (): string => {
+    const allVersionCandidates = new Set<string>();
+    for (const locale of SPECS_DOCS_LOCALES) {
+      const localeDir = path.join(specsDocsRoot, locale);
+      if (!fs.existsSync(localeDir) || !fs.statSync(localeDir).isDirectory()) {
+        continue;
+      }
+      for (const name of fs.readdirSync(localeDir)) {
+        const candidatePath = path.join(localeDir, name);
+        if (!fs.statSync(candidatePath).isDirectory()) {
+          continue;
+        }
+        if (/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(name)) {
+          allVersionCandidates.add(name);
+        }
+      }
+    }
+    if (allVersionCandidates.size === 0) {
+      fail(`No docs/specs/docs/<locale>/<version> directories found under ${specsDocsRoot}`);
+    }
+
+    if (allVersionCandidates.has(oldVersion)) {
+      return oldVersion;
+    }
+
+    const sorted = Array.from(allVersionCandidates).sort((a, b) =>
+      a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+    );
+    const fallback = sorted[sorted.length - 1];
+    process.stderr.write(
+      `version-packages: docs source version ${oldVersion} not found; using latest existing docs version ${fallback}\n`
+    );
+    return fallback;
+  };
+
+  const docsSourceVersion = resolveDocsSourceVersion();
+  let copied = 0;
+
+  for (const locale of SPECS_DOCS_LOCALES) {
+    const src = path.join(specsDocsRoot, locale, docsSourceVersion);
+    const dst = path.join(specsDocsRoot, locale, nextVersion);
+    if (!fs.existsSync(src)) {
+      process.stderr.write(`version-packages: skip missing ${src}\n`);
+      continue;
+    }
+    if (fs.existsSync(dst)) {
+      process.stderr.write(`version-packages: replacing existing destination ${dst}\n`);
+      try {
+        fs.rmSync(dst, { recursive: true, force: true });
+      } catch {
+        const chmodResult = spawnSync('chmod', ['-R', 'u+rwx', dst], { stdio: 'pipe' });
+        if (chmodResult.status !== 0) {
+          process.stderr.write(`version-packages: chmod before rm exited ${chmodResult.status}\n`);
+        }
+        fs.rmSync(dst, { recursive: true, force: true });
+      }
+    }
+    withStandardUmask(() => {
+      copyDirectoryRecursive(src, dst);
+    });
+    copied += 1;
+  }
+
+  if (copied === 0) {
+    fail(`No docs/specs/docs/<locale>/${docsSourceVersion} directories found to copy.`);
+  }
+
+  process.stdout.write(`Copied specs docs for ${copied} locale(s): ${docsSourceVersion} -> ${nextVersion}\n`);
+}
+
+function runVersionCheckStrict(): void {
+  const result = spawnSync('pnpm', ['exec', 'tsx', 'scripts/version-packages.ts', 'check', '--strict'], {
+    cwd: workspaceRoot,
+    stdio: 'inherit',
+  });
+
+  if (result.error) {
+    fail(`version:check spawn failed: ${String(result.error)}`);
+  }
+
+  if (result.status !== 0) {
+    process.exit(result.status ?? 1);
+  }
 }
 
 function run(): void {
   const options = parseArgs(process.argv.slice(2));
+
+  if (options.command === 'bump') {
+    runVersionCheckStrict();
+  }
+
   const entries = collectPackages(options.filter);
 
   if (entries.length === 0) {
@@ -325,6 +461,9 @@ function run(): void {
 
   if (options.command === 'check') {
     printCheck(entries, options.json);
+    if (options.strict) {
+      assertWorkspaceVersionsUniform(entries);
+    }
     return;
   }
 
@@ -341,6 +480,28 @@ function run(): void {
       changed: nextVersion !== entry.version,
     };
   });
+
+  if (options.command === 'bump' && options.apply && !options.filter) {
+    const oldVersion = changes[0].version;
+    const nextVersion = changes[0].nextVersion;
+    copySpecsDocsVersionDirectories(oldVersion, nextVersion);
+
+    const copyArtifactsResult = spawnSync('pnpm', ['copy:artifacts', '--version', oldVersion], {
+      cwd: workspaceRoot,
+      stdio: 'inherit',
+    });
+
+    if (copyArtifactsResult.status !== 0) {
+      fail(`pnpm copy:artifacts failed (exit ${copyArtifactsResult.status ?? 'unknown'})`);
+    }
+  }
+
+  if (options.command === 'bump' && !options.apply && !options.filter) {
+    process.stdout.write(
+      `Would copy docs/specs/docs/<locale>/${changes[0].version} -> docs/specs/docs/<locale>/${changes[0].nextVersion}\n`
+    );
+    process.stdout.write(`Would run: pnpm copy:artifacts --version ${changes[0].version}\n`);
+  }
 
   if (options.apply) {
     for (const change of changes) {

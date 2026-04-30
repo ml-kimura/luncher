@@ -11,6 +11,8 @@ const healthRoute = createRoute({
   path: '/health',
   operationId: 'getHealth',
   tags: [ApiRouteTag.System],
+  summary: 'ヘルスチェック',
+  description: 'サービス稼働と DB 接続を確認',
   responses: {
     200: {
       description: 'API and DB health check status',

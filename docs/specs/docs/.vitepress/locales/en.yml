@@ -9,8 +9,8 @@ features:
   home:
     label: 'Home'
     path: ''
-    name: 'Luncher'
-    text: 'Collaboration Lunch Matching Application'
+    name: 'Luncher Specs'
+    text: 'Collaboration Lunch Matching Application Specifications'
     description: 'Welcome to the Luncher specifications site'
   userStories:
     label: 'User Stories'

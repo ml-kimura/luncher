@@ -12,23 +12,13 @@
   ],
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**",
-        "dist/**",
-        "docs/.vitepress/dist/**",
-        "storybook-static/**"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "docs/.vitepress/dist/**", "storybook-static/**"]
     },
     "dev": {
       "cache": false,
       "persistent": true,
-      "env": [
-        "API_PORT"
-      ]
+      "env": ["API_PORT"]
     },
     "lint": {},
     "format": {
@@ -37,11 +27,12 @@
     "generate-openapi": {
       "cache": false
     },
+    "copy:artifacts": {
+      "cache": false
+    },
     "check-types": {},
     "test": {
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     }
   }
 }
