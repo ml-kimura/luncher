@@ -1,12 +1,10 @@
 # Web messages configuration (source of truth)
 messages:
   - code: I-WEB-001
-    const: INFO_PAGE_LOADED
     message:
       ja: 'ページを表示しました'
       en: 'Page loaded'
   - code: E-WEB-001
-    const: ERROR_UNEXPECTED
     message:
       ja: '予期しないエラーが発生しました'
       en: 'Unexpected error occurred'

@@ -245,6 +245,8 @@ openapiMessages:
   Required: '必須'
   Responses: 'レスポンス'
   Schema: 'スキーマ'
+  Collapse: '折りたたむ'
+  'Min Length': '最小長'
   Type: '型'
   'Valid values': '有効な値'
   or: 'または'

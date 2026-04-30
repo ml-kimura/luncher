@@ -245,6 +245,8 @@ openapiMessages:
   Required: 'Required'
   Responses: 'Responses'
   Schema: 'Schema'
+  Collapse: 'Collapse'
+  'Min Length': 'Min Length'
   Type: 'Type'
   'Valid values': 'Valid values'
   or: 'or'

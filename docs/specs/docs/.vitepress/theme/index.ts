@@ -57,9 +57,7 @@ export default {
     // Configure vitepress-openapi theme
     const configureTheme = () => {
       const messages = buildI18nMessages();
-      const currentLocale = site.value.locales?.[localeIndex.value] as
-        | { lang?: string }
-        | undefined;
+      const currentLocale = site.value.locales?.[localeIndex.value] as { lang?: string } | undefined;
       // Use lang from locale config, or fallback to localeIndex (which is always a valid locale key)
       const currentLang = currentLocale?.lang || localeIndex.value;
 
@@ -67,6 +65,14 @@ export default {
         operation: {
           cols: 1,
           hiddenSlots: ['playground', 'code-samples', 'branding'],
+        },
+        requestBody: {
+          defaultView: 'schema',
+        },
+        response: {
+          body: {
+            defaultView: 'schema',
+          },
         },
         i18n: {
           locale: currentLang,

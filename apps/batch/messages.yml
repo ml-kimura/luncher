@@ -1,62 +1,50 @@
 # Batch messages configuration (source of truth)
 messages:
   - code: I-BAT-001
-    const: INFO_BATCH_STARTED
     message:
       ja: 'バッチ処理が正常に開始されました'
       en: 'Batch process started successfully'
   - code: I-BAT-002
-    const: INFO_BATCH_COMPLETED
     message:
       ja: 'バッチ処理が正常に完了しました'
       en: 'Batch process completed successfully'
   - code: I-BAT-103
-    const: INFO_BATCH_ABORTED_BY_ERROR
     message:
       ja: 'バッチ処理が異常終了しました'
       en: 'Batch process aborted due to error'
   - code: I-BAT-104
-    const: INFO_DAILY_LUNCH_ANNOUNCEMENT_POSTED
     message:
       ja: '日次コラボランチ案内の投稿に成功しました'
       en: 'Daily collaborative lunch announcement posted successfully'
   - code: W-BAT-001
-    const: WARN_NO_TARGET_DATA
     message:
       ja: '処理対象データが見つかりませんでした'
       en: 'No data found for processing'
   - code: W-BAT-002
-    const: WARN_RECORDS_SKIPPED
     message:
       ja: '一部のレコードがスキップされました'
       en: 'Some records were skipped'
   - code: W-BAT-103
-    const: WARN_DUPLICATE_DAILY_ANNOUNCEMENT_SKIPPED
     message:
       ja: '既に案内済みのため、当日の募集メッセージを重複投稿しませんでした'
       en: 'Skipped duplicate announcement for the same day'
   - code: E-BAT-001
-    const: ERROR_DATABASE_CONNECTION
     message:
       ja: 'データベース接続エラーが発生しました。{error}'
       en: 'Database connection error occurred. {error}'
   - code: E-BAT-002
-    const: ERROR_FILE_READ_FAILED
     message:
       ja: 'ファイルの読み込みに失敗しました。{error}'
       en: 'Failed to read file. {error}'
   - code: E-BAT-003
-    const: ERROR_TEMPLATE_NOT_FOUND
     message:
       ja: 'テンプレートが見つかりませんでした。{id}'
       en: 'Template not found. {id}'
   - code: E-BAT-004
-    const: ERROR_SLACK_API_FAILED
     message:
       ja: 'Slack API 呼び出しに失敗しました。{error}'
       en: 'Slack API call failed. {error}'
   - code: F-BAT-001
-    const: FATAL_SYSTEM_ABORTED_BATCH
     message:
       ja: 'システムエラーによりバッチ処理が中断されました'
       en: 'Batch process aborted due to system error'

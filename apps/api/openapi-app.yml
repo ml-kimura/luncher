@@ -40,6 +40,7 @@ paths:
                     type: string
                     enum:
                       - ok
+                    example: ok
                 required:
                   - status
         '500':
@@ -47,7 +48,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - error
+                    example: error
+                  code:
+                    type: string
+                    example: F-API-001
+                  message:
+                    type: string
+                    example: 内部エラーが発生しました
+                required:
+                  - status
+                  - code
+                  - message
   /internal/events/lunch-entry-reaction:
     post:
       operationId: postLunchEntryReaction
