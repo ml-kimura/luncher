@@ -1,28 +1,30 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
-import { errorResponseSchema } from '../messages/responses.js';
+import { MediaType } from '../http/media-type.js';
+import { ApiResponseStatus, errorResponseSchema } from '../messages/responses.js';
+import { ApiRouteTag } from './tags.js';
 
 const lunchEntryReactionRequestSchema = z.object({
   eventId: z.string().min(1),
   eventType: z.enum(['reaction_added', 'reaction_removed']),
   reaction: z.string().min(1),
-  lunchDate: z.string().date(),
+  lunchDate: z.iso.date(),
   slackUserId: z.string().min(1),
   channelId: z.string().min(1),
   messageTs: z.string().min(1),
-  occurredAt: z.string().datetime(),
+  occurredAt: z.iso.datetime(),
 });
 
 const lunchEntryReactionResponseSchema = z.object({
-  status: z.literal('ok'),
+  status: z.literal(ApiResponseStatus.Ok),
   result: z.enum(['accepted', 'no_change', 'rejected']),
-  lunchDate: z.string().date(),
+  lunchDate: z.iso.date(),
   slackUserId: z.string(),
   attendanceStatus: z.enum(['joined', 'left', 'unchanged']),
 });
 
 const errorContent = {
-  'application/json': {
-    schema: errorResponseSchema,
+  [MediaType.ApplicationJson]: {
+    schema: errorResponseSchema(),
   },
 } as const;
 
@@ -30,13 +32,13 @@ const lunchEntryReactionRoute = createRoute({
   method: 'post',
   path: '/lunch-entry-reaction',
   operationId: 'postLunchEntryReaction',
-  tags: ['Slack'],
+  tags: [ApiRouteTag.Slack],
   summary: '参加表明受付',
   description: 'Slack リアクションイベントを受け取り、当日ランチ参加状態を更新する内部 API（US-002）。',
   request: {
     body: {
       content: {
-        'application/json': {
+        [MediaType.ApplicationJson]: {
           schema: lunchEntryReactionRequestSchema,
         },
       },
@@ -47,7 +49,7 @@ const lunchEntryReactionRoute = createRoute({
     200: {
       description: 'イベント処理結果（更新あり/なし、または受理拒否）',
       content: {
-        'application/json': {
+        [MediaType.ApplicationJson]: {
           schema: lunchEntryReactionResponseSchema,
         },
       },
@@ -85,7 +87,7 @@ lunchEntryReactionRoutes.openapi(lunchEntryReactionRoute, (c) => {
 
   return c.json(
     {
-      status: 'ok' as const,
+      status: ApiResponseStatus.Ok,
       result: 'accepted' as const,
       lunchDate: payload.lunchDate,
       slackUserId: payload.slackUserId,

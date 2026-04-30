@@ -1,11 +1,18 @@
-export const WebMessageCode = {
-  InfoPageLoaded: 'I-WEB-001',
-  ErrorUnexpected: 'E-WEB-001',
-} as const;
-
-export const WEB_MESSAGE_CODES = Object.values(WebMessageCode);
-export const WEB_MESSAGE_CODE_ENTRIES = Object.entries(WebMessageCode) as Array<
-  [keyof typeof WebMessageCode, WebMessageCode]
->;
-
-export type WebMessageCode = (typeof WEB_MESSAGE_CODES)[number];
+export const WEB_MESSAGE_DEFINITIONS = [
+  {
+    key: 'InfoPageLoaded',
+    code: 'I-WEB-001',
+    message: {
+      ja: 'ページを表示しました',
+      en: 'Page loaded',
+    },
+  },
+  {
+    key: 'ErrorUnexpected',
+    code: 'E-WEB-001',
+    message: {
+      ja: '予期しないエラーが発生しました',
+      en: 'Unexpected error occurred',
+    },
+  },
+] as const;

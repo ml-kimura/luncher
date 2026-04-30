@@ -2,8 +2,8 @@ import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { runHealthCheck } from '@packages/db';
 import { MediaType } from '../http/media-type.js';
 import { apiLogger as logger } from '../logger.js';
-import { ApiMessageCode } from '../messages/codes.js';
 import { ApiResponseStatus, errorJson, errorResponseSchema } from '../messages/responses.js';
+import { ApiMessageCode } from '../messages/templates.js';
 import { ApiRouteTag } from './tags.js';
 
 const healthRoute = createRoute({
@@ -19,7 +19,9 @@ const healthRoute = createRoute({
       content: {
         [MediaType.ApplicationJson]: {
           schema: z.object({
-            status: z.literal(ApiResponseStatus.Ok),
+            status: z.literal(ApiResponseStatus.Ok).openapi({
+              example: ApiResponseStatus.Ok,
+            }),
           }),
         },
       },
@@ -28,7 +30,7 @@ const healthRoute = createRoute({
       description: 'Health check failed (DB query failed)',
       content: {
         [MediaType.ApplicationJson]: {
-          schema: errorResponseSchema,
+          schema: errorResponseSchema(ApiMessageCode.FatalInternalError),
         },
       },
     },
