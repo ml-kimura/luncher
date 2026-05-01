@@ -28,6 +28,7 @@ paths:
         - System
       summary: ヘルスチェック
       description: サービス稼働と DB 接続を確認
+      x-api-kind: command
       responses:
         '200':
           description: API and DB health check status
@@ -72,6 +73,7 @@ paths:
         - Slack
       summary: 参加表明受付
       description: Slack リアクションイベントを受け取り、当日ランチ参加状態を更新する内部 API（US-002）。
+      x-api-kind: command
       requestBody:
         required: true
         content:
@@ -126,6 +128,7 @@ paths:
                     type: string
                     enum:
                       - ok
+                    example: ok
                   result:
                     type: string
                     enum:

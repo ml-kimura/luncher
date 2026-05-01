@@ -24,7 +24,6 @@ DB に対して検索を実行し、結果を返戻。
 | ------------- | ----------------------------------------------------------------------------- |
 | Method / Path | <InternalLink path="/api/app/operations/getHealth">GET /health</InternalLink> |
 | operationId   | <InternalLink path="/api/app/operations/getHealth">getHealth</InternalLink>   |
-| API種別       | `command`                                                                     |
 | 概要          | サービス稼働と DB 接続を確認する。                                            |
 
 #### 認証・不正呼び出し防止

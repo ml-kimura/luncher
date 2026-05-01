@@ -4,38 +4,41 @@ import { MediaType } from '../http/media-type.js';
 import { apiLogger as logger } from '../logger.js';
 import { ApiResponseStatus, errorJson, errorResponseSchema } from '../messages/responses.js';
 import { ApiMessageCode } from '../messages/templates.js';
+import { commandStatusSchema } from './response-policy.js';
+import { withApiKind } from './route-meta.js';
 import { ApiRouteTag } from './tags.js';
 
-const healthRoute = createRoute({
-  method: 'get',
-  path: '/health',
-  operationId: 'getHealth',
-  tags: [ApiRouteTag.System],
-  summary: 'ヘルスチェック',
-  description: 'サービス稼働と DB 接続を確認',
-  responses: {
-    200: {
-      description: 'API and DB health check status',
-      content: {
-        [MediaType.ApplicationJson]: {
-          schema: z.object({
-            status: z.literal(ApiResponseStatus.Ok).openapi({
-              example: ApiResponseStatus.Ok,
-            }),
-          }),
+const healthRoute = createRoute(
+  withApiKind(
+    {
+      method: 'get',
+      path: '/health',
+      operationId: 'getHealth',
+      tags: [ApiRouteTag.System],
+      summary: 'ヘルスチェック',
+      description: 'サービス稼働と DB 接続を確認',
+      responses: {
+        200: {
+          description: 'API and DB health check status',
+          content: {
+            [MediaType.ApplicationJson]: {
+              schema: commandStatusSchema(),
+            },
+          },
+        },
+        500: {
+          description: 'Health check failed (DB query failed)',
+          content: {
+            [MediaType.ApplicationJson]: {
+              schema: errorResponseSchema(ApiMessageCode.FatalInternalError),
+            },
+          },
         },
       },
     },
-    500: {
-      description: 'Health check failed (DB query failed)',
-      content: {
-        [MediaType.ApplicationJson]: {
-          schema: errorResponseSchema(ApiMessageCode.FatalInternalError),
-        },
-      },
-    },
-  },
-});
+    'command'
+  )
+);
 
 export const healthRoutes = new OpenAPIHono();
 
