@@ -23,7 +23,7 @@
     "@packages/db": "workspace:*",
     "@packages/logger": "workspace:*",
     "hono": "^4.7.0",
-    "zod": "^4.3.6"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@packages/eslint-config": "workspace:*",
