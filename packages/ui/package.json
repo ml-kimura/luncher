@@ -29,7 +29,7 @@
   "devDependencies": {
     "@packages/eslint-config": "workspace:*",
     "@packages/tsconfig": "workspace:*",
-    "@storybook/addon-a11y": "^10.3.5",
+    "@storybook/addon-a11y": "^10.3.6",
     "@storybook/addon-docs": "^10.3.5",
     "@storybook/react-vite": "^10.3.5",
     "@testing-library/jest-dom": "catalog:",
