@@ -36,6 +36,6 @@
     "@vitest/coverage-v8": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
-    "yaml": "^2.8.3"
+    "yaml": "^2.8.4"
   }
 }
