@@ -60,7 +60,7 @@
     "lint-staged": "^16.4.0",
     "prettier": "catalog:",
     "tsx": "catalog:",
-    "turbo": "^2.7.3",
+    "turbo": "^2.9.9",
     "typescript-eslint": "catalog:"
   },
   "repository": {
