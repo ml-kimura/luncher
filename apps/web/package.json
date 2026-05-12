@@ -17,7 +17,7 @@
   "dependencies": {
     "@packages/ui": "workspace:*",
     "next": "^16.2.3",
-    "react": "19.2.5",
+    "react": "19.2.6",
     "react-dom": "19.2.5"
   },
   "devDependencies": {
