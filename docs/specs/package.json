@@ -25,7 +25,7 @@
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.1",
     "marked": "^18.0.2",
-    "mermaid": "^11.14.0",
+    "mermaid": "^11.15.0",
     "prettier": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
